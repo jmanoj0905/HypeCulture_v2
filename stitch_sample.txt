@@ -1,0 +1,2095 @@
+<!-- The Terminal (Home) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Epilogue:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ff909b",
+                    "surface-container-high": "#201f1f",
+                    "on-primary-fixed-variant": "#646400",
+                    "primary-dim": "#f0f000",
+                    "surface-container-low": "#131313",
+                    "on-primary-fixed": "#474700",
+                    "primary": "#fffeac",
+                    "error": "#ff7351",
+                    "on-error": "#450900",
+                    "on-primary-container": "#5a5a00",
+                    "outline-variant": "#494847",
+                    "primary-container": "#f3f300",
+                    "tertiary": "#ff6e81",
+                    "inverse-primary": "#626200",
+                    "on-error-container": "#ffd2c8",
+                    "primary-fixed": "#f3f300",
+                    "secondary-dim": "#00ec3b",
+                    "surface-variant": "#262626",
+                    "tertiary-dim": "#e7004c",
+                    "surface-container-lowest": "#000000",
+                    "on-tertiary-fixed": "#39000c",
+                    "secondary-fixed": "#00fc40",
+                    "surface-container": "#1a1919",
+                    "secondary": "#00fc40",
+                    "on-surface-variant": "#adaaaa",
+                    "surface-tint": "#fffeac",
+                    "inverse-on-surface": "#565554",
+                    "on-background": "#ffffff",
+                    "on-secondary-fixed": "#00440a",
+                    "on-primary": "#626200",
+                    "background": "#0e0e0e",
+                    "secondary-fixed-dim": "#00ec3b",
+                    "on-tertiary": "#490012",
+                    "error-container": "#b92902",
+                    "primary-fixed-dim": "#e4e400",
+                    "surface-dim": "#0e0e0e",
+                    "on-secondary": "#005a10",
+                    "surface-bright": "#2c2c2c",
+                    "on-surface": "#ffffff",
+                    "surface-container-highest": "#262626",
+                    "outline": "#777575",
+                    "tertiary-container": "#ff0355",
+                    "on-secondary-container": "#e6ffdc",
+                    "tertiary-fixed-dim": "#ff7989",
+                    "on-secondary-fixed-variant": "#006513",
+                    "on-tertiary-fixed-variant": "#780023",
+                    "on-tertiary-container": "#000000",
+                    "surface": "#0e0e0e",
+                    "secondary-container": "#006e16",
+                    "error-dim": "#d53d18",
+                    "inverse-surface": "#fcf8f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Epilogue"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>body {
+    background-color: #0e0e0e;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuArZ35Lcok_rQ4kvVOhaRz1qrzL7XJysuU6SpOaJEmGJ6shE6UkhlbvZsNwHrgQKUQF448V1mOaod7eHgbFkIX_F5RgEBlHw9Zd5elY0kbKE5EWKW9BloUZxR0RvxBFy1gmNNemuHkHzTAdzqOsyUMfr0gTvLR2-bgXQlXjm2lFSQAeh2si6T_MOTh0HUvcjc-O1N7nxLOBNeTf_Mg14ROf9XUEMPiTsJDJzVJ1tQjWaumTc0X-XWVdFcWpmzFqVZiNAo0pw_Pdf-8);
+    cursor: crosshair
+    }
+.grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")
+    }
+.clip-path-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%)
+    }
+.hazard-stripes {
+    background: repeating-linear-gradient(-45deg, #f3f300, #f3f300 10px, #0e0e0e 10px, #0e0e0e 20px)
+    }
+.hazard-border {
+    border-image: repeating-linear-gradient(-45deg, #f3f300, #f3f300 5px, #0e0e0e 5px, #0e0e0e 10px) 10;
+    border-width: 4px;
+    border-style: solid
+    }
+.glitch-text {
+    text-shadow: 2px 0 #ff6e81, -2px 0 #00fc40
+    }
+@keyframes pulse-opacity {
+    0%, 100% {
+        opacity: 1;
+        } 50% {
+        opacity: 0.3;
+        }
+    }
+.animate-pulse-slow {
+    animation: pulse-opacity 2s cubic-bezier(0.4, 0, 0.6, 1) infinite
+    }</style>
+</head>
+<body class="font-body text-on-surface selection:bg-primary selection:text-black">
+<div class="grain"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 bg-[#0e0e0e] border-b-4 border-yellow-400 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] shadow-[0_0_20px_rgba(243,243,0,0.3)] h-16">
+<div class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg] font-headline -tracking-widest uppercase">HYPECULTURE</div>
+<nav class="hidden md:flex items-center gap-8 font-headline font-black italic -tracking-widest uppercase">
+<a class="text-[#f3f300] border-b-2 border-[#f3f300] hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">DROPS</a>
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">MARKET</a>
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">VAULT</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none focus:ring-2 focus:ring-secondary text-xs font-bold uppercase py-1 px-4 w-48" placeholder="SEARCH_TERMINAL..." type="text"/>
+</div>
+<button class="text-[#f3f300] hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-4 bg-[#0e0e0e]/95 backdrop-blur-md w-64 hidden lg:flex bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a]">
+<div class="mb-8 p-4 bg-surface-container border-l-4 border-primary">
+<div class="text-[#f3f300] font-black font-headline uppercase text-sm">OPERATOR_01</div>
+<div class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">RANK: ELITE</div>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-[#f3f300] text-[#0e0e0e] font-black italic skew-x-[-10deg] font-headline text-xs uppercase cursor-crosshair" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                TERMINAL
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 font-headline text-xs uppercase hover:translate-x-2 transition-transform duration-75 cursor-crosshair" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                INVENTORY
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 font-headline text-xs uppercase hover:translate-x-2 transition-transform duration-75 cursor-crosshair" href="#">
+<span class="material-symbols-outlined">receipt</span>
+                TRANSFERS
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 font-headline text-xs uppercase hover:translate-x-2 transition-transform duration-75 cursor-crosshair" href="#">
+<span class="material-symbols-outlined">wifi_tethering</span>
+                SIGNALS
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 font-headline text-xs uppercase hover:translate-x-2 transition-transform duration-75 cursor-crosshair" href="#">
+<span class="material-symbols-outlined">history</span>
+                ARCHIVE
+            </a>
+</div>
+<button class="mt-auto bg-surface-container-high text-secondary border-b-2 border-secondary font-black py-4 hover:bg-secondary hover:text-black transition-all font-headline text-xs uppercase">
+            SYNC TERMINAL
+        </button>
+</aside>
+<main class="lg:ml-64 pt-16 min-h-screen">
+<!-- Hero Section -->
+<section class="relative h-[819px] flex items-center overflow-hidden clip-path-slant bg-surface-container-lowest">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10"></div>
+<img alt="Sneaker Motion" class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-700 scale-110" data-alt="dramatic motion blur of a neon-soled rare sneaker in a gritty dark NYC subway tunnel with wet concrete and graffiti" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkcwYVeBMSVYPzTa_nYhGixr2AQ0hePXr5Vl8DCS-XtKZ_yu5yAstghRoFCKv7gebBQvKo9VSTPg5Nw1SCANO9uxPZK-_LVyzBneCE-MNyKL-cJSdXJVWBDCMHLZtE2NNMvbQCbsb3XAd3XdLZeB_Y6mRkPw9LONRvZQKbhPxLC_cB4-nQPGyzXAJOqYPro0HaeTKg4cSGq1oQtjz6asi2OB_urowd_lJI4Eaz9lX4nTX276hq5FwXXCLiJpb3xOtv8dsQqbhTg8E"/>
+</div>
+<div class="relative z-20 px-10 max-w-4xl">
+<div class="hazard-stripes h-2 w-32 mb-6"></div>
+<h1 class="font-headline font-black italic text-6xl md:text-8xl -tracking-widest uppercase leading-none mb-8 glitch-text">
+                    DON'T JUST<br/><span class="text-primary">WEAR, DO IT</span>
+</h1>
+<p class="text-on-surface-variant font-body text-sm md:text-base max-w-md mb-10 tracking-tighter leading-tight border-l-2 border-primary pl-4">
+                    HIGH-FREQUENCY TRADING FOR THE CULTURE. EXECUTE TRADES IN MILLISECONDS. ASYMMETRICAL DATA FOR THE AGGRESSIVE COLLECTOR.
+                </p>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary font-black px-10 py-5 skew-x-[-12deg] hover:scale-105 hover:bg-secondary transition-transform font-headline text-xl uppercase italic">
+                        VELOCITY_ACCESS
+                    </button>
+<button class="border-2 border-white/20 hover:border-secondary text-white font-black px-8 py-5 skew-x-[-12deg] transition-all font-headline text-sm uppercase">
+                        VIEW_DATA
+                    </button>
+</div>
+</div>
+</section>
+<!-- Live Signal Feed -->
+<section class="px-6 -mt-20 relative z-30 mb-20">
+<div class="flex items-center gap-4 mb-4">
+<div class="h-4 w-4 bg-secondary rounded-full shadow-[0_0_10px_#00fc40] animate-pulse"></div>
+<h2 class="font-headline font-black uppercase text-xl text-secondary italic">LIVE_SIGNAL_FEED</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
+<!-- Signal Block 1 -->
+<div class="bg-surface-container-high p-4 flex flex-col justify-between border-l-4 border-secondary hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-black text-gray-500 uppercase">SIGNAL_ID: 0X429</span>
+<span class="text-secondary font-black font-headline">+14.2%</span>
+</div>
+<div>
+<div class="text-lg font-black font-headline uppercase leading-none group-hover:text-primary transition-colors">AJ1_RETRO_HIGH</div>
+<div class="text-xs text-on-surface-variant font-mono">BIDS_ACTIVE: 1,402</div>
+</div>
+<div class="mt-4 h-1 bg-surface-variant overflow-hidden">
+<div class="h-full bg-secondary w-3/4 animate-pulse-slow"></div>
+</div>
+</div>
+<!-- Signal Block 2 -->
+<div class="bg-surface-container-high p-4 flex flex-col justify-between border-l-4 border-tertiary hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-black text-gray-500 uppercase">SIGNAL_ID: 0X118</span>
+<span class="text-tertiary font-black font-headline">-2.8%</span>
+</div>
+<div>
+<div class="text-lg font-black font-headline uppercase leading-none group-hover:text-primary transition-colors">DUNK_LOW_PANDA</div>
+<div class="text-xs text-on-surface-variant font-mono">LIQUIDITY: CRITICAL</div>
+</div>
+<div class="mt-4 h-1 bg-surface-variant overflow-hidden">
+<div class="h-full bg-tertiary w-1/4 animate-pulse-slow"></div>
+</div>
+</div>
+<!-- Signal Block 3 -->
+<div class="bg-surface-container-high p-4 flex flex-col justify-between border-l-4 border-primary hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-black text-gray-500 uppercase">SIGNAL_ID: 0X882</span>
+<span class="text-primary font-black font-headline">VOLATILE</span>
+</div>
+<div>
+<div class="text-lg font-black font-headline uppercase leading-none group-hover:text-primary transition-colors">YEEZY_BOOST_350</div>
+<div class="text-xs text-on-surface-variant font-mono">RESTOCK_DETECTION: 88%</div>
+</div>
+<div class="mt-4 h-1 bg-surface-variant overflow-hidden">
+<div class="h-full bg-primary w-full animate-pulse-slow"></div>
+</div>
+</div>
+<!-- Signal Block 4 -->
+<div class="bg-surface-container-high p-4 flex flex-col justify-between border-l-4 border-secondary hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-black text-gray-500 uppercase">SIGNAL_ID: 0X009</span>
+<span class="text-secondary font-black font-headline">STABLE</span>
+</div>
+<div>
+<div class="text-lg font-black font-headline uppercase leading-none group-hover:text-primary transition-colors">AF1_X_TRAVIS</div>
+<div class="text-xs text-on-surface-variant font-mono">LAST_SALE: $1,240</div>
+</div>
+<div class="mt-4 h-1 bg-surface-variant overflow-hidden">
+<div class="h-full bg-secondary w-1/2 animate-pulse-slow"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- High Voltage Drops -->
+<section class="px-6 mb-24">
+<div class="hazard-border p-8 bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl">bolt</span>
+</div>
+<header class="flex justify-between items-end mb-12">
+<div>
+<h2 class="font-headline font-black italic text-5xl text-primary -tracking-tighter uppercase leading-none">HIGH_VOLTAGE_DROPS</h2>
+<p class="text-gray-500 font-bold uppercase text-xs mt-2">DANGER: EXTREME HEAT LEVELS DETECTED</p>
+</div>
+<div class="text-right">
+<div class="text-xs font-black text-secondary font-headline">SYSTEM_STATUS: LIVE</div>
+<div class="text-3xl font-black italic font-headline text-white">04:22:18:09</div>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Drop Card 1 -->
+<div class="bg-surface-container group cursor-pointer hover:bg-surface-variant transition-all">
+<div class="aspect-square relative overflow-hidden bg-black">
+<img alt="Drop 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="close up studio shot of an aggressive sneaker silhouette with sharp angles and bright neon yellow accents against a deep black void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo4UVLr3vy3ClYWc9gaHmP2th79Saz1NNWAVqh3ozb8Nu6F55KXazOu-O4Y_cbsm-DqGGJxkXipbTo5m2Xrc5IOZfCrjpzuFBSDHWIGn-FlGk3PYWq3XZUIPCol050dyAsCs1tV2YVktsk4ZqRlHVD2mFJz1bhMr_e2kxh0MIFMG8TivtSfIdFKWCA-Y9WIUwtVpcahpYUi-WEAgg6EfF3Tn2N_G2Q1Bgt9IJXrWwfGaQ5Zx83jRm6Y_b6f-08kb8-t-JVmNIWxdg"/>
+<div class="absolute top-0 left-0 hazard-stripes h-1 w-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 border border-primary uppercase">EXCLUSIVE</span>
+<span class="text-[10px] font-bold text-gray-400">#44910</span>
+</div>
+<h3 class="font-headline font-black italic uppercase text-xl leading-tight mb-4">VOLT_CORE_XP_24</h3>
+<div class="flex justify-between items-center">
+<span class="font-headline font-black text-2xl text-white">$450.00</span>
+<button class="bg-secondary text-black p-2 hover:skew-x-[-10deg] transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Drop Card 2 -->
+<div class="bg-surface-container group cursor-pointer hover:bg-surface-variant transition-all">
+<div class="aspect-square relative overflow-hidden bg-black">
+<img alt="Drop 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="red high-performance basketball sneaker with a glossy finish and sharp technical details in dramatic moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd3aHjU9_SPJ_F9Ja03HKJCa3fLyXVjkw4BJLGQHiSeoGgokPR6GBe0qGp56p6dlqxMRPxZLXIUsv0ZuuUusyIDmrBvvf2qTRi5_DRZKybMljfFyvpA_D2dCsWKuA0mhY_nafUJIlsxIB1sdNtcipa7EmugpeYDLKCmUikB2tsLIQgZ549L3OnIj8sFwO58wU1jxaJiXMB1PyHlV9Y57VUhzuH45HAZBk2_CP_wExouK1i8RNWqZF-xqcti75ksaOPvo8dKh-ce5g"/>
+<div class="absolute top-0 left-0 hazard-stripes h-1 w-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-tertiary px-2 py-0.5 border border-tertiary uppercase">LIMITED</span>
+<span class="text-[10px] font-bold text-gray-400">#12004</span>
+</div>
+<h3 class="font-headline font-black italic uppercase text-xl leading-tight mb-4">CRIMSON_RAIDER_HI</h3>
+<div class="flex justify-between items-center">
+<span class="font-headline font-black text-2xl text-white">$280.00</span>
+<button class="bg-secondary text-black p-2 hover:skew-x-[-10deg] transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Drop Card 3 -->
+<div class="bg-surface-container group cursor-pointer hover:bg-surface-variant transition-all">
+<div class="aspect-square relative overflow-hidden bg-black">
+<img alt="Drop 3" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500" data-alt="vibrant green and blue running sneaker with advanced mesh textures and reflective elements in a futuristic urban setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi76H7cePJ03OBxZPw3cLluXm44GJzK98RLC5Va1aDzLgDnQToDJfNZUn7pbc3ldSKbjACRLA2EghHxCXsB6jVgD9vR3WpPLS_7_szerQGo3i1BGBMf9fhuMWgQESWFFxQWvnwXSBAnnGMjZELQDL_UhLR7sHxPHG1ZF_rKm-rTs83jonGDlXRL4rxfoyKmqR-3UHKC_fu87Tv8r88bfNSQwnhH2opIhipCEQMftdazdGst-1f-GiQZnOAfCFaPfhHLEN7bKrsaMU"/>
+<div class="absolute top-0 left-0 hazard-stripes h-1 w-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-bold text-secondary px-2 py-0.5 border border-secondary uppercase">HOT_DROP</span>
+<span class="text-[10px] font-bold text-gray-400">#88301</span>
+</div>
+<h3 class="font-headline font-black italic uppercase text-xl leading-tight mb-4">NEON_DRIFT_RUNNER</h3>
+<div class="flex justify-between items-center">
+<span class="font-headline font-black text-2xl text-white">$195.00</span>
+<button class="bg-secondary text-black p-2 hover:skew-x-[-10deg] transition-transform">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Ticker -->
+<div class="w-full overflow-hidden whitespace-nowrap py-4 bg-surface-container-lowest border-y-2 border-dashed border-outline-variant mb-20 opacity-60">
+<div class="inline-block font-mono text-[10px] uppercase text-gray-500 px-4">CONNECTION_SECURE // SYSTEM_STABLE // 128_BIT_ENCRYPTION_ACTIVE // PACKET_LOSS: 0.00% // API_RESPONSE: 14MS // GLOBAL_USERS: 88,294 // TOTAL_VOLUME: $24.8M // </div>
+<div class="inline-block font-mono text-[10px] uppercase text-gray-500 px-4">CONNECTION_SECURE // SYSTEM_STABLE // 128_BIT_ENCRYPTION_ACTIVE // PACKET_LOSS: 0.00% // API_RESPONSE: 14MS // GLOBAL_USERS: 88,294 // TOTAL_VOLUME: $24.8M // </div>
+<div class="inline-block font-mono text-[10px] uppercase text-gray-500 px-4">CONNECTION_SECURE // SYSTEM_STABLE // 128_BIT_ENCRYPTION_ACTIVE // PACKET_LOSS: 0.00% // API_RESPONSE: 14MS // GLOBAL_USERS: 88,294 // TOTAL_VOLUME: $24.8M // </div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-2 px-6 flex justify-between items-center opacity-80 bg-[#0e0e0e] border-t-2 border-dashed border-gray-800 font-body text-[10px] leading-tight tracking-tighter">
+<div class="text-gray-600">©2024 KINETIC_SYSTEMS_v4.0.2</div>
+<div class="flex gap-6">
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">ENCRYPTION</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">API_DOCS</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">SLA</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">TERMINATE</a>
+</div>
+</footer>
+<!-- Floating UI Element: Active Pulse -->
+<div class="fixed bottom-10 right-10 z-50 flex items-center gap-3 bg-surface-container-highest p-3 border-r-4 border-secondary skew-x-[-12deg]">
+<div class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-secondary"></span>
+</div>
+<div class="font-headline font-black text-xs uppercase italic tracking-widest text-on-surface">LINK_ACTIVE</div>
+</div>
+</body></html>
+
+<!-- The Drops (Market) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&amp;family=Epilogue:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ff909b",
+                        "surface-container-high": "#201f1f",
+                        "on-primary-fixed-variant": "#646400",
+                        "primary-dim": "#f0f000",
+                        "surface-container-low": "#131313",
+                        "on-primary-fixed": "#474700",
+                        "primary": "#fffeac",
+                        "error": "#ff7351",
+                        "on-error": "#450900",
+                        "on-primary-container": "#5a5a00",
+                        "outline-variant": "#494847",
+                        "primary-container": "#f3f300",
+                        "tertiary": "#ff6e81",
+                        "inverse-primary": "#626200",
+                        "on-error-container": "#ffd2c8",
+                        "primary-fixed": "#f3f300",
+                        "secondary-dim": "#00ec3b",
+                        "surface-variant": "#262626",
+                        "tertiary-dim": "#e7004c",
+                        "surface-container-lowest": "#000000",
+                        "on-tertiary-fixed": "#39000c",
+                        "secondary-fixed": "#00fc40",
+                        "surface-container": "#1a1919",
+                        "secondary": "#00fc40",
+                        "on-surface-variant": "#adaaaa",
+                        "surface-tint": "#fffeac",
+                        "inverse-on-surface": "#565554",
+                        "on-background": "#ffffff",
+                        "on-secondary-fixed": "#00440a",
+                        "on-primary": "#626200",
+                        "background": "#0e0e0e",
+                        "secondary-fixed-dim": "#00ec3b",
+                        "on-tertiary": "#490012",
+                        "error-container": "#b92902",
+                        "primary-fixed-dim": "#e4e400",
+                        "surface-dim": "#0e0e0e",
+                        "on-secondary": "#005a10",
+                        "surface-bright": "#2c2c2c",
+                        "on-surface": "#ffffff",
+                        "surface-container-highest": "#262626",
+                        "outline": "#777575",
+                        "tertiary-container": "#ff0355",
+                        "on-secondary-container": "#e6ffdc",
+                        "tertiary-fixed-dim": "#ff7989",
+                        "on-secondary-fixed-variant": "#006513",
+                        "on-tertiary-fixed-variant": "#780023",
+                        "on-tertiary-container": "#000000",
+                        "surface": "#0e0e0e",
+                        "secondary-container": "#006e16",
+                        "error-dim": "#d53d18",
+                        "inverse-surface": "#fcf8f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0rem",
+                        "lg": "0rem",
+                        "xl": "0rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Epilogue"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>.clip-path-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%)
+    }
+.clip-path-slant-card {
+    clip-path: polygon(5% 0, 100% 0, 95% 100%, 0% 100%)
+    }
+.hazard-stripes {
+    background: repeating-linear-gradient(45deg, #f3f300, #f3f300 10px, #0e0e0e 10px, #0e0e0e 20px)
+    }
+.digital-noise {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB2Q7saIkLE3_SQiibCBkZjtPbOEuBvOCwwmMkf1xPEUAvOI3ovfRUGuSNaZ2L-j3EiDwiZxSTXfpJfomIbBCcPRezJx2oAnVBj5jqoJasTvyoYemsWP8XYEimONeNWi3CyFZAp21HT_KphFLaVYn83GITNd4go6M214_IWp63_1oFbNM_NymN1hcIiR4URVFk-ExcuDROgcd4vh-b-HRAtriZiCyoE1lPgCiinwbegpBTSBClkCjkjLxWMYdkdhKV3EK-jyYizH7E)
+    }
+.grain-overlay {
+    position: relative
+    }
+.grain-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDjGvwx6y94-HwWCUsyaSw4gC2niSP_JQSUJq7iUu-RDNcrQWlSCa8YMn6VSg3m-stcah9vm5bBdLINa7sczL3a49y1cZ5vs3M1eHZL-Ug3n08IwC8TxJF5w6rOOEqFb183-QcBef9I2kzQYn-F8q8D02Qj6VdyxDbBChQhgD_vwgFFYp4yq4W0nHbZYGPegPV3qTYBl31FK-rJRVjKKLci6uRP92yXWZrBxh3AWhaDScJYrMuva8x_uxQM3QKBqSlOm992b_QNgJ4);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 10
+    }
+.flicker-text {
+    animation: flicker 1.5s infinite
+    }
+@keyframes flicker {
+    0% {
+        opacity: 0.8;
+        } 5% {
+        opacity: 0.2;
+        } 10% {
+        opacity: 0.9;
+        } 15% {
+        opacity: 1;
+        } 20% {
+        opacity: 0.1;
+        } 25% {
+        opacity: 1;
+        } 100% {
+        opacity: 1;
+        }
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary selection:text-surface overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 bg-[#0e0e0e] border-b-4 border-primary-container h-16 digital-noise shadow-[0_0_20px_rgba(243,243,0,0.3)]">
+<div class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg] font-headline -tracking-widest uppercase">
+            HYPECULTURE
+        </div>
+<div class="hidden md:flex items-center gap-8 font-headline font-black italic -tracking-widest uppercase">
+<a class="text-[#f3f300] border-b-2 border-[#f3f300] hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">DROPS</a>
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">MARKET</a>
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">VAULT</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container px-3 py-1 flex items-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs font-label uppercase text-on-surface-variant w-32 md:w-48" placeholder="LOCATE_ASSET..." type="text"/>
+</div>
+<button class="text-primary hover:skew-x-[-6deg] transition-all">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+</button>
+</div>
+</nav>
+<!-- Sidebar Wrapper -->
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-4 bg-[#0e0e0e]/95 backdrop-blur-md w-64 bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a] border-r-0 cursor-crosshair">
+<div class="mb-8 p-4 bg-surface-container-high border-l-4 border-primary">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-surface" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<div class="text-[#f3f300] font-black font-headline text-sm">OPERATOR_01</div>
+<div class="font-label uppercase font-bold text-[10px] text-on-surface-variant">RANK: ELITE</div>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-grow">
+<div class="mb-2 px-4 py-1 hazard-stripes">
+<span class="text-[10px] font-black text-surface bg-primary px-1">FILTERS_v2.0</span>
+</div>
+<a class="flex items-center gap-4 px-4 py-3 bg-[#f3f300] text-[#0e0e0e] font-black italic skew-x-[-10deg] font-label text-xs transition-transform duration-75" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="terminal">terminal</span>
+                    TERMINAL
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-gray-400 hover:bg-white/5 hover:translate-x-2 transition-transform duration-75 font-label text-xs" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+                    INVENTORY
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-gray-400 hover:bg-white/5 hover:translate-x-2 transition-transform duration-75 font-label text-xs" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="Receipt">receipt</span>
+                    TRANSFERS
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-gray-400 hover:bg-white/5 hover:translate-x-2 transition-transform duration-75 font-label text-xs" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="wifi_tethering">wifi_tethering</span>
+                    SIGNALS
+                </a>
+<a class="flex items-center gap-4 px-4 py-3 text-gray-400 hover:bg-white/5 hover:translate-x-2 transition-transform duration-75 font-label text-xs" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+                    ARCHIVE
+                </a>
+</nav>
+<button class="mt-auto w-full bg-primary py-3 font-headline font-black italic skew-x-[-6deg] text-surface hover:bg-secondary transition-colors text-sm">
+                SYNC TERMINAL
+            </button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-grow p-8 bg-surface overflow-hidden">
+<!-- Market Status Header -->
+<div class="flex justify-between items-end mb-12 relative">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-3 h-3 bg-secondary rounded-full animate-pulse shadow-[0_0_10px_#00fc40]"></div>
+<span class="font-label text-[10px] tracking-widest text-secondary font-black">MARKET_LIVE // FEED_STABLE</span>
+</div>
+<h1 class="text-7xl font-headline font-black italic -tracking-tighter uppercase text-white leading-none">
+                        THE <span class="text-primary italic">DROPS</span>
+</h1>
+<div class="mt-4 flex gap-4">
+<span class="bg-surface-container-highest px-3 py-1 text-[10px] font-label font-bold text-on-surface-variant border-r-2 border-primary">BATCH_ID: 99x-NYU</span>
+<span class="bg-surface-container-highest px-3 py-1 text-[10px] font-label font-bold text-on-surface-variant border-r-2 border-tertiary">LATENCY: 12ms</span>
+</div>
+</div>
+<div class="hidden lg:block absolute -right-20 top-0 opacity-10 select-none pointer-events-none">
+<span class="text-[12rem] font-headline font-black italic leading-none">KINETIC</span>
+</div>
+</div>
+<!-- Kinetic Grid Feed -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+<!-- Product Card 1 -->
+<div class="group relative flex flex-col bg-surface-container-low transition-all duration-300 hover:translate-y-[-8px]">
+<div class="absolute -top-2 -left-2 z-20 bg-primary text-surface font-headline font-black italic px-4 py-1 skew-x-[-15deg] text-xs">
+                        NEW_ARRIVAL
+                    </div>
+<div class="relative h-[400px] overflow-hidden grain-overlay clip-path-slant-card">
+<img class="w-full h-full object-cover filter contrast-125 brightness-75 group-hover:scale-110 transition-transform duration-700" data-alt="Close-up of futuristic high-top sneakers with neon accents and carbon fiber textures in a dark industrial environment with dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRBsNbF5ySBni7gysliWdy7fNm0LWt-LcO6M8BBLisPeBy1VgdA39cZSMxZM_nYlkZHM6o_8AcZdbmBEG8lcFC-EPP644vAg0dM7vlKx25OPbn--ZoMyp9MhEUZNMVCA-1-kllaItUYJBGbk1JKpjGRqh3VpCrXgZ5-QwhaismRxL8vLp0sxMxHIH9XLGYCGj3HksQljVHWV4hM3HAEzKxiLOau5PrtA7JedlNUJ-T7csDcr3SjP_FRU59Gt1GjssbxiHyhGkXX6A"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="flicker-text bg-black/80 px-4 py-2 border-l-4 border-secondary">
+<span class="block text-[8px] font-label text-secondary-dim font-bold">ETH_EQUIVALENT</span>
+<span class="text-xl font-headline font-black text-secondary">0.456 Ξ</span>
+</div>
+</div>
+</div>
+<div class="mt-6 px-4">
+<h3 class="text-2xl font-headline font-black italic uppercase text-white group-hover:text-primary transition-colors">VOLT_STRIKER x1</h3>
+<p class="text-[10px] font-body text-on-surface-variant mt-2 leading-relaxed max-w-[80%]">
+                            REINFORCED KEVLAR MESH WITH INTEGRATED LIQUID COOLING. PERFORMANCE AT SUB-ZERO TEMPERATURES.
+                        </p>
+<div class="mt-6 flex gap-1">
+<button class="flex-grow bg-primary text-surface font-headline font-black italic py-3 skew-x-[-6deg] hover:bg-white transition-all">
+                                ACQUIRE_NOW
+                            </button>
+<button class="w-14 bg-surface-container-highest flex items-center justify-center hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group relative flex flex-col bg-surface-container-low transition-all duration-300 hover:translate-y-[-8px]">
+<div class="absolute -top-2 -left-2 z-20 bg-tertiary text-surface font-headline font-black italic px-4 py-1 skew-x-[-15deg] text-xs">
+                        LOW_STOCK
+                    </div>
+<div class="relative h-[400px] overflow-hidden grain-overlay clip-path-slant-card">
+<img class="w-full h-full object-cover filter contrast-125 brightness-75 group-hover:scale-110 transition-transform duration-700" data-alt="Heavyweight tactical jacket with reflective patches and oversized pockets, hanging against a weathered concrete wall with a pink neon glow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-CuImVGrJZ2W22SC1qDG6NMNJV93AmEoqYwyo4WyCz6zWtq5ggf1w4MxA9RK5HQ_5fCU5kB-FU_GuW8jheXzOPl58SOk5Gt2xpFDdd8jPGnx2cc9KqsVE2NliVe_zg57ePINLGV8VBnXBOCR_4m0RSOFv2pglJTQxhillc9Qb24wRpC7nA3h3sh2VkO1enFzlF34_orL-kYBrVqOdpYfSPz6TF52v0tZsOp_Z61C9APBeDYdGvAdtfT53xyTQnmyFzYeyBYEZzTo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="flicker-text bg-black/80 px-4 py-2 border-l-4 border-tertiary">
+<span class="block text-[8px] font-label text-tertiary font-bold">ETH_EQUIVALENT</span>
+<span class="text-xl font-headline font-black text-tertiary">1.102 Ξ</span>
+</div>
+</div>
+</div>
+<div class="mt-6 px-4">
+<h3 class="text-2xl font-headline font-black italic uppercase text-white group-hover:text-tertiary transition-colors">SHELL_GHOST_v4</h3>
+<p class="text-[10px] font-body text-on-surface-variant mt-2 leading-relaxed max-w-[80%]">
+                            RADAR-ABSORBENT FABRIC WITH RETINA-LOCK SECURE STORAGE. CLOAKING CAPABILITIES ENABLED.
+                        </p>
+<div class="mt-6 flex gap-1">
+<button class="flex-grow bg-tertiary text-surface font-headline font-black italic py-3 skew-x-[-6deg] hover:bg-white transition-all">
+                                ACQUIRE_NOW
+                            </button>
+<button class="w-14 bg-surface-container-highest flex items-center justify-center hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group relative flex flex-col bg-surface-container-low transition-all duration-300 hover:translate-y-[-8px]">
+<div class="relative h-[400px] overflow-hidden grain-overlay clip-path-slant-card">
+<div class="hazard-stripes absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity"></div>
+<img class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="Digital technical visor with a heads-up display glowing with code and data, set in a rainy dark alley with green signal flares." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCugGhGb2fCG0vYgY12zGO-O976Ltc7a94CAudVqIoZFybVhWuq_pdBA3wiLX9k-9MXfDGivIBgv1eIouUqJVuufWH_Abvb07GrwScnArT5J5Nca2fYXfQj4POjBEp2KFKQzBr60hABWQdjn6re_0oKbSAGG6Gs215Wdlv7IDCz5nceB3_BBStNbyiiKHDARxe0CNFvwLRu9bPt63Ni1nGNBQDAsVx771O125_N8DgnhWSlJvXRv6UAIpxRbqk61dMbGP12TBaN47I"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-60"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div class="flicker-text bg-black/80 px-4 py-2 border-l-4 border-primary">
+<span class="block text-[8px] font-label text-primary font-bold">ETH_EQUIVALENT</span>
+<span class="text-xl font-headline font-black text-primary">0.089 Ξ</span>
+</div>
+</div>
+</div>
+<div class="mt-6 px-4">
+<h3 class="text-2xl font-headline font-black italic uppercase text-white group-hover:text-primary transition-colors">OPIC_SIGHT_ZERO</h3>
+<p class="text-[10px] font-body text-on-surface-variant mt-2 leading-relaxed max-w-[80%]">
+                            BIOMETRIC FEEDBACK HUD WITH REAL-TIME MARKET ARBITRAGE SCANNER. NIGHT VISION READY.
+                        </p>
+<div class="mt-6 flex gap-1">
+<button class="flex-grow bg-primary text-surface font-headline font-black italic py-3 skew-x-[-6deg] hover:bg-white transition-all">
+                                ACQUIRE_NOW
+                            </button>
+<button class="w-14 bg-surface-container-highest flex items-center justify-center hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Big Promo Bento Card -->
+<div class="md:col-span-2 xl:col-span-3 bg-surface-container-highest p-8 relative overflow-hidden border-l-[12px] border-secondary">
+<div class="absolute right-[-5%] top-[-10%] opacity-20 pointer-events-none">
+<span class="text-[20rem] font-headline font-black text-secondary">SALE</span>
+</div>
+<div class="relative z-10 max-w-2xl">
+<div class="bg-secondary text-surface inline-block font-label font-black text-[10px] px-2 py-1 mb-4">CRITICAL_EVENT</div>
+<h2 class="text-5xl font-headline font-black italic text-white uppercase mb-4">LIQUIDATION_PROTOCOL_ACTUATED</h2>
+<p class="text-on-surface-variant text-sm mb-8 leading-relaxed max-w-lg">
+                            Dormant vault assets released for immediate extraction. Price slippage guaranteed for the next 04:00 hours. Secure your assets before manual system override.
+                        </p>
+<div class="flex gap-4">
+<button class="bg-white text-surface px-8 py-4 font-headline font-black italic skew-x-[-12deg] hover:bg-secondary transition-all">
+                                ENTER_VAULT
+                            </button>
+<div class="flex flex-col justify-center">
+<span class="text-[10px] font-label font-bold text-secondary">REMAINING_TIME</span>
+<span class="text-2xl font-headline font-black text-white tabular-nums">03:44:12.8</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- More Products... -->
+<div class="mt-20 flex justify-center">
+<button class="border-4 border-dashed border-outline-variant px-12 py-4 font-headline font-black italic text-on-surface-variant hover:text-primary hover:border-primary transition-all uppercase tracking-[0.2em]">
+                    LOAD_NEXT_BATCH_DATA
+                </button>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-4 px-6 flex justify-between items-center opacity-80 bg-[#0e0e0e] border-t-2 border-dashed border-gray-800 font-body text-[10px] leading-tight tracking-tighter">
+<div class="text-gray-600">
+            ©2024 KINETIC_SYSTEMS_v4.0.2
+        </div>
+<div class="flex gap-6">
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">ENCRYPTION</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">API_DOCS</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors" href="#">SLA</a>
+<a class="text-gray-600 hover:text-[#ff6e81] transition-colors underline" href="#">TERMINATE</a>
+</div>
+</footer>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-secondary flex items-center justify-center text-surface shadow-[0_0_30px_#00fc40] z-50 group hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-45 transition-transform" data-icon="add">add</span>
+</button>
+</body></html>
+
+<!-- The Vault (Inventory) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Epilogue:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ff909b",
+                    "surface-container-high": "#201f1f",
+                    "on-primary-fixed-variant": "#646400",
+                    "primary-dim": "#f0f000",
+                    "surface-container-low": "#131313",
+                    "on-primary-fixed": "#474700",
+                    "primary": "#fffeac",
+                    "error": "#ff7351",
+                    "on-error": "#450900",
+                    "on-primary-container": "#5a5a00",
+                    "outline-variant": "#494847",
+                    "primary-container": "#f3f300",
+                    "tertiary": "#ff6e81",
+                    "inverse-primary": "#626200",
+                    "on-error-container": "#ffd2c8",
+                    "primary-fixed": "#f3f300",
+                    "secondary-dim": "#00ec3b",
+                    "surface-variant": "#262626",
+                    "tertiary-dim": "#e7004c",
+                    "surface-container-lowest": "#000000",
+                    "on-tertiary-fixed": "#39000c",
+                    "secondary-fixed": "#00fc40",
+                    "surface-container": "#1a1919",
+                    "secondary": "#00fc40",
+                    "on-surface-variant": "#adaaaa",
+                    "surface-tint": "#fffeac",
+                    "inverse-on-surface": "#565554",
+                    "on-background": "#ffffff",
+                    "on-secondary-fixed": "#00440a",
+                    "on-primary": "#626200",
+                    "background": "#0e0e0e",
+                    "secondary-fixed-dim": "#00ec3b",
+                    "on-tertiary": "#490012",
+                    "error-container": "#b92902",
+                    "primary-fixed-dim": "#e4e400",
+                    "surface-dim": "#0e0e0e",
+                    "on-secondary": "#005a10",
+                    "surface-bright": "#2c2c2c",
+                    "on-surface": "#ffffff",
+                    "surface-container-highest": "#262626",
+                    "outline": "#777575",
+                    "tertiary-container": "#ff0355",
+                    "on-secondary-container": "#e6ffdc",
+                    "tertiary-fixed-dim": "#ff7989",
+                    "on-secondary-fixed-variant": "#006513",
+                    "on-tertiary-fixed-variant": "#780023",
+                    "on-tertiary-container": "#000000",
+                    "surface": "#0e0e0e",
+                    "secondary-container": "#006e16",
+                    "error-dim": "#d53d18",
+                    "inverse-surface": "#fcf8f8"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Epilogue"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>.clip-path-slant {
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%)
+    }
+.animate-flicker {
+    animation: flicker 2s infinite
+    }
+@keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+        opacity: 1;
+        } 20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+        opacity: 0.4;
+        }
+    }
+.animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite
+    }
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        } 50% {
+        opacity: .7;
+        }
+    }
+.bg-grain {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDlUid_kdT3C1ioEGyF1Hu3XnltXRZPAZdHDFY6Z34OtoMPDni_2htY8ri0VvYhFC-dYEcbjMkHCpQQwJouaR_egR8-5r9oFBrluhVFXrGmeoVC_f0_g1ipJSp6ODP2jqaZUMndb7QuMXkmUlWQfIqKTW77WxNVSQCWujMLaVcP0yQW6-hLqG2MesUWBlToH2aYNqVQ5yl5MPMRGblGfSfdnTEgxwFqEykPhE0Yd8guPOXs8cZLjfIvBLnwh_YRXElgr_X7tLm5EK4)
+    }
+.hazard-stripes {
+    background: repeating-linear-gradient(45deg, #f3f300, #f3f300 10px, #0e0e0e 10px, #0e0e0e 20px)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden selection:bg-primary selection:text-background">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#0e0e0e] border-b-4 border-yellow-400 bg-grain shadow-[0_0_20px_rgba(243,243,0,0.3)] animate-pulse-slow">
+<div class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg] font-headline uppercase -tracking-widest">
+            HYPECULTURE
+        </div>
+<nav class="hidden md:flex gap-8 items-center font-headline font-black italic -tracking-widest uppercase">
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">DROPS</a>
+<a class="text-gray-500 hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">MARKET</a>
+<a class="text-[#f3f300] border-b-2 border-[#f3f300] hover:skew-x-[-6deg] hover:text-[#00fc40] transition-all" href="#">VAULT</a>
+</nav>
+<div class="flex items-center gap-4 text-[#f3f300]">
+<span class="material-symbols-outlined cursor-crosshair">sensors</span>
+<div class="w-8 h-8 bg-surface-container-highest border border-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs">person</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-4 w-64 bg-[#0e0e0e]/95 backdrop-blur-md bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a] hidden md:flex">
+<div class="mb-8 p-4 bg-surface-container-lowest border-l-4 border-primary">
+<h3 class="font-headline font-black text-[#f3f300] uppercase text-sm tracking-widest">OPERATOR_01</h3>
+<p class="font-label text-[10px] text-secondary font-bold">RANK: ELITE</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 font-headline uppercase font-bold text-xs cursor-crosshair" href="#">
+<span class="material-symbols-outlined">terminal</span> TERMINAL
+            </a>
+<a class="flex items-center gap-3 p-3 bg-[#f3f300] text-[#0e0e0e] font-black italic skew-x-[-10deg] font-headline uppercase text-xs cursor-crosshair" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span> INVENTORY
+            </a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 font-headline uppercase font-bold text-xs cursor-crosshair" href="#">
+<span class="material-symbols-outlined">receipt</span> TRANSFERS
+            </a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 font-headline uppercase font-bold text-xs cursor-crosshair" href="#">
+<span class="material-symbols-outlined">wifi_tethering</span> SIGNALS
+            </a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 font-headline uppercase font-bold text-xs cursor-crosshair" href="#">
+<span class="material-symbols-outlined">history</span> ARCHIVE
+            </a>
+</nav>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary font-headline font-black italic skew-x-[-4deg] text-xs hover:bg-secondary transition-colors uppercase">
+            SYNC TERMINAL
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 pt-16 min-h-screen bg-background">
+<div class="p-6 md:p-10 max-w-7xl mx-auto">
+<!-- Header Section with High Density Metadata -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="bg-primary px-2 py-0.5 text-background font-headline font-black text-[10px] uppercase">SECURE_ZONE</span>
+<div class="flex items-center gap-1 text-secondary text-[10px] font-label font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                            SYSTEM_HEALTH: KINETIC
+                        </div>
+</div>
+<h1 class="text-6xl md:text-8xl font-headline font-black italic -tracking-[0.05em] uppercase leading-none">
+                        THE <span class="text-primary">VAULT</span>
+</h1>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full md:w-auto">
+<div class="bg-surface-container p-3 border-t-2 border-primary">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Total Assets</p>
+<p class="font-headline font-extrabold text-2xl text-primary">142.8k</p>
+</div>
+<div class="bg-surface-container p-3 border-t-2 border-secondary">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Market Vol</p>
+<p class="font-headline font-extrabold text-2xl text-secondary">+12.4%</p>
+</div>
+<div class="bg-surface-container p-3 border-t-2 border-tertiary hidden md:block">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Security</p>
+<p class="font-headline font-extrabold text-2xl text-tertiary">MAX</p>
+</div>
+</div>
+</div>
+<!-- Inventory Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1">
+<!-- Inventory Slot 1 -->
+<div class="group relative bg-surface-container-lowest border border-white/5 hover:border-secondary/40 transition-all p-4 flex flex-col aspect-square overflow-hidden cursor-crosshair">
+<div class="absolute inset-0 bg-grain opacity-20 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant">ID: HK_7721_X</span>
+<div class="px-1 bg-secondary/10 border border-secondary text-secondary text-[8px] font-bold py-0.5 italic">ACCESS GRANTED</div>
+</div>
+<div class="flex-grow flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+<img alt="Luxury Sneaker" class="w-full h-full object-contain" data-alt="high-end minimalist white sneaker on a dark industrial pedestal with cyan neon rim lighting and metallic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0P52P-dLHvwk_blFAarFi1J3HLg6znwTsMQgAPluSth-mmrJKvEdS71C5QelRSvKQBZNm2m_BKqHadUqjjLJPzFN8WclKwcejahzXXfqTNvn9w1NF8nlyxjcQQXMNNcQNWw0rSs6O-KCePvxXNwQnNjqKHcdSzSArf-QEMOAF6JvDTCq6-KG0nFM4LiUJ8NSpvCXTnsxbbU4qFpQHRobUq6FRlap5B85dn0daSrhbM9SLWzwkbEH3o2yReMo6tiBMgpy-Vj3P62U"/>
+</div>
+<div class="z-10 mt-auto">
+<h4 class="font-headline font-black text-sm uppercase tracking-tight">V4_ULTRAFLIGHT</h4>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label text-[10px] text-primary">LIQUIDITY: HIGH</span>
+<span class="font-headline font-bold text-xs">$2,450.00</span>
+</div>
+</div>
+<!-- Hazard Detail Overlay -->
+<div class="absolute bottom-0 right-0 w-8 h-8 hazard-stripes opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Inventory Slot 2 -->
+<div class="group relative bg-surface-container-lowest border border-white/5 hover:border-secondary/40 transition-all p-4 flex flex-col aspect-square overflow-hidden cursor-crosshair">
+<div class="absolute inset-0 bg-grain opacity-20 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant">ID: HK_0982_B</span>
+<div class="px-1 bg-secondary/10 border border-secondary text-secondary text-[8px] font-bold py-0.5 italic">ACCESS GRANTED</div>
+</div>
+<div class="flex-grow flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+<img alt="Technical Jacket" class="w-full h-full object-contain" data-alt="futuristic black techwear jacket with reflective straps and multiple pockets on a concrete background with harsh shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt4dJE1iS5JSMvQbNzScGKqMgbaamloIrOQpVNWpX8ciUJnPZtZ-6bMknb9cTMJfjMVA_46kprqCdD-ywFPFZZnGcHjBJZNUN_DxVEnWrXrt4DlDvJ6DKkGd2nehGLnpiQ_K0Mozqmb_jyMjVdF3y6EJ0xxbShlmR48ClY1QgK6XXumGlRB8px5bG4uOp2KxoLUMEGYjhPK7aQ70IFL_wqAjecWz8cVxkwl1voge3X9bZiR9sDgFRh32jTJEGKVlTAOf9ncVPHdFw"/>
+</div>
+<div class="z-10 mt-auto">
+<h4 class="font-headline font-black text-sm uppercase tracking-tight">KINETIC_SHELL_01</h4>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label text-[10px] text-tertiary">CONDITION: NEW</span>
+<span class="font-headline font-bold text-xs">$1,120.00</span>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-8 h-8 hazard-stripes opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Inventory Slot 3 -->
+<div class="group relative bg-surface-container-lowest border border-white/5 hover:border-secondary/40 transition-all p-4 flex flex-col aspect-square overflow-hidden cursor-crosshair">
+<div class="absolute inset-0 bg-grain opacity-20 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant">ID: HK_5521_R</span>
+<div class="px-1 bg-secondary/10 border border-secondary text-secondary text-[8px] font-bold py-0.5 italic">ACCESS GRANTED</div>
+</div>
+<div class="flex-grow flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+<img alt="Designer Eyewear" class="w-full h-full object-contain" data-alt="chunky black rectangular eyewear with orange tinted lenses reflecting a neon city streetscape at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkQ2zy657GhctYWDh6ZVSRUOm2C6T2Q3sE2US-C5JQH2_Yw2udffZ8llCeYgcwxqVHFSSCGur25aAd-sbA-qEGp_yn8O_M7ppKNV2U0g82F5PxQXli9n988FJp6wblk6SWQdhn-OemUO2c-C6CIxsgK7w51mWOZ7GoYZQd-f9_6qpnkxG1XA-7W1b81QH3uykYQuFnamJRa7mTBThp31b4NFu77zqY5z4Yu4e4hKrlZmnvEpGe0SUCXqUNAZkw6qAHBSerbDK-jH8"/>
+</div>
+<div class="z-10 mt-auto">
+<h4 class="font-headline font-black text-sm uppercase tracking-tight">O_VISUALS_7</h4>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label text-[10px] text-primary">LIQUIDITY: MED</span>
+<span class="font-headline font-bold text-xs">$450.00</span>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-8 h-8 hazard-stripes opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Locked Slot Simulation -->
+<div class="group relative bg-surface-container-low border border-white/5 p-4 flex flex-col aspect-square overflow-hidden opacity-50 grayscale contrast-125">
+<div class="absolute inset-0 hazard-stripes opacity-5"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant">ID: ERROR_NULL</span>
+<div class="px-1 bg-error/10 border border-error text-error text-[8px] font-bold py-0.5 italic uppercase">Connection Lost</div>
+</div>
+<div class="flex-grow flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-6xl text-surface-bright">lock</span>
+</div>
+<div class="z-10 mt-auto">
+<h4 class="font-headline font-black text-sm uppercase tracking-tight text-on-surface-variant">ENCRYPTED_ASSET</h4>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label text-[10px]">AUTH: REQUIRED</span>
+<span class="font-headline font-bold text-xs">---</span>
+</div>
+</div>
+</div>
+<!-- More slots repeat for density -->
+<div class="group relative bg-surface-container-lowest border border-white/5 hover:border-secondary/40 transition-all p-4 flex flex-col aspect-square overflow-hidden cursor-crosshair">
+<div class="absolute inset-0 bg-grain opacity-20 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-[10px] font-label font-bold text-on-surface-variant">ID: HK_1122_G</span>
+<div class="px-1 bg-secondary/10 border border-secondary text-secondary text-[8px] font-bold py-0.5 italic">ACCESS GRANTED</div>
+</div>
+<div class="flex-grow flex items-center justify-center p-6 grayscale group-hover:grayscale-0 transition-all duration-500 scale-90 group-hover:scale-100">
+<img alt="Luxury Watch" class="w-full h-full object-contain" data-alt="heavy black titanium wristwatch with exposed gears and a bright green rubber strap on a slate surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF7XJehiNNhaHqoL7GAKfyxbthv3o9pNC10vABaNHpFzDc2TQH9WGVAuVhvqboQbN9IN2bXCWTaRxDSIvfzQHjhH2bLIeora1gu-nitnyCE2HLHDVkglZdynmGuuX_eMXh4UitfqvO3Bx63oOZfewBkW_OFYCzDZBvCDJrsxMAQ9Hl97BVgb26VngxyoOy1zzZ6UKiFP-U3q-tV6EX_TD26EpnwdonGTAcaQsDtxGAlCSJfcTbQ8hNstf3l6R1TcNqKFps39BuZDU"/>
+</div>
+<div class="z-10 mt-auto">
+<h4 class="font-headline font-black text-sm uppercase tracking-tight">C_TIMEPIECE_V2</h4>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label text-[10px] text-primary">LIQUIDITY: EXTREME</span>
+<span class="font-headline font-bold text-xs">$12,900.00</span>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-8 h-8 hazard-stripes opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Empty "Add Asset" Slot -->
+<div class="group relative border-2 border-dashed border-outline-variant hover:border-primary/50 transition-all p-4 flex flex-col items-center justify-center aspect-square overflow-hidden cursor-pointer bg-surface-container-lowest/20">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-primary mb-2 transition-colors">add_box</span>
+<span class="font-headline font-black text-[10px] uppercase text-outline-variant group-hover:text-primary">DEPOSIT_ASSET</span>
+</div>
+</div>
+<!-- Bottom Terminal Feed -->
+<div class="mt-12 bg-surface-container p-4 border-l-8 border-tertiary">
+<div class="flex justify-between items-center mb-4">
+<h5 class="font-headline font-black uppercase text-xs tracking-widest text-tertiary">LIVE_VAULT_LOGS</h5>
+<span class="text-[10px] font-mono text-on-surface-variant">v4.0.2_STABLE</span>
+</div>
+<div class="space-y-1 font-mono text-[9px] text-on-surface-variant">
+<p><span class="text-secondary">[14:22:01]</span> AUTHENTICATED: OPERATOR_01. ACCESSING SECTOR 7G.</p>
+<p><span class="text-primary">[14:22:15]</span> PRICE_UPDATE: V4_ULTRAFLIGHT +4.2% INCREASE DETECTED.</p>
+<p><span class="text-tertiary animate-flicker">[14:23:05]</span> WARNING: VOLATILITY IN SIGNALS DETECTED. SYNC RECOMMENDED.</p>
+<p><span class="text-secondary">[14:24:55]</span> TRANSACTION: HK_7721_X SECURED IN VAULT.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-2 px-6 flex justify-between items-center opacity-80 bg-[#0e0e0e] border-t-2 border-dashed border-gray-800 fixed bottom-0 z-50">
+<div class="font-body text-[10px] leading-tight tracking-tighter text-gray-600">
+            ©2024 KINETIC_SYSTEMS_v4.0.2
+        </div>
+<div class="flex gap-6 font-body text-[10px] leading-tight tracking-tighter">
+<a class="text-gray-600 hover:text-[#ff6e81] uppercase" href="#">ENCRYPTION</a>
+<a class="text-gray-600 hover:text-[#ff6e81] uppercase" href="#">API_DOCS</a>
+<a class="text-gray-600 hover:text-[#ff6e81] uppercase" href="#">SLA</a>
+<a class="text-[#00fc40] underline uppercase" href="#">TERMINATE</a>
+</div>
+</footer>
+<!-- Mobile Nav Anchor -->
+<nav class="md:hidden fixed bottom-12 left-0 right-0 h-16 bg-[#0e0e0e]/90 backdrop-blur-md flex justify-around items-center px-4 z-40 border-t-2 border-primary/20">
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-xl">terminal</span>
+<span class="text-[8px] font-headline font-bold">TERM</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#f3f300]" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-[8px] font-headline font-bold">VAULT</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-xl">wifi_tethering</span>
+<span class="text-[8px] font-headline font-bold">SYNC</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="text-[8px] font-headline font-bold">USER</span>
+</a>
+</nav>
+</body></html>
+
+<!-- The Run (Live Bidding) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HYPECULTURE | THE RUN LIVE BIDDING</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Epilogue:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .clip-path-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        .clip-path-slant-rev {
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+        }
+        .hazard-stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                #f3f300,
+                #f3f300 10px,
+                #0e0e0e 10px,
+                #0e0e0e 20px
+            );
+        }
+        .digital-grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 0.99; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+        }
+        .animate-flicker {
+            animation: flicker 2s linear infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#ff909b",
+                      "surface-container-high": "#201f1f",
+                      "on-primary-fixed-variant": "#646400",
+                      "primary-dim": "#f0f000",
+                      "surface-container-low": "#131313",
+                      "on-primary-fixed": "#474700",
+                      "primary": "#fffeac",
+                      "error": "#ff7351",
+                      "on-error": "#450900",
+                      "on-primary-container": "#5a5a00",
+                      "outline-variant": "#494847",
+                      "primary-container": "#f3f300",
+                      "tertiary": "#ff6e81",
+                      "inverse-primary": "#626200",
+                      "on-error-container": "#ffd2c8",
+                      "primary-fixed": "#f3f300",
+                      "secondary-dim": "#00ec3b",
+                      "surface-variant": "#262626",
+                      "tertiary-dim": "#e7004c",
+                      "surface-container-lowest": "#000000",
+                      "on-tertiary-fixed": "#39000c",
+                      "secondary-fixed": "#00fc40",
+                      "surface-container": "#1a1919",
+                      "secondary": "#00fc40",
+                      "on-surface-variant": "#adaaaa",
+                      "surface-tint": "#fffeac",
+                      "inverse-on-surface": "#565554",
+                      "on-background": "#ffffff",
+                      "on-secondary-fixed": "#00440a",
+                      "on-primary": "#626200",
+                      "background": "#0e0e0e",
+                      "secondary-fixed-dim": "#00ec3b",
+                      "on-tertiary": "#490012",
+                      "error-container": "#b92902",
+                      "primary-fixed-dim": "#e4e400",
+                      "surface-dim": "#0e0e0e",
+                      "on-secondary": "#005a10",
+                      "surface-bright": "#2c2c2c",
+                      "on-surface": "#ffffff",
+                      "surface-container-highest": "#262626",
+                      "outline": "#777575",
+                      "tertiary-container": "#ff0355",
+                      "on-secondary-container": "#e6ffdc",
+                      "tertiary-fixed-dim": "#ff7989",
+                      "on-secondary-fixed-variant": "#006513",
+                      "on-tertiary-fixed-variant": "#780023",
+                      "on-tertiary-container": "#000000",
+                      "surface": "#0e0e0e",
+                      "secondary-container": "#006e16",
+                      "error-dim": "#d53d18",
+                      "inverse-surface": "#fcf8f8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Epilogue"],
+                      "label": ["Space Grotesk"]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary selection:text-background overflow-x-hidden">
+<!-- Digital Grain Overlay -->
+<div class="fixed inset-0 digital-grain z-[100] pointer-events-none"></div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 bg-[#0e0e0e] border-b-4 border-yellow-400 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] shadow-[0_0_20px_rgba(243,243,0,0.3)] h-16">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg] font-headline uppercase tracking-tighter">HYPECULTURE</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-headline font-black italic -tracking-widest uppercase text-[#f3f300] border-b-2 border-[#f3f300] transition-all hover:skew-x-[-6deg]" href="#">DROPS</a>
+<a class="font-headline font-black italic -tracking-widest uppercase text-gray-500 transition-all hover:skew-x-[-6deg] hover:text-[#00fc40]" href="#">MARKET</a>
+<a class="font-headline font-black italic -tracking-widest uppercase text-gray-500 transition-all hover:skew-x-[-6deg] hover:text-[#00fc40]" href="#">VAULT</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:block bg-surface-container px-3 py-1 border-l-2 border-primary">
+<span class="text-[10px] font-label text-primary uppercase tracking-widest block">NETWORK_STATUS</span>
+<span class="text-xs text-secondary font-mono animate-flicker uppercase">ENCRYPTED_LINK_ACTIVE</span>
+</div>
+<button class="material-symbols-outlined text-[#f3f300] animate-pulse-slow">sensors</button>
+</div>
+</header>
+<!-- Side Terminal Navigation (Hidden on Mobile) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 flex flex-col p-4 bg-[#0e0e0e]/95 backdrop-blur-md w-64 border-r-0 bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a] hidden lg:flex">
+<div class="mb-8 p-4 bg-surface-container-high skew-x-[-4deg]">
+<span class="block text-[#f3f300] font-black font-headline text-xs">OPERATOR_01</span>
+<span class="block text-gray-400 font-label text-[10px]">RANK: ELITE</span>
+</div>
+<div class="space-y-2 flex-grow">
+<a class="flex items-center gap-3 p-3 bg-[#f3f300] text-[#0e0e0e] font-black italic skew-x-[-10deg] cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="font-headline uppercase text-xs">TERMINAL</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+<span class="font-headline uppercase text-xs">INVENTORY</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm">receipt</span>
+<span class="font-headline uppercase text-xs">TRANSFERS</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm">wifi_tethering</span>
+<span class="font-headline uppercase text-xs">SIGNALS</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-gray-400 hover:bg-white/5 transition-transform duration-75 hover:translate-x-2 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm">history</span>
+<span class="font-headline uppercase text-xs">ARCHIVE</span>
+</a>
+</div>
+<button class="mt-auto bg-surface-container-highest p-4 text-primary font-black italic hover:bg-primary hover:text-black transition-colors skew-x-[-4deg] text-xs">
+            SYNC TERMINAL
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-16 lg:ml-64 min-h-screen relative overflow-hidden">
+<!-- Background Motion Blur Hero -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-black/60 z-10"></div>
+<img class="w-full h-full object-cover filter blur-sm scale-105" data-alt="long exposure of New York City traffic at night with aggressive neon red and yellow light trails and heavy motion blur" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC03K9-Pin1Plt2Qd3DiMYQQLcKR7VXrVj8FeA6tdQU90UasYocGPND7vpA2F2hnq7MAbeXWmLCMyN5UyerXv_77O0AjFhEpeaEive4mg0XmgMdoxLs-CF8q4L9pK14WWg31L5o-Fy2qOSlPr1rH_x1DPgiSI6EUD_guQ3JR71npgLp7jNA8uC84Jj3SJ9hq9nZq7oeeuSChCJNFggH0Wl0_tWH6XVaEAsloltZQoZaWdpL16Vole3BxHc0bZVlnHqYxC_Qqt_zsRk"/>
+</div>
+<div class="relative z-20 p-6 lg:p-10 grid grid-cols-12 gap-6">
+<!-- Left Panel: Main Release Display -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<!-- Live Header -->
+<div class="bg-surface-container-high/80 backdrop-blur-xl p-6 border-l-8 border-secondary flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-secondary text-background px-2 py-0.5 font-black text-[10px] animate-pulse">LIVE_RUN</span>
+<span class="text-secondary-fixed text-xs font-mono tracking-tighter">ID: NYC_772_XC</span>
+</div>
+<h1 class="text-4xl md:text-6xl font-black font-headline italic -tracking-widest uppercase leading-none">
+                            AIR_KINETIC <span class="text-primary">'GLITCH_V4'</span>
+</h1>
+</div>
+<div class="text-right">
+<span class="text-[10px] font-label text-gray-500 uppercase block tracking-[0.2em]">CURRENT_BOTTLE_NECK</span>
+<div class="text-3xl md:text-5xl font-black font-headline text-secondary italic">$4,820.00</div>
+</div>
+</div>
+<!-- Product Visualizer -->
+<div class="relative bg-surface-container-lowest border-2 border-outline-variant/20 overflow-hidden min-h-[400px] flex items-center justify-center group">
+<div class="absolute top-4 left-4 z-30">
+<div class="hazard-stripes h-2 w-32 mb-2"></div>
+<span class="text-[10px] font-label text-primary font-bold">SPEC: ULTRA-STRESS_REACTIVE</span>
+</div>
+<img class="w-full h-full object-contain transform group-hover:scale-110 transition-transform duration-500 skew-x-[-2deg]" data-alt="ultra high-end neon yellow and black futuristic sneaker floating in a dark industrial space with dramatic spotlighting and sharp shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnNkL6tWqO3pot8xb4nAU-aVWt8J_fc5SYmklhhLXTeXJZZZ974lTudsKgmxyqd6eHrup6lwF4BdcA4RlOfw7WCVsoFiCR6rV_tDYHYK2mN9HCKPRuVVswrzzikoc-jBfeOvaeZaenQGc_s5EfrQ5O4vXtA1mYrqnj558moOVOTkLOYLBqFuW-mYKFJvtexpNOi1pLA41qjxyu3n6itsGlDhstNzzUu1Gv9t9oseyu2af-ta3DarYfdFZnZ28x0g1Le_vQHfvUQL0"/>
+<div class="absolute bottom-4 right-4 bg-black/80 px-4 py-2 border-r-4 border-tertiary">
+<span class="text-[10px] font-label text-tertiary block">EXTREME_DEMAND</span>
+<span class="text-xl font-headline font-black italic">TOP_1%_TIER</span>
+</div>
+</div>
+<!-- Live Chat/Signals (Asymmetric Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low/90 backdrop-blur-md p-4 skew-x-[-1deg]">
+<div class="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
+<span class="text-xs font-black font-headline text-primary italic">TERMINAL_CHAT</span>
+<span class="text-[10px] font-mono text-secondary">4.2K ACTIVE</span>
+</div>
+<div class="space-y-3 h-48 overflow-y-auto pr-2 custom-scrollbar text-[11px] font-mono">
+<div class="flex gap-2">
+<span class="text-gray-500">[22:04]</span>
+<span class="text-secondary">@void_runner:</span>
+<span class="text-on-surface">JUST_LOCKED_IN. LET'S GO.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-gray-500">[22:04]</span>
+<span class="text-tertiary">@system:</span>
+<span class="text-tertiary font-bold">NEW HIGH BID: $4,820</span>
+</div>
+<div class="flex gap-2">
+<span class="text-gray-500">[22:05]</span>
+<span class="text-secondary">@neon_phantom:</span>
+<span class="text-on-surface">PRICE VOLATILITY IS INSANE RN.</span>
+</div>
+<div class="flex gap-2">
+<span class="text-gray-500">[22:05]</span>
+<span class="text-secondary">@ghost_shell:</span>
+<span class="text-on-surface">WHO'S THE WHALE AT $4.8K?</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low/90 backdrop-blur-md p-4 skew-x-[1deg]">
+<div class="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
+<span class="text-xs font-black font-headline text-tertiary italic">BID_HISTORY</span>
+<span class="material-symbols-outlined text-xs text-tertiary animate-pulse">monitoring</span>
+</div>
+<div class="space-y-2 h-48 overflow-y-auto pr-2 text-[10px] font-label uppercase">
+<div class="flex justify-between items-center p-2 bg-white/5">
+<span class="text-on-surface">OPERATOR_X99</span>
+<span class="text-primary font-bold">$4,820</span>
+</div>
+<div class="flex justify-between items-center p-2">
+<span class="text-gray-400">ALPHA_USER_1</span>
+<span class="text-gray-400">$4,750</span>
+</div>
+<div class="flex justify-between items-center p-2">
+<span class="text-gray-400">MARKET_MAKER</span>
+<span class="text-gray-400">$4,700</span>
+</div>
+<div class="flex justify-between items-center p-2">
+<span class="text-gray-400">VAULT_HOLDER</span>
+<span class="text-gray-400">$4,650</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: The Countdown & CTA -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Massive Countdown -->
+<div class="bg-primary-container p-8 shadow-[0_0_50px_rgba(243,243,0,0.4)] relative overflow-hidden group">
+<div class="hazard-stripes absolute top-0 left-0 w-full h-2"></div>
+<span class="text-[10px] font-black font-headline text-on-primary-container tracking-[0.3em] block mb-4">CRITICAL_COUNTDOWN</span>
+<div class="text-7xl md:text-8xl font-black font-headline text-on-primary-container italic -tracking-[0.1em] leading-none mb-4 animate-flicker">
+                        00:44
+                    </div>
+<span class="text-[10px] font-bold text-on-primary-container block border-t border-black/20 pt-4">SECONDS_REMAINING_FOR_QUALIFICATION</span>
+</div>
+<!-- Bidding Interface -->
+<div class="bg-surface-container-highest p-6 border-l-4 border-tertiary relative">
+<div class="mb-6">
+<label class="text-[10px] font-label text-gray-500 block mb-2 tracking-widest">INPUT_BID_AMOUNT_USD</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-black italic text-primary">$</span>
+<input class="w-full bg-surface-container-low border-0 text-3xl font-black font-headline italic pl-10 pr-4 py-4 focus:ring-2 focus:ring-secondary text-white selection:bg-secondary" type="text" value="4,850.00"/>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-8">
+<button class="bg-surface-container-low py-3 font-headline font-bold text-xs hover:bg-surface-bright transition-colors">+ $10</button>
+<button class="bg-surface-container-low py-3 font-headline font-bold text-xs hover:bg-surface-bright transition-colors">+ $50</button>
+<button class="bg-surface-container-low py-3 font-headline font-bold text-xs hover:bg-surface-bright transition-colors">+ $100</button>
+</div>
+<!-- Primary CTA -->
+<button class="w-full relative group">
+<div class="absolute inset-0 bg-secondary blur-xl opacity-20 group-hover:opacity-60 transition-opacity"></div>
+<div class="relative bg-secondary p-6 flex flex-col items-center justify-center border-[6px] border-black hazard-stripes-mask">
+<span class="text-background font-black font-headline text-2xl italic tracking-tighter">INITIATE PURCHASE</span>
+<span class="text-background/80 text-[10px] font-bold tracking-[0.4em] mt-1">EXECUTE_TRANSACTION_ID_0x71</span>
+</div>
+<div class="hazard-stripes h-4 w-full mt-2"></div>
+</button>
+</div>
+<!-- Statistics Terminal -->
+<div class="bg-surface-container/60 backdrop-blur-md p-6 space-y-4 border border-outline-variant/10">
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-gray-400 font-label">TOTAL_VOLUME</span>
+<span class="text-sm font-headline font-bold text-on-surface">$2.4M</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-gray-400 font-label">DROP_RARITY</span>
+<span class="text-sm font-headline font-bold text-tertiary">MYTHIC_99</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-gray-400 font-label">AUTHENTICITY</span>
+<span class="text-sm font-headline font-bold text-secondary">VERIFIED_BLOCK</span>
+</div>
+<div class="h-[1px] bg-outline-variant/20 w-full"></div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+<span class="text-[10px] font-label text-secondary tracking-widest uppercase">NODE_CONNECTION_OPTIMAL</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Terminal -->
+<footer class="fixed bottom-0 w-full z-50 bg-[#0e0e0e] py-2 px-6 flex justify-between items-center opacity-80 border-t-2 border-dashed border-gray-800">
+<div class="flex items-center gap-4">
+<span class="font-['Epilogue'] text-[10px] leading-tight tracking-tighter text-gray-600">©2024 KINETIC_SYSTEMS_v4.0.2</span>
+<div class="flex gap-4">
+<a class="font-['Epilogue'] text-[10px] text-gray-600 hover:text-[#ff6e81] transition-all" href="#">ENCRYPTION</a>
+<a class="font-['Epilogue'] text-[10px] text-gray-600 hover:text-[#ff6e81] transition-all" href="#">API_DOCS</a>
+<a class="font-['Epilogue'] text-[10px] text-gray-600 hover:text-[#ff6e81] transition-all" href="#">SLA</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-tertiary animate-flicker uppercase">DANGER: HIGH_LATENCY_DETECTION</span>
+<button class="font-['Epilogue'] text-[10px] text-gray-600 hover:text-[#ff6e81] transition-all uppercase underline">TERMINATE</button>
+</div>
+</footer>
+<!-- Bottom Nav for Mobile -->
+<div class="md:hidden fixed bottom-16 left-0 w-full bg-surface-container-high/90 backdrop-blur-lg flex justify-around p-4 border-t-4 border-primary z-50">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px] font-label font-bold">RUN</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] font-label font-bold">VAULT</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">wifi_tethering</span>
+<span class="text-[10px] font-label font-bold">SIGNALS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-gray-500">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label font-bold">PROFILE</span>
+</button>
+</div>
+</body></html>
+
+<!-- The Drops (v3) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Epilogue:wght@300..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#006e16",
+                    "primary-fixed-dim": "#e4e400",
+                    "on-secondary-container": "#e6ffdc",
+                    "on-primary-fixed": "#474700",
+                    "error-dim": "#d53d18",
+                    "surface": "#0e0e0e",
+                    "inverse-primary": "#626200",
+                    "surface-container-highest": "#262626",
+                    "primary": "#fffeac",
+                    "surface-dim": "#0e0e0e",
+                    "primary-dim": "#f0f000",
+                    "secondary-dim": "#00ec3b",
+                    "outline-variant": "#494847",
+                    "tertiary": "#ff6e81",
+                    "on-secondary": "#005a10",
+                    "primary-container": "#f3f300",
+                    "on-error-container": "#ffd2c8",
+                    "on-tertiary": "#490012",
+                    "tertiary-dim": "#e7004c",
+                    "surface-container-high": "#201f1f",
+                    "secondary": "#00fc40",
+                    "on-surface": "#ffffff",
+                    "on-primary-fixed-variant": "#646400",
+                    "on-tertiary-container": "#000000",
+                    "on-background": "#ffffff",
+                    "on-error": "#450900",
+                    "on-surface-variant": "#adaaaa",
+                    "on-primary": "#626200",
+                    "surface-variant": "#262626",
+                    "error-container": "#b92902",
+                    "outline": "#777575",
+                    "tertiary-fixed": "#ff909b",
+                    "on-tertiary-fixed": "#39000c",
+                    "on-secondary-fixed": "#00440a",
+                    "background": "#0e0e0e",
+                    "on-secondary-fixed-variant": "#006513",
+                    "tertiary-fixed-dim": "#ff7989",
+                    "on-tertiary-fixed-variant": "#780023",
+                    "secondary-fixed-dim": "#00ec3b",
+                    "surface-container-lowest": "#000000",
+                    "primary-fixed": "#f3f300",
+                    "error": "#ff7351",
+                    "tertiary-container": "#ff0355",
+                    "secondary-fixed": "#00fc40",
+                    "inverse-on-surface": "#565554",
+                    "surface-bright": "#2c2c2c",
+                    "surface-container": "#1a1919",
+                    "on-primary-container": "#5a5a00",
+                    "inverse-surface": "#fcf8f8",
+                    "surface-container-low": "#131313",
+                    "surface-tint": "#fffeac"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Epilogue"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .hazard-stripe {
+            background: repeating-linear-gradient(
+                45deg,
+                #f3f300,
+                #f3f300 10px,
+                #0e0e0e 10px,
+                #0e0e0e 20px
+            );
+        }
+        .slant-container {
+            clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
+        }
+        .distressed-clip-1 { clip-path: polygon(2% 0%, 98% 3%, 100% 95%, 5% 100%, 0% 20%); }
+        .distressed-clip-2 { clip-path: polygon(5% 5%, 100% 0%, 92% 98%, 0% 92%); }
+        .distressed-clip-3 { clip-path: polygon(0% 0%, 95% 10%, 100% 90%, 5% 95%); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-surface overflow-x-hidden">
+<div class="grain-overlay fixed inset-0 z-[100]"></div>
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 bg-[#0e0e0e] docked full-width top-0 h-16 border-b-4 border-[#f3f300] [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]">
+<div class="flex items-center gap-8">
+<div class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg] font-headline uppercase tracking-tighter">HYPECULTURE_TERMINAL</div>
+<div class="hidden md:flex gap-6">
+<a class="text-gray-500 italic font-headline uppercase text-xs hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">LIVE_MARKET</a>
+<a class="text-gray-500 italic font-headline uppercase text-xs hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">VAULT</a>
+<a class="text-[#f3f300] border-b-2 border-[#f3f300] italic font-bold font-headline uppercase text-xs hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">DROPS</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-highest px-3 py-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">sensors</span>
+<span class="font-headline text-[10px] text-primary tracking-widest font-black uppercase">LIVE_FEED</span>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary">bolt</span>
+</div>
+</nav>
+<aside class="fixed left-0 top-16 h-full flex flex-col pt-8 bg-[#0e0e0e] docked left-0 h-full w-64 [clip-path:polygon(0_0,95%_0,100%_100%,0_100%)] z-40 hidden lg:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">terminal</span>
+</div>
+<div>
+<div class="text-[#f3f300] font-black italic font-headline text-sm uppercase">OPERATOR_01</div>
+<div class="text-[8px] text-secondary font-black uppercase tracking-[0.2em]">STATUS: UNKNOWN</div>
+</div>
+</div>
+</div>
+<nav class="flex flex-col font-headline uppercase text-xs font-bold space-y-1">
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-8 group transition-none" href="#">
+<span class="material-symbols-outlined group-hover:scale-110">terminal</span> OPERATIONS
+            </a>
+<a class="bg-[#f3f300] text-[#0e0e0e] skew-x-[-10deg] p-3 mx-2 flex items-center gap-4 px-6 group transition-none" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span> STASH
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-8 group transition-none" href="#">
+<span class="material-symbols-outlined">rss_feed</span> TRANSMISSIONS
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-8 group transition-none" href="#">
+<span class="material-symbols-outlined">hub</span> NETWORK
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-8 group transition-none" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span> ENCRYPTION
+            </a>
+</nav>
+<div class="mt-auto p-4 px-6">
+<button class="w-full bg-primary text-surface font-headline font-black py-4 skew-x-[-6deg] hover:bg-secondary transition-colors uppercase text-xs">
+                INITIALIZE_UPRISING
+            </button>
+</div>
+</aside>
+<main class="lg:ml-64 pt-24 pb-32 px-4 md:px-12 relative overflow-hidden">
+<div class="absolute -top-20 -right-20 pointer-events-none opacity-10">
+<span class="text-[30rem] font-headline font-black italic skew-x-[-15deg] leading-none text-on-surface">DROP</span>
+</div>
+<header class="mb-12 relative z-10">
+<h1 class="text-7xl md:text-9xl font-headline font-black italic tracking-tighter uppercase leading-[0.8] mb-4 text-primary">
+                THE_DROPS<span class="text-secondary">_V3</span>
+</h1>
+<div class="flex items-center gap-4">
+<div class="h-[4px] w-32 hazard-stripe"></div>
+<p class="font-label text-xs font-black uppercase tracking-[0.3em] text-on-surface-variant">SECURE_TERMINAL_V.88_AUTHORIZED_ACCESS_ONLY</p>
+</div>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-x-4 md:gap-y-16 relative">
+<div class="relative group">
+<div class="absolute -top-6 -left-4 font-headline text-8xl font-black italic text-on-surface-variant/10 pointer-events-none select-none z-0">01</div>
+<div class="bg-surface-container-low distressed-clip-1 p-4 relative border-l-4 border-primary transition-all duration-100 hover:skew-y-1 hover:translate-x-2">
+<img class="w-full h-72 object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Side profile of limited edition red sneakers with glowing neon green accents on a dark concrete background with smoke" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDbPQ4XiTbSDHgHSV3ic3Dy8G3bGMb6zv-ntnjW9vP820O3e5z4GIiQ65Zn0NGb5p-Cqn0PYa6JEPsvlr18df0H9tXnyqGYBi97bQTUYOayKVfVtHjBaRTg5z5N65cGF7bynBDBllDLgJvEBFFwZxrE9N3KBgm4EgJp3UBNKUlNSq6E_mUf2-LncvLNEHUDOMt1eJoI1bkrgL1LpAIFT8NM4kC8TRgNRGzDBv22jhYGaI1M-go43AaOxfZWZXr5avuOYwe4geEdbQ"/>
+<div class="mt-4">
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-black italic text-2xl text-primary leading-tight uppercase">CYBER_STRIKE_PRO</h3>
+<div class="bg-secondary text-surface px-2 font-black italic text-xs">LIVE</div>
+</div>
+<div class="flex justify-between mt-2 font-label text-[10px] text-on-surface-variant font-bold">
+<span>SERIAL: #XP-900</span>
+<span>QTY: 12/100</span>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-4 right-0 font-headline text-4xl font-black italic text-secondary/30 pointer-events-none uppercase">STRIKE</div>
+</div>
+<div class="relative group md:translate-y-12">
+<div class="bg-surface-container-low distressed-clip-2 p-4 relative border-r-4 border-secondary transition-all duration-100 hover:-skew-y-1 hover:-translate-x-2">
+<div class="absolute top-2 right-2 hazard-stripe h-2 w-16"></div>
+<img class="w-full h-72 object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Monochrome close-up of high-top designer sneakers with heavy industrial texture and yellow caution labels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwC9zz52JqUBJPH2uF9I2_L5I6GPlB8qOmA0kPIqkboTUbNYrYC1PX2EayjII8jqCYEV6Mssoot1ctHSup3HAXVSaUHaHZvOC_mLIsKIqT1gpFtopLgeiWVCTz5fp4Fq2DkuDb-1SxzvJtzSdKGkLkA4SpDskImZ2wPL5zNZKCma4t4s8ZgA-5ete8piSnXBr-yaNYvWNWpN-a5t3aJjkUq1CAsuwtxHG01VxzTSB6gw_HIjNq9kbQ6JVD4SY3HXB2UEycrC0WqYM"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-secondary leading-tight uppercase">VOID_RUNNER_88</h3>
+<div class="flex justify-between mt-2 font-label text-[10px] text-on-surface-variant font-bold">
+<span>SERIAL: #VR-088</span>
+<span class="text-tertiary">SOLDOUT</span>
+</div>
+</div>
+</div>
+<div class="absolute top-1/2 left-0 font-headline text-5xl font-black italic text-primary/10 pointer-events-none -rotate-90 uppercase">GHOST</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-3 p-4 relative border-b-4 border-tertiary transition-all duration-100 hover:scale-[1.02]">
+<img class="w-full h-72 object-cover grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="Low angle shot of chunky sole sneakers with metallic silver finish and neon pink light reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6w4OMoCzd7K4IdEgAi8EWfjWd9WMq8zz7AyEdzWLtdYa60gLB6nRIzVMMgpAiO6k1rZyCMC3Orv10Rupdi6wamdBERmZ4VGIAMwCEGX5vcTXJdFHPZJl5LhqMc6u3B2xsoLU61qqlNLlUxSDIgp8xqOB6CuF03hOu2Z-V-A4FNdxQAe5cjoKHoJtlkP_ehC8q_ieciP2kqNzT4jQoYUOlDmicKg1TFEZn7jBZhjfdtdfK3BcoFcCN3e5bbaIBGTJir6rhLt-b8Co"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-tertiary leading-tight uppercase">GLITCH_ELITE</h3>
+<div class="flex justify-between mt-2 font-label text-[10px] text-on-surface-variant font-bold">
+<span>SERIAL: #GL-777</span>
+<span>RESERVE: 2.4 ETH</span>
+</div>
+</div>
+</div>
+</div>
+<div class="relative group xl:col-span-2">
+<div class="bg-surface-container-low [clip-path:polygon(0_0,100%_2%,98%_98%,5%_100%)] p-6 flex flex-col md:flex-row gap-6 border-l-8 border-primary hover:bg-surface-variant transition-colors">
+<div class="md:w-1/2 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+<img class="w-full h-80 object-cover" data-alt="Close-up of vibrant street art style sneakers with chaotic paint splashes and heavy leather texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfc9kM0d0Qz6Uv0kyCPVCR8QByx0-QW6bWeXH1rLS4qBjtuDX4cCBd31KHyup3JDRyk2gWdrUV8cLp3kV0hPDIDRXW8pcuPdDqa0nqco6WTDVss-C5EgYTP2uT1CoQzsZSyrRbgDATEZVpcoR6CK_wc9HMRXdEgZIHxFma7ayBBasTjtVaIAH-d8SB-FmgKzqUCkdTnjKic6mTdo6XzhxUMIlow8lKN1z-9H1aezHk_6JFbnFqNHsCKQqxUz6OMxKsbN75p_OXwi4"/>
+</div>
+<div class="md:w-1/2 flex flex-col justify-center">
+<span class="font-label text-[10px] text-primary font-black uppercase mb-2">HYPER_LIMITED_COLLAB</span>
+<h2 class="font-headline font-black italic text-5xl text-on-surface leading-none uppercase mb-4">TOKYO_DRIFT_X1</h2>
+<p class="font-body text-xs text-on-surface-variant mb-6 leading-relaxed">DESIGNED BY OPERATOR_K8. REINFORCED WITH BALLISTIC KEVLAR AND INTEGRATED PULSE CHIPS. 48 HOURS REMAINING.</p>
+<button class="bg-primary text-surface font-headline font-black py-3 px-8 skew-x-[-12deg] hover:bg-secondary self-start transition-all uppercase">INITIALIZE_BID</button>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-1 p-4 relative hover:shadow-[0_0_40px_rgba(243,243,0,0.2)]">
+<img class="w-full h-72 object-cover grayscale" data-alt="Futuristic black sneakers with translucent soles and bright yellow cable laces on industrial flooring" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFDCEC_NQVzKB8K_QEDA-QIdatsgtwnbGeSpi9uythywqa190gaLkCjtjvWBa_oofbSgocjo_FeaOkLnNKbrA3axkXw5PNiVbssUR2urVxFoIRiSOibITL3wEQ27hdtMOsx6XVIIlPN_FOxuc4ihdMSfoxCGcMrfG8z71BwB74cXj7AdriP7zBy5xwpg4x1psmhRex_HNjEAuo-31WV2RsLkCp4q74Zv6LibYBhbFaXVMydDyoENNKGGI1ch1uZTxESKbEH4VsbZ8"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-primary uppercase">SIGNAL_BREAKER</h3>
+<div class="mt-2 hazard-stripe h-1 w-full opacity-50"></div>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-2 p-4 border-t-4 border-secondary">
+<img class="w-full h-72 object-cover grayscale brightness-75" data-alt="Minimalist neon green performance sneakers with carbon fiber details on a textured charcoal surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNZeiVWDezHdpkPshuKXSr8Sib4x9dQyduWZwiZBqqbjw6T2iRQ3h30_GcAg3Y0NkHgoTVUzSWQeLgIk_hF5thFUfC_rVIeP-OVjtonUi_raEWEYM_-5jsTk-9a7PTeQy4fhw9xn-r_BB9SsOtTLqV9em16F7n4KZ6rRyLh_Dld-QeeGa1bRzDxOhwn89FE7aFbYBazYdj_WR4p52ltuhH3kB9fn761eP2wZtxqjmFS6Gt54RGv19KC0SSeNhiURLFuuX1ey8AidM"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-secondary uppercase">CORE_OVERLOAD</h3>
+</div>
+</div>
+</div>
+<div class="relative group md:translate-x-8">
+<div class="bg-surface-container-low distressed-clip-3 p-4 border-r-4 border-tertiary">
+<img class="w-full h-72 object-cover grayscale" data-alt="High-speed photograph of white sneakers with red accents and motion blur effects in a dark urban setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCin7G_dnxFeUS2JM-f1MERxHxfMaRBSw_XvubbWBtn_0Egd-AF4crHq9HLvZo0LVxIQ9554v9smnsB0KI50gNUK5gMy4NYW6YMamkH9N8g1ppvXYqzuXFo0BybGOq58BQmvFQaeQSx6W2vOGy3-1Kg0n03tOHUV66V54tRVD8DQyCILz7gXw60xPoQydZWV458wDtdPRuJL_tHE0-okealxDn4LLCfK9tQWFvNCmybf7uEKE9RsrJaKEiCJ-j1Pjocn9XmVmZrwj4"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-tertiary uppercase">PHANTOM_DRIFT</h3>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low [clip-path:polygon(0_10%,90%_0,100%_90%,10%_100%)] p-4 border-l-4 border-primary">
+<img class="w-full h-72 object-cover grayscale" data-alt="Earth-tone rugged tactical sneakers with heavy lugged soles and utility buckles on wet pavement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSA939K5KAVjZIOVzuFirhAVI6fwUpTHEf99TEkzLas8esqSTOnpteFr83DtbnumOAInXpdVVyopLauVA0O3ZNejLuhqVFGx52dJA2xs3H1CQ4-g7I68qUdmV3YYs5pTTyiC_Hr9lA8AyxyKDyExAlwwmXM5J36ZVIF_Px6yI-gV69XemTngcVKr8hOCDXOzt5svuBZ-TX_-Kq4hdbE1MEbVBskjpkdnZnBBjHyBbq6-M-RjxiVcMsQIMWbNm0V-5VI80upp1iLjw"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-primary uppercase">MUD_PROTOCOL</h3>
+</div>
+</div>
+</div>
+<div class="relative group md:col-span-3">
+<div class="h-16 hazard-stripe mb-4"></div>
+<div class="bg-surface-container p-12 distressed-clip-2 text-center border-4 border-primary flex flex-col items-center">
+<span class="material-symbols-outlined text-8xl text-primary mb-4" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h2 class="font-headline font-black italic text-6xl text-primary uppercase tracking-tighter mb-4">TERMINAL_LOCKED</h2>
+<p class="font-body text-sm max-w-xl text-on-surface-variant uppercase font-bold mb-8">ADDITIONAL DROPS REQUIRE LEVEL 4 ENCRYPTION CLEARANCE. CONTACT SYSTEM OPERATOR FOR ACCESS KEYS.</p>
+<button class="bg-[#f3f300] text-[#0e0e0e] font-headline font-black text-xl py-6 px-16 skew-x-[-15deg] hover:bg-secondary transition-all">DECRYPT_NOW</button>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-1 p-4 border-b-4 border-secondary">
+<img class="w-full h-72 object-cover grayscale" data-alt="Classic canvas sneakers customized with neon graffiti and punk rock style metal studs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkaO5HP_k8IsgXi96kehBZg-RNYp0i0SAdQMAshBJ-a0G74vM0kknSozuN5lft0Jhw9ZrkIo0hkz7olO6ZeZWt8SY3OgwU4nJKmUIVoClHL6aECHm1glfw9oGxBR8mRte63lCE-C6Q0ir-xQ1o773-myEfaJ3Co0pVWhsBWg2SSQAklHb_hlOh132r9pdas6tY8BKNei5eyQOv6sXSKwaPV3LyK2g8yX3bMcfIl1u82sa3AM5A_VQa6yDZ_BT9eTQDc7tZoxOb948"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-secondary uppercase">ANARCHY_CUSTOM</h3>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-2 p-4 border-l-4 border-tertiary">
+<img class="w-full h-72 object-cover grayscale" data-alt="Close up of black sports shoes with glowing pink LED strips integrated into the sole" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqCLzqio0vFZZNcdyWWPkAFoEUCqLjpSllA2IARgxY2nhLvZHhPfck1murfR2Du93vlYz06SvMeY8B2ePdR10nzA3lMgrSshanyb3VAL93sfcAs4qHXRzgp1m3EVWKPYzCkP10RRwFJ7QoAdLH7wDw3Vte5xcaxt_UByUj2vvbmtYsyOZcJKR9l3KFFfHYJ0XX60u3poEj8wctxOuNNzz-rg1WLdzl4O0qDLTyiNyvqwnImh7eEgJ275-6zofc6fOsEEqAxnzh9dE"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-tertiary uppercase">PULSE_RIDER</h3>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container-low distressed-clip-3 p-4 border-t-4 border-primary">
+<img class="w-full h-72 object-cover grayscale" data-alt="Pure white high-tech sneakers with silver mesh and complex lacing system in a sterile blue lit room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUVOO5NDIFnLAiP7b_3Cgfh-yj73u6rWUYdVMZkf52-tEsgh1Z9vrT-ikGwb-j5c8ixvMMFrMdhsL21LdrUnUVgCWO1kJmG9UEviRAt6VRjqUbFC8mL7rNHUNyHMq_oEhlb10quol2U6EaDnKYx5LpuCPeIp7Z0Zyzc-6R7x7pXFyGC7kOCQoz9IrPGyX-HFRofkVWKzoY7qA7gwch-0-CiexKXmumVc0BciUbHsdgpZIgjhDP4918lgQc4MwkNT65HVMqogcq9XQ"/>
+<div class="mt-4">
+<h3 class="font-headline font-black italic text-2xl text-primary uppercase">NEON_GHOST</h3>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center border-t-4 border-[#f3f300] bg-[#0e0e0e]/90 backdrop-blur-md h-20 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)] md:hidden">
+<div class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 font-headline italic font-black text-[10px]">
+<span class="material-symbols-outlined">speed</span>
+            DASH
+        </div>
+<div class="flex flex-col items-center justify-center bg-[#f3f300] text-[#0e0e0e] px-6 py-1 font-headline italic font-black text-[10px]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grain</span>
+            PULSE
+        </div>
+<div class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 font-headline italic font-black text-[10px]">
+<span class="material-symbols-outlined">warning</span>
+            THREATS
+        </div>
+<div class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 font-headline italic font-black text-[10px]">
+<span class="material-symbols-outlined">power_settings_new</span>
+            LOGOUT
+        </div>
+</footer>
+<div class="fixed bottom-8 right-8 z-[60] flex items-center gap-4 group cursor-pointer hidden lg:flex">
+<div class="bg-primary text-surface px-4 py-2 font-headline font-black italic skew-x-[-12deg] translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all uppercase text-xs">INITIALIZE_TRADE</div>
+<div class="w-16 h-16 bg-primary flex items-center justify-center shadow-[0_0_30px_#f3f300]">
+<span class="material-symbols-outlined text-surface text-3xl font-black" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+</body></html>
+
+<!-- The Vault (v3) -->
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Epilogue:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#006e16",
+                    "primary-fixed-dim": "#e4e400",
+                    "on-secondary-container": "#e6ffdc",
+                    "on-primary-fixed": "#474700",
+                    "error-dim": "#d53d18",
+                    "surface": "#0e0e0e",
+                    "inverse-primary": "#626200",
+                    "surface-container-highest": "#262626",
+                    "primary": "#fffeac",
+                    "surface-dim": "#0e0e0e",
+                    "primary-dim": "#f0f000",
+                    "secondary-dim": "#00ec3b",
+                    "outline-variant": "#494847",
+                    "tertiary": "#ff6e81",
+                    "on-secondary": "#005a10",
+                    "primary-container": "#f3f300",
+                    "on-error-container": "#ffd2c8",
+                    "on-tertiary": "#490012",
+                    "tertiary-dim": "#e7004c",
+                    "surface-container-high": "#201f1f",
+                    "secondary": "#00fc40",
+                    "on-surface": "#ffffff",
+                    "on-primary-fixed-variant": "#646400",
+                    "on-tertiary-container": "#000000",
+                    "on-background": "#ffffff",
+                    "on-error": "#450900",
+                    "on-surface-variant": "#adaaaa",
+                    "on-primary": "#626200",
+                    "surface-variant": "#262626",
+                    "error-container": "#b92902",
+                    "outline": "#777575",
+                    "tertiary-fixed": "#ff909b",
+                    "on-tertiary-fixed": "#39000c",
+                    "on-secondary-fixed": "#00440a",
+                    "background": "#0e0e0e",
+                    "on-secondary-fixed-variant": "#006513",
+                    "tertiary-fixed-dim": "#ff7989",
+                    "on-tertiary-fixed-variant": "#780023",
+                    "secondary-fixed-dim": "#00ec3b",
+                    "surface-container-lowest": "#000000",
+                    "primary-fixed": "#f3f300",
+                    "error": "#ff7351",
+                    "tertiary-container": "#ff0355",
+                    "secondary-fixed": "#00fc40",
+                    "inverse-on-surface": "#565554",
+                    "surface-bright": "#2c2c2c",
+                    "surface-container": "#1a1919",
+                    "on-primary-container": "#5a5a00",
+                    "inverse-surface": "#fcf8f8",
+                    "surface-tint": "#fffeac"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Epilogue"],
+                    "label": ["Space Grotesk"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grain-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .hazard-stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                #f3f300,
+                #f3f300 10px,
+                #0e0e0e 10px,
+                #0e0e0e 20px
+            );
+        }
+        .asphalt-texture {
+            background-color: #0e0e0e;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-surface overflow-x-hidden">
+<div class="grain-overlay fixed inset-0 z-[100]"></div>
+<!-- Top Navigation -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 bg-[#0e0e0e] text-[#f3f300] font-['Space_Grotesk'] italic tracking-tighter uppercase docked full-width h-16 border-b-4 border-[#f3f300] [clip-path:polygon(0_0,100%_0,100%_90%,0_100%)]">
+<div class="text-2xl font-black italic text-[#f3f300] skew-x-[-12deg]">HYPECULTURE_TERMINAL</div>
+<div class="hidden md:flex gap-8 items-center h-full">
+<a class="text-gray-500 italic hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">LIVE_MARKET</a>
+<a class="text-[#f3f300] border-b-2 border-[#f3f300] italic font-bold hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">VAULT</a>
+<a class="text-gray-500 italic hover:text-[#00fc40] hover:skew-x-[-6deg] transition-all duration-75" href="#">DROPS</a>
+<div class="flex items-center bg-surface-container-highest px-3 py-1 skew-x-[-10deg] border border-outline-variant/20 ml-4">
+<span class="material-symbols-outlined text-xs mr-2">search</span>
+<input class="bg-transparent border-none outline-none focus:ring-0 text-xs uppercase placeholder:text-outline-variant italic" placeholder="QUERY_STASH" type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined hover:text-[#00fc40] cursor-pointer">sensors</span>
+<span class="material-symbols-outlined hover:text-[#00fc40] cursor-pointer">bolt</span>
+</div>
+</nav>
+<!-- Sidebar -->
+<aside class="fixed left-0 top-16 h-full flex flex-col pt-8 bg-[#0e0e0e] text-[#f3f300] font-['Space_Grotesk'] font-bold uppercase text-xs docked left-0 w-64 [clip-path:polygon(0_0,95%_0,100%_100%,0_100%)] z-40 hidden md:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-highest skew-x-[-12deg] border border-primary/30 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Cyberpunk character portrait with neon lighting and high tech visor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkYdSlg-SXjEWwfeZSwI-C-690u1S6p6rxbDu4Bem5S9n6iDcJNk46YQRT6jtU_KdVi-V1ZWMZmtzKtBG1_ZWqn1QV8gwExXZGSEHsjiQHRobTYDiVuhtdsTQy8yBzvkGaD7sMXYCSfS7pgouYFp_nNd08d8Z0YpqyEULvN2I1_vyUC7KNlH07mekiOUzDq6GwsyNoNwAWmHW3nzv63XLgPj7VTbzlOcleN0ENCP-V2KHiCZMACnc1Numr0srstFk8u_QA5hBkNUQ"/>
+</div>
+<div>
+<div class="text-[#f3f300] font-black italic">OPERATOR_01</div>
+<div class="text-[10px] opacity-60">STATUS: UNKNOWN</div>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-6" href="#">
+<span class="material-symbols-outlined">terminal</span> OPERATIONS
+            </a>
+<a class="bg-[#f3f300] text-[#0e0e0e] skew-x-[-10deg] p-3 mx-2 flex items-center gap-4 px-6" href="#">
+<span class="material-symbols-outlined">inventory_2</span> STASH
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-6" href="#">
+<span class="material-symbols-outlined">rss_feed</span> TRANSMISSIONS
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-6" href="#">
+<span class="material-symbols-outlined">hub</span> NETWORK
+            </a>
+<a class="text-[#f3f300] p-3 hover:bg-[#1a1a1a] flex items-center gap-4 px-6" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span> ENCRYPTION
+            </a>
+</nav>
+<div class="mt-auto p-6 mb-20">
+<button class="w-full bg-primary text-surface py-3 font-black skew-x-[-6deg] hover:brightness-125 transition-all">INITIALIZE_UPRISING</button>
+</div>
+</aside>
+<!-- Main Content: THE_VAULT_V3 -->
+<main class="md:ml-64 pt-24 pb-32 px-6 min-h-screen asphalt-texture relative">
+<header class="mb-12 relative">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-6xl md:text-8xl font-black italic tracking-tighter text-on-surface uppercase skew-x-[-4deg]">THE_VAULT_V3</h1>
+<div class="flex items-center gap-4 mt-2">
+<span class="bg-secondary text-surface px-2 py-1 font-black text-xs skew-x-[-10deg]">ENCRYPTED_ACCESS</span>
+<span class="text-tertiary font-mono text-[10px] tracking-[0.2em]">LATENCY: 14MS // NODE: 77-B</span>
+</div>
+</div>
+<div class="hazard-stripes h-12 w-full md:w-64 [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)]"></div>
+</div>
+</header>
+<!-- Irregular Inventory Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px]">
+<!-- Item 1: Large Featured -->
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-low border-l-4 border-primary relative overflow-hidden group [clip-path:polygon(0_0,100%_0,100%_95%,5%_100%)]">
+<div class="absolute top-0 right-0 p-4 z-10">
+<span class="bg-primary text-surface text-[10px] font-black px-2 py-1 skew-x-[-10deg]">SECURED</span>
+</div>
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" data-alt="ultra-modern glowing red and black sneaker on a dark wet asphalt floor with dramatic spotlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7sr4MN8yOgeVxbcdCTbRFU9mtw-xvkMv7adwSdUPW1BEde43A9Pma4UEOS2qpOfKm8KvJc2ukOtaAof8QIcIxe4jDEKUrew88kZ7SfH71jnk3Hzpc6-Vl7rb6Y-jUNeDpPg4F3ZpDmD_2ZIs6uFGKd90Qe96JG4qIDHjSXxVjEgQM3wbMEkQKDa1whcyp56kijRii2tr2XLqX4w1BTmWRhaiZG9Dk9lwy_5IiS32L8AMVZl7FiAj_B9egUd6ahmJVgKtG9Ry5jjo"/>
+<div class="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black to-transparent">
+<div class="text-primary text-xs font-bold mb-1">// STASH_ID: PX-990</div>
+<div class="text-4xl font-black italic uppercase leading-none">VANGUARD_LIMITLESS</div>
+<div class="flex justify-between items-center mt-4">
+<div class="text-secondary text-2xl font-black italic">$1,240.00</div>
+<button class="bg-primary text-surface px-6 py-2 font-bold skew-x-[-12deg]">WITHDRAW</button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-highest border-t-2 border-tertiary relative overflow-hidden [clip-path:polygon(5%_0,100%_0,100%_100%,0_100%)]">
+<div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')]"></div>
+<img class="w-full h-32 object-cover grayscale brightness-50 mt-4 px-4" data-alt="lime green athletic shoe shot from high angle on dark textured concrete surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ3Yv-txBawX7lV4rnE7pDqz8ToIVrvJuKPbHmG1nvVQXj9OrDbd4l2Jtjn2iXQdbjr9-N4MK6jMkwm1cGqbtXEkgz-SBotwq50JXQg-yaF7tFp8Nyak0w17WxMT1n_SDddkerFYl_E3i8_94ChxnZMF5XR6juR9xf-PUymoNRAP0Cab7ZkJi5ab_STLVKKEPDmDIkQRYGvl2D1zV3IXTmcUJuXmwlOV3_RgA7f8eK0oooK3u8LJ9dpw4jall3_Ug-zGVr_kMYQhU"/>
+<div class="p-4">
+<div class="text-tertiary text-[10px] font-black uppercase">ACCESS_DENIED</div>
+<div class="text-lg font-bold italic leading-tight mt-1">NEON_DRIFTER_V2</div>
+<div class="mt-4 flex items-center gap-2">
+<div class="h-1 w-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-tertiary w-1/3"></div>
+</div>
+<span class="text-[8px] font-mono">33%</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-high relative overflow-hidden group [clip-path:polygon(0_0,90%_0,100%_10%,100%_100%,0_90%)]">
+<div class="absolute top-4 left-4 z-10 text-[8px] text-outline opacity-50 uppercase">STASHED_09:12_UTC</div>
+<img class="w-full h-full object-cover opacity-40 group-hover:opacity-80 transition-opacity" data-alt="clean white and holographic sneaker in a high-tech glass display case with blue light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNsvKpe3BihvNjATf3UIgUdybG-C5JTR-ug63_76dpmPpf-LgYg71MYB0VJX1PCiz9lRYeoN_xothQLbCgLDlyVBfihSOeyDynI8O7HrjnGYU-3HoKLKAeJcN29Y7y0eLKvU4f8nol4t_ZOuGwlmwklUvaNuGL0Q2VMiTin-CccGhDcugNqKyM-uc3wvaIQK2NZC_ZDMl7DmFh_IUAHCCuusVZ-5dNqtZDzdjPW4YG4pImXu8XijTKvcyjZpxG61kdM0GidSSXWI0"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="text-primary/20 font-black text-6xl italic -rotate-12 select-none">HYPE</span>
+</div>
+<div class="absolute bottom-4 left-4">
+<div class="text-on-surface font-black uppercase italic">CLOUD_BREAKER</div>
+</div>
+</div>
+<!-- Item 4: Wide cell -->
+<div class="md:col-span-2 bg-[#1a1919] flex relative overflow-hidden [clip-path:polygon(0_5%,100%_0,95%_100%,0_100%)] border-r-4 border-secondary/50">
+<div class="w-1/2 p-6 flex flex-col justify-between">
+<div>
+<div class="text-secondary text-[10px] font-black mb-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span> SYSTEM_LIVE
+                        </div>
+<div class="text-2xl font-black italic">PHANTOM_GLITCH_XT</div>
+<div class="text-[10px] text-on-surface-variant mt-2 leading-relaxed">BIO-REACTIVE SOLE UNIT // ENCRYPTED LACES // NO-TRACE TREAD</div>
+</div>
+<div class="flex gap-2">
+<div class="bg-surface-container-highest px-3 py-1 text-[10px] font-bold">LVL.42</div>
+<div class="bg-surface-container-highest px-3 py-1 text-[10px] font-bold">RARE</div>
+</div>
+</div>
+<div class="w-1/2 relative bg-surface-container-low overflow-hidden">
+<img class="w-full h-full object-cover hover:scale-125 transition-transform duration-1000" data-alt="heavy techwear boots on a metallic grating with steam and yellow ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpv7pJC_iw83wrvOsKhMjq0y193xlIruYyGm1n9n8-NekzohuXk5LH6ERS48sjsw0ftbkcAEsU6JpnG0FlVzlkChQfRpDWDMgVKsebgHZikz4R3jHwfR7QRHH6a3j5r-9tjN2BQSTdm0tTxAHBiBKkOBmFdEck7ju2KeLqIqngNBiAYpOQr8BZmiqNXRfAf6GZdM7WtcFOS5_fXTZCkCZqT_nTjyoD_oidAQ-aDEYdr_hdTdr0xh9yaOqOvLQNhFW-yRH5F-gaufE"/>
+</div>
+</div>
+<!-- 5-15: Technical Metadata & Smaller Items -->
+<div class="bg-surface-container-low p-4 flex flex-col justify-between border-l border-primary/20">
+<div class="text-[10px] font-mono text-primary/50">CELL_009_DATA</div>
+<img class="h-20 object-contain my-2 self-center filter drop-shadow-[0_0_10px_rgba(255,255,172,0.2)]" data-alt="retro inspired runner shoe with vibrant orange accents on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4HBqXtO99tqWXxooGPUwi25bsXHA-faNrr9ZVgPbfA2Y_w0xlsEn4NQuh66ej1DeMVbZ5lribpYZfJeAFMvsDKZWELmO-A1wYVTiqZuHa12h5c8ISjrvJyqiHWCdUpiJvEJLr1KKAFX95y3Ggq6QezOyjEZGGMD58d39qr-HUBK0URtIwnZdgYZvHF94VMiUuu4gRZLAwk4BhTOPlDPIsrKTd6rRytyz9zf8uKAYnmEqpOpXnYY7XR422COSvTgH4PSf4vkZFHtE"/>
+<div class="flex justify-between items-center">
+<span class="text-xs font-black italic">ORANGE_HEAT</span>
+<span class="material-symbols-outlined text-sm">lock_open</span>
+</div>
+</div>
+<div class="bg-surface-container-highest relative group overflow-hidden">
+<div class="absolute inset-0 hazard-stripes opacity-5 group-hover:opacity-10 transition-opacity"></div>
+<div class="p-4 relative z-10 h-full flex flex-col justify-between">
+<div class="text-tertiary text-xs font-black">HIGH_VOLATILITY</div>
+<div class="text-3xl font-black italic text-center">9.82</div>
+<div class="text-[8px] text-center opacity-50 uppercase tracking-widest">MARKET_MOMENTUM</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 [clip-path:polygon(0_0,100%_15%,100%_100%,0_85%)]">
+<img class="w-full h-full object-cover opacity-50" data-alt="minimalist white designer sneakers on a dark grey stone pedestal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxdha4NReyv9Fd953CpsYpySuh21WeghkBYbaJeO2eruOaYzuwR4rh8sVWBGGqWAygUxNWusl8X1StdHxsKNIs8oLjNHHW2oLgTwcyMBoik7uTVwuRR2oCYlYzeunYEAFBFu2mOGdnaFCed6z51PFG4wZqeqojNNPD3CRs8A0jf_65kLAsjuU4um4CIvYvqZal2bMmZt_0gBgk55bYGZGzUdzI9DS5KNazsokbX2squ2oOg17VPe04DTkoZ4M0WG_Dm6ZHdRaHbo0"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+</div>
+<div class="md:col-span-1 bg-surface-container-high border-b-4 border-secondary flex flex-col p-4 justify-center items-center">
+<span class="material-symbols-outlined text-secondary text-5xl mb-2">bolt</span>
+<div class="text-xs font-black italic">OVERCHARGE_CONNECTED</div>
+</div>
+<!-- Repeated irregular cells for inventory density -->
+<div class="bg-surface-container-low border-r border-b border-outline-variant/10 flex items-center justify-center p-4">
+<img class="max-h-full grayscale hover:grayscale-0 transition-all duration-300" data-alt="classic black and white sneakers in a low light gritty basement setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGIrugwRwYXoGDylIQF8gZbblx_xWdpFDcmWbNrsXb8wq1m8Y4XFGNFNHshaqWuaErm4bZjsAYGqRIRQnjPbja_UYawTrtxWbwR3tTCOjJCpG75thm9cjnAbKP4wX8JnY27jZUCT-IVgYO7ySHJE0XzYtzj0uwjFLhChEM5fQZT1zhd-rLc3SCNti---z0P_cvbMU4iUbOscn0_5fPRkZCdgzhHio73PwZH2dfKQQoKPcrjM9mVfE2jqkCqLvpAOdhhPMhDmrqkPs"/>
+</div>
+<div class="bg-surface-container-highest p-4 flex flex-col justify-between [clip-path:polygon(10%_0,100%_0,90%_100%,0_100%)]">
+<div class="text-right text-[10px] italic text-primary">ID_8827</div>
+<div class="text-xl font-black">CYBER_KICK</div>
+<div class="text-xs text-secondary font-mono tracking-tighter">AUTHENTICATED</div>
+</div>
+<div class="md:row-span-2 bg-[#000000] border-4 border-dashed border-outline-variant/30 flex flex-col items-center justify-center text-outline-variant group cursor-pointer hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-4xl mb-2 group-hover:text-primary">add_box</span>
+<span class="text-[10px] font-black uppercase">EXPAND_VAULT</span>
+</div>
+<div class="bg-surface-container-low overflow-hidden relative border-l-2 border-tertiary">
+<img class="w-full h-full object-cover grayscale opacity-30" data-alt="multi colored vibrant sneakers on a mirrored floor with pink neon glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9V40yureQ9FLfsEiRqfkChI-LBWckHOTrAWMOd2d0I7AS-ihKPowk6eoGzH5dCwlam4XQyr8B-wbGRIXaL252n83NPVSklUBai-2rzlKf1TD16KtKAJ05-TN0aeF59FAsj2VEqNU_YKpTV44-g8RO9fviK9Bcn-POp8aNosRZpl_3n11jVVAU35JqtzfopNnov5cAMcQEKMK-fcuDPaYoRsx0L9DgtOyuALbQcMGCq7z9ogScYJbf3HpFWyrsVaHWjP627vcjaCo"/>
+<div class="absolute bottom-2 right-2 flex flex-col items-end">
+<span class="bg-tertiary text-surface text-[8px] font-black px-1 mb-1 italic uppercase">CRITICAL_LOCK</span>
+<div class="text-xs font-bold uppercase">MIST_RUNNER</div>
+</div>
+</div>
+<div class="bg-surface-container-highest border-b-2 border-primary p-4">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 bg-primary"></div>
+<div class="text-[10px] font-black uppercase">STASH_VOLUME</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="h-2 bg-surface-container-low"><div class="h-full bg-primary w-[88%]"></div></div>
+<div class="h-2 bg-surface-container-low"><div class="h-full bg-primary w-[42%]"></div></div>
+<div class="h-2 bg-surface-container-low"><div class="h-full bg-primary w-[67%]"></div></div>
+</div>
+</div>
+<div class="md:col-span-2 bg-[#121212] [clip-path:polygon(0_0,100%_0,98%_90%,2%_100%)] p-6 flex items-center justify-between">
+<div class="flex gap-4 items-center">
+<div class="w-24 h-24 bg-surface-container-high border border-outline-variant/20 flex items-center justify-center overflow-hidden">
+<img class="w-full object-cover" data-alt="sleek black running shoe on dark background with minimal lighting highlighting the texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByTK883N6P8gpLnyGek_E7x4X8crexP3qFDf1S7eIeEPW4j-pKaLXvhDnsffar5513WfGv3HJ4wYOFPnRFk7wL_1UkgdYn_Emf3YNGkcmysFSbdTISiQctAXx9-gZezQx7dYYKTRQ6gVAOQedZWIMp5-XWvjotlN0CW83lISip_z-TiIK3lgFw4Iqf-K7NkaE5Xr6yBF5XK51FIRx_3YANxBpt4muYxrOnOSUPtxI7ViX4hO50WTJ9YaJSHedp1AfsW2T1JLETsQw"/>
+</div>
+<div>
+<div class="text-2xl font-black italic uppercase">SHADOW_WALKER_ELITE</div>
+<div class="text-secondary text-sm font-mono mt-1">AVAILABLE_FOR_TRANSFER</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-4xl text-primary animate-pulse">lock_open</span>
+</div>
+</div>
+<!-- Floating HUD Element -->
+<div class="fixed bottom-24 right-8 bg-surface-container/60 backdrop-blur-md p-4 border-l-2 border-primary z-40 max-w-xs [clip-path:polygon(0_0,100%_10%,100%_100%,0_90%)]">
+<div class="text-[10px] font-black text-primary uppercase mb-2 flex justify-between">
+<span>SYSTEM_LOG</span>
+<span class="animate-pulse">REC</span>
+</div>
+<div class="font-mono text-[8px] text-on-surface-variant space-y-1">
+<div>&gt; ACCESSING_VAULT_DATABASE...</div>
+<div>&gt; DECRYPTING_GEAR_SLOTS...</div>
+<div>&gt; 15_ITEMS_DETECTED_IN_SECTOR_7</div>
+<div class="text-secondary">&gt; ALL_SYSTEMS_OPERATIONAL</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center border-t-4 border-[#f3f300] bg-[#0e0e0e]/90 backdrop-blur-md h-20 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)] md:hidden">
+<a class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">speed</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-black italic">DASH</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#f3f300] text-[#0e0e0e] px-6 py-1 scale-110" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-black italic uppercase">VAULT</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-black italic">THREATS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#f3f300] opacity-50 hover:opacity-100 transition-all" href="#">
+<span class="material-symbols-outlined">power_settings_new</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-black italic">LOGOUT</span>
+</a>
+</nav>
+</body></html>
