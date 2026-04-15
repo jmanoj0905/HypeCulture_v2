@@ -1,4 +1,4 @@
-import { Component, lazy, type ReactNode, Suspense, useRef } from 'react'
+import { Component, lazy, type ReactNode, Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, ContactShadows, Float } from '@react-three/drei'
 import * as THREE from 'three'
@@ -87,18 +87,22 @@ function CursorCamera() {
   const { camera } = useThree()
   const mouse = useRef({ x: 0, y: 0 })
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
+      mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2
+    }
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [])
+
   useFrame(() => {
     camera.position.x += (mouse.current.x * 0.5 - camera.position.x) * 0.05
     camera.position.y += (mouse.current.y * 0.3 - camera.position.y) * 0.05
     camera.lookAt(0, 0, 0)
   })
-
-  if (typeof window !== 'undefined') {
-    window.addEventListener('mousemove', (e) => {
-      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
-      mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2
-    }, { passive: true })
-  }
 
   return null
 }

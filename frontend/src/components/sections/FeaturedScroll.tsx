@@ -28,7 +28,7 @@ export function FeaturedScroll() {
     const cards = gsap.utils.toArray<HTMLElement>('.featured-card', trackRef.current)
     const totalWidth = trackRef.current.scrollWidth - containerRef.current.offsetWidth
 
-    gsap.to(trackRef.current, {
+    const scrollAnimation = gsap.to(trackRef.current, {
       x: -totalWidth,
       ease: 'none',
       scrollTrigger: {
@@ -41,7 +41,7 @@ export function FeaturedScroll() {
       },
     })
 
-    // Staggered card entrance
+    // Staggered card entrance — link to horizontal scroll animation
     cards.forEach((card, i) => {
       gsap.from(card, {
         opacity: 0,
@@ -50,7 +50,7 @@ export function FeaturedScroll() {
         delay: i * 0.1,
         scrollTrigger: {
           trigger: card,
-          containerAnimation: gsap.getById?.('featured-scroll') ?? undefined,
+          containerAnimation: scrollAnimation,
           start: 'left 80%',
           once: true,
         },

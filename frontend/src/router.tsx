@@ -21,6 +21,7 @@ import { UsersPage } from '@pages/admin/UsersPage'
 import { ProductsPage } from '@pages/admin/ProductsPage'
 import { CatalogPage } from '@pages/admin/CatalogPage'
 import { ReportsPage } from '@pages/admin/ReportsPage'
+import { NotFoundPage } from '@pages/NotFoundPage'
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ export const router = createBrowserRouter([
           { path: 'reports', Component: ReportsPage },
         ],
       },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ])

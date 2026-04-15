@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -76,18 +76,6 @@ export function BrowsePage() {
       },
     })
   }, { scope: gridRef, dependencies: [selectedCat, sort, page] })
-
-  // Re-trigger stagger when filters change
-  useEffect(() => {
-    if (!gridRef.current) return
-    gsap.from(gridRef.current.querySelectorAll('.product-card'), {
-      y: 30,
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power3.out',
-      stagger: 0.06,
-    })
-  }, [selectedCat, sort, page])
 
   const filtered = selectedCat === 0
     ? MOCK_PRODUCTS

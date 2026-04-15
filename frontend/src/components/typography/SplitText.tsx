@@ -1,4 +1,4 @@
-import { useRef, type ElementType } from 'react'
+import { useRef, type ElementType, type Ref } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -57,7 +57,7 @@ export function SplitText({
 
   return (
     <Tag
-      ref={containerRef}
+      ref={containerRef as Ref<HTMLElement>}
       className={`${hoverClass} ${neon?.text ?? ''} ${className}`}
       style={neon ? { textShadow: neon.shadow } : undefined}
     >

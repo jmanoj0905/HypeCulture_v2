@@ -34,11 +34,14 @@ export function OrderCard({ order }: OrderCardProps) {
       })
     } else {
       setOpen(true)
-      gsap.fromTo(
-        detailRef.current,
-        { height: 0, opacity: 0 },
-        { height: 'auto', opacity: 1, duration: 0.4, ease: 'power2.out' }
-      )
+      requestAnimationFrame(() => {
+        if (!detailRef.current) return
+        gsap.fromTo(
+          detailRef.current,
+          { height: 0, opacity: 0 },
+          { height: 'auto', opacity: 1, duration: 0.4, ease: 'power2.out' }
+        )
+      })
     }
   }
 

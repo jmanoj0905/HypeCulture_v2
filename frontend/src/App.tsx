@@ -19,8 +19,8 @@ export default function App() {
     })
     lenisRef.current = lenis
 
-    const raf = (time: number) => {
-      lenis.raf(time * 1000)
+    const raf = () => {
+      lenis.raf(performance.now())
     }
 
     gsap.ticker.add(raf)

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useRef, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useNavigate } from 'react-router'
 import gsap from 'gsap'
 
@@ -15,7 +15,15 @@ export const TransitionContext = createContext<TransitionState>({
 export function TransitionProvider({ children }: { children: ReactNode }) {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const curtainRef = useRef<HTMLDivElement | null>(null)
+  const tlRef = useRef<gsap.core.Timeline | null>(null)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    return () => {
+      tlRef.current?.kill()
+      setIsTransitioning(false)
+    }
+  }, [])
 
   const navigateWithTransition = useCallback((path: string) => {
     if (isTransitioning) return
@@ -30,6 +38,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
     const tl = gsap.timeline({
       onComplete: () => setIsTransitioning(false),
     })
+    tlRef.current = tl
 
     // Curtain slides up from bottom
     tl.set(curtain, { yPercent: 100, display: 'flex' })

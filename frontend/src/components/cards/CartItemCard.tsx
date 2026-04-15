@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { PriceTag } from '@components/ui/PriceTag'
 import type { CartItem } from '@api/cart'
@@ -13,6 +13,10 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
   const cardRef = useRef<HTMLDivElement>(null)
   const [qty, setQty] = useState(item.quantity)
   const [updating, setUpdating] = useState(false)
+
+  useEffect(() => {
+    setQty(item.quantity)
+  }, [item.quantity])
 
   const handleRemove = () => {
     if (!cardRef.current) return

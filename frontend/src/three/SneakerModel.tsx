@@ -19,7 +19,7 @@ export function SneakerModel() {
   return (
     <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.4}>
       <group ref={groupRef} position={[0, -0.5, 0]}>
-        <primitive object={scene} scale={2} />
+        <primitive object={scene} scale={5} />
       </group>
     </Float>
   )

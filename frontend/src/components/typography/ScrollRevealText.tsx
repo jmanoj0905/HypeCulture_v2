@@ -1,4 +1,4 @@
-import { useRef, type ElementType } from 'react'
+import { useRef, type ElementType, type Ref } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -51,7 +51,7 @@ export function ScrollRevealText({
   }, { scope: ref, dependencies: [direction, delay, duration] })
 
   return (
-    <Tag ref={ref} className={className}>
+    <Tag ref={ref as Ref<HTMLElement>} className={className}>
       {children}
     </Tag>
   )

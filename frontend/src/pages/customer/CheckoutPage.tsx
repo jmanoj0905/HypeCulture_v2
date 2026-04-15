@@ -231,7 +231,7 @@ export function CheckoutPage() {
                   variant="primary"
                   size="lg"
                   className="flex-1"
-                  disabled={!address || !city || !state || !zipCode}
+                  disabled={!address.trim() || !city.trim() || !state.trim() || !zipCode.trim()}
                   onClick={() => goToStep(2)}
                 >
                   Continue to Payment
