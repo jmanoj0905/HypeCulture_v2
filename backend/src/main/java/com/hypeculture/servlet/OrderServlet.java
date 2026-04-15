@@ -18,9 +18,10 @@ import java.util.Map;
 /**
  * Handles order endpoints.
  *
- * POST /api/orders       — checkout: create order from cart (UC-06)
- * GET  /api/orders       — order history for logged-in customer (UC-07)
- * GET  /api/orders/{id}  — single order detail
+ * POST /api/orders             — checkout: create order from cart (UC-06)
+ * GET  /api/orders             — order history for logged-in customer (UC-07)
+ * GET  /api/orders/{id}        — single order detail
+ * PUT  /api/orders/{id}/cancel — cancel a PLACED order (customer only)
  */
 @WebServlet("/api/orders/*")
 public class OrderServlet extends HttpServlet {
@@ -41,8 +42,8 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
-        String pathInfo    = req.getPathInfo();
-        int    customerId  = SessionManager.getUserId(req);
+        String pathInfo   = req.getPathInfo();
+        int    customerId = SessionManager.getUserId(req);
 
         // GET /api/orders/{id}
         if (pathInfo != null && pathInfo.length() > 1) {
@@ -84,6 +85,60 @@ public class OrderServlet extends HttpServlet {
                 return;
             }
             JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(order));
+
+        } catch (NumberFormatException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Invalid order ID"));
+        } catch (SQLException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    JsonUtil.error("Database error: " + e.getMessage()));
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // PUT /api/orders/{id}/cancel — customer cancels a PLACED order
+    // ------------------------------------------------------------------
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        if (!SessionManager.isCustomer(req)) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
+                    JsonUtil.error("Customer account required"));
+            return;
+        }
+
+        String pathInfo = req.getPathInfo();
+        if (pathInfo == null || !pathInfo.matches("/\\d+/cancel")) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
+                    JsonUtil.error("Not found"));
+            return;
+        }
+
+        try {
+            int orderId    = Integer.parseInt(pathInfo.split("/")[1]);
+            int customerId = SessionManager.getUserId(req);
+
+            Order order = orderDAO.findById(orderId);
+            if (order == null) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
+                        JsonUtil.error("Order not found"));
+                return;
+            }
+            if (order.getCustomerId() != customerId) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
+                        JsonUtil.error("Access denied"));
+                return;
+            }
+            if (order.getStatus() != Order.Status.PLACED) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_CONFLICT,
+                        JsonUtil.error("Only PLACED orders can be cancelled"));
+                return;
+            }
+
+            orderDAO.updateStatus(orderId, Order.Status.CANCELLED);
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
 
         } catch (NumberFormatException e) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,

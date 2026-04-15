@@ -94,6 +94,24 @@
         <url-pattern>/api/admin/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CategoryServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.CategoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CategoryServlet</servlet-name>
+        <url-pattern>/api/categories/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SellerServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.SellerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SellerServlet</servlet-name>
+        <url-pattern>/api/sellers/*</url-pattern>
+    </servlet-mapping>
+
     <!-- ================================================================
          Session config
          ================================================================ -->
