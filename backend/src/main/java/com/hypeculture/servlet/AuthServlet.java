@@ -26,6 +26,7 @@ import java.util.Map;
  * POST /api/auth/register         — register a new customer account (UC-01)
  * POST /api/auth/register/seller  — register a new seller account (UC-01)
  * GET  /api/auth/me               — return current session user info
+ * PUT  /api/auth/profile          — update shipping address (CUSTOMER only)
  */
 @WebServlet("/api/auth/*")
 public class AuthServlet extends HttpServlet {
@@ -67,6 +68,56 @@ public class AuthServlet extends HttpServlet {
             case "/register/seller"  -> handleRegisterSeller(req, resp);
             default                  -> JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
                                                JsonUtil.error("Not found"));
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // PUT /api/auth/profile — update shipping address (CUSTOMER only)
+    // ------------------------------------------------------------------
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        String path = req.getPathInfo();
+        if (!"/profile".equals(path)) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
+                    JsonUtil.error("Not found"));
+            return;
+        }
+
+        if (!SessionManager.isCustomer(req)) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
+                    JsonUtil.error("Customer account required"));
+            return;
+        }
+
+        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        if (body == null) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Request body required"));
+            return;
+        }
+
+        String address = (String) body.get("shippingAddress");
+        String city    = (String) body.get("city");
+        String state   = (String) body.get("state");
+        String zip     = (String) body.get("zipCode");
+
+        if (address == null || city == null || state == null || zip == null
+                || address.isBlank() || city.isBlank() || state.isBlank() || zip.isBlank()) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("shippingAddress, city, state, and zipCode are required"));
+            return;
+        }
+
+        try {
+            int customerId = SessionManager.getUserId(req);
+            userDAO.updateShippingAddress(customerId, address, city, state, zip);
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
+        } catch (SQLException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    JsonUtil.error("Database error: " + e.getMessage()));
         }
     }
 
