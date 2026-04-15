@@ -23,7 +23,6 @@ import java.util.Map;
  * GET /api/sellers/{id}          — seller profile (username, rating, verified)
  * GET /api/sellers/{id}/listings — active listings for a seller (UC-03)
  */
-@WebServlet("/api/sellers/*")
 public class SellerServlet extends HttpServlet {
 
     private final UserDAO    userDAO    = new UserDAO();

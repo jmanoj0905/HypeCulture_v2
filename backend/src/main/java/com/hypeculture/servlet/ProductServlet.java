@@ -21,7 +21,6 @@ import java.util.List;
  * GET /api/products?search=query  — keyword search across name/brand/model
  * GET /api/products/{id}          — single product by ID
  */
-@WebServlet("/api/products/*")
 public class ProductServlet extends HttpServlet {
 
     private final ProductDAO productDAO = new ProductDAO();

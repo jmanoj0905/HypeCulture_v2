@@ -22,7 +22,6 @@ import java.util.Map;
  * GET  /api/categories/{id} — single category by ID
  * POST /api/categories      — create a new category (ADMIN only)
  */
-@WebServlet("/api/categories/*")
 public class CategoryServlet extends HttpServlet {
 
     private final CategoryDAO categoryDAO = new CategoryDAO();
@@ -93,7 +92,7 @@ public class CategoryServlet extends HttpServlet {
             return;
         }
 
-        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
         if (body == null) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                     JsonUtil.error("Request body required"));

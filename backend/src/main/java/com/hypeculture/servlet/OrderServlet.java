@@ -24,7 +24,6 @@ import java.util.Map;
  * PUT  /api/orders/{id}/cancel — cancel a PLACED order (customer only)
  * GET  /api/orders/seller      — orders containing the seller's listings (SELLER only)
  */
-@WebServlet("/api/orders/*")
 public class OrderServlet extends HttpServlet {
 
     private final OrderDAO orderDAO = new OrderDAO();
@@ -183,7 +182,7 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
-        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
         if (body == null) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                     JsonUtil.error("Request body required"));

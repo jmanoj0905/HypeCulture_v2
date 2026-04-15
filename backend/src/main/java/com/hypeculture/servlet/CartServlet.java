@@ -25,7 +25,6 @@ import java.util.Map;
  * DELETE /api/cart/items/{id} — remove a single item from cart (UC-05)
  * DELETE /api/cart            — clear the entire cart
  */
-@WebServlet("/api/cart/*")
 public class CartServlet extends HttpServlet {
 
     private final CartDAO    cartDAO    = new CartDAO();
@@ -100,7 +99,7 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
         if (body == null) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                     JsonUtil.error("Request body required"));

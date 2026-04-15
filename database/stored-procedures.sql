@@ -70,17 +70,12 @@ CREATE PROCEDURE CreateOrder(
     OUT p_total_amount     DECIMAL(10,2),
     OUT p_error_message    VARCHAR(500)
 )
-BEGIN
+sp_label: BEGIN
     DECLARE v_cart_id        INT DEFAULT NULL;
     DECLARE v_item_count     INT DEFAULT 0;
     DECLARE v_calc_total     DECIMAL(10,2) DEFAULT 0.00;
     DECLARE v_stock_ok       INT DEFAULT 1;
     DECLARE v_bad_listing    INT DEFAULT NULL;
-
-    -- Initialise out-params so they always have a value
-    SET p_order_id      = NULL;
-    SET p_total_amount  = 0.00;
-    SET p_error_message = NULL;
 
     -- Trap any SQL error and roll back
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
@@ -88,6 +83,11 @@ BEGIN
         ROLLBACK;
         SET p_error_message = 'Database error during order creation';
     END;
+
+    -- Initialise out-params so they always have a value
+    SET p_order_id      = NULL;
+    SET p_total_amount  = 0.00;
+    SET p_error_message = NULL;
 
     START TRANSACTION;
 
@@ -184,7 +184,7 @@ CREATE PROCEDURE UpdateListingInventory(
     IN  p_new_stock     INT,
     OUT p_error_message VARCHAR(500)
 )
-BEGIN
+sp_label: BEGIN
     DECLARE v_owner_id INT DEFAULT NULL;
 
     SET p_error_message = NULL;
@@ -236,7 +236,7 @@ CREATE PROCEDURE SoftDeleteListing(
     IN  p_seller_id     INT,
     OUT p_error_message VARCHAR(500)
 )
-BEGIN
+sp_label: BEGIN
     DECLARE v_owner_id     INT     DEFAULT NULL;
     DECLARE v_active_orders INT    DEFAULT 0;
 

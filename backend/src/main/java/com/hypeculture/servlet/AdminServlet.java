@@ -51,7 +51,6 @@ import java.util.Map;
  * Listings
  *   GET /api/admin/listings                    — list all listings
  */
-@WebServlet("/api/admin/*")
 public class AdminServlet extends HttpServlet {
 
     private final UserDAO    userDAO    = new UserDAO();
@@ -180,7 +179,7 @@ public class AdminServlet extends HttpServlet {
             return;
         }
 
-        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
         if (body == null) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                     JsonUtil.error("Request body required"));
@@ -249,7 +248,7 @@ public class AdminServlet extends HttpServlet {
                 String[] parts = path.split("/");
                 int orderId = Integer.parseInt(parts[2]);
 
-                Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+                Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
                 if (body == null) {
                     JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                             JsonUtil.error("Request body required"));
@@ -280,7 +279,7 @@ public class AdminServlet extends HttpServlet {
                 String[] parts = path.split("/");
                 int productId = Integer.parseInt(parts[2]);
 
-                Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+                Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
                 if (body == null) {
                     JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                             JsonUtil.error("Request body required"));

@@ -31,7 +31,6 @@ import java.util.Map;
  * PUT    /api/listings/{id}          — update price + stock (SELLER owner, UC-09)
  * DELETE /api/listings/{id}          — soft-delete listing (SELLER owner, UC-10)
  */
-@WebServlet("/api/listings/*")
 public class ListingServlet extends HttpServlet {
 
     private final ListingDAO listingDAO = new ListingDAO();
@@ -127,7 +126,7 @@ public class ListingServlet extends HttpServlet {
             return;
         }
 
-        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
         if (body == null) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                     JsonUtil.error("Request body required"));
@@ -217,7 +216,7 @@ public class ListingServlet extends HttpServlet {
             int listingId = Integer.parseInt(pathInfo.substring(1));
             int sellerId  = SessionManager.getUserId(req);
 
-            Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+            Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
             if (body == null) {
                 JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                         JsonUtil.error("Request body required"));
