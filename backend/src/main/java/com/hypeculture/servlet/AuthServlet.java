@@ -3,6 +3,7 @@ package com.hypeculture.servlet;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.hypeculture.dao.UserDAO;
 import com.hypeculture.model.Customer;
+import com.hypeculture.model.Seller;
 import com.hypeculture.model.User;
 import com.hypeculture.util.JsonUtil;
 import com.hypeculture.util.SessionManager;
@@ -20,10 +21,11 @@ import java.util.Map;
 /**
  * Handles authentication endpoints.
  *
- * POST /api/auth/login    — verify credentials and start session (UC-01)
- * POST /api/auth/logout   — invalidate session
- * POST /api/auth/register — register a new customer account (UC-01)
- * GET  /api/auth/me       — return current session user info
+ * POST /api/auth/login            — verify credentials and start session (UC-01)
+ * POST /api/auth/logout           — invalidate session
+ * POST /api/auth/register         — register a new customer account (UC-01)
+ * POST /api/auth/register/seller  — register a new seller account (UC-01)
+ * GET  /api/auth/me               — return current session user info
  */
 @WebServlet("/api/auth/*")
 public class AuthServlet extends HttpServlet {
@@ -59,11 +61,12 @@ public class AuthServlet extends HttpServlet {
         if (path == null) path = "/";
 
         switch (path) {
-            case "/login"    -> handleLogin(req, resp);
-            case "/logout"   -> handleLogout(req, resp);
-            case "/register" -> handleRegister(req, resp);
-            default          -> JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
-                                       JsonUtil.error("Not found"));
+            case "/login"            -> handleLogin(req, resp);
+            case "/logout"           -> handleLogout(req, resp);
+            case "/register"         -> handleRegister(req, resp);
+            case "/register/seller"  -> handleRegisterSeller(req, resp);
+            default                  -> JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
+                                               JsonUtil.error("Not found"));
         }
     }
 
@@ -179,6 +182,64 @@ public class AuthServlet extends HttpServlet {
                     JsonUtil.ok(buildUserMap(customer)));
 
         } catch (SQLException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    JsonUtil.error("Registration failed: " + e.getMessage()));
+        }
+    }
+
+    private void handleRegisterSeller(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        Map<?, ?> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        if (body == null) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Request body required"));
+            return;
+        }
+
+        String username = (String) body.get("username");
+        String email    = (String) body.get("email");
+        String password = (String) body.get("password");
+
+        if (username == null || email == null || password == null
+                || username.isBlank() || email.isBlank() || password.isBlank()) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("username, email, and password are required"));
+            return;
+        }
+
+        if (password.length() < 6) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Password must be at least 6 characters"));
+            return;
+        }
+
+        try {
+            if (userDAO.emailExists(email.trim().toLowerCase())) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_CONFLICT,
+                        JsonUtil.error("Email already registered"));
+                return;
+            }
+            if (userDAO.usernameExists(username.trim())) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_CONFLICT,
+                        JsonUtil.error("Username already taken"));
+                return;
+            }
+
+            String hash = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+
+            Seller seller = new Seller(
+                    0, username.trim(), email.trim().toLowerCase(),
+                    hash, User.Status.ACTIVE, null,
+                    java.math.BigDecimal.ZERO, 0, false
+            );
+            userDAO.insertSeller(seller);
+
+            SessionManager.login(req, seller);
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_CREATED,
+                    JsonUtil.ok(buildUserMap(seller)));
+
+        } catch (java.sql.SQLException e) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     JsonUtil.error("Registration failed: " + e.getMessage()));
         }
