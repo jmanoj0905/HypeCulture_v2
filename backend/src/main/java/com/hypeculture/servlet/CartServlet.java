@@ -20,6 +20,7 @@ import java.util.Map;
  * Handles shopping cart endpoints.
  *
  * GET    /api/cart            — get current customer's cart with item count
+ * GET    /api/cart/count      — get item count only (for navbar badge)
  * POST   /api/cart/items      — add item to cart (UC-04)
  * DELETE /api/cart/items/{id} — remove a single item from cart (UC-05)
  * DELETE /api/cart            — clear the entire cart
@@ -31,7 +32,7 @@ public class CartServlet extends HttpServlet {
     private final ListingDAO listingDAO = new ListingDAO();
 
     // ------------------------------------------------------------------
-    // GET /api/cart
+    // GET /api/cart  |  GET /api/cart/count
     // ------------------------------------------------------------------
 
     @Override
@@ -44,8 +45,24 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        int customerId = SessionManager.getUserId(req);
+        String pathInfo  = req.getPathInfo();
+        int    customerId = SessionManager.getUserId(req);
 
+        // GET /api/cart/count — lightweight count only, used for navbar badge
+        if ("/count".equals(pathInfo)) {
+            try {
+                int count = cartDAO.getItemCount(customerId);
+                Map<String, Object> data = new HashMap<>();
+                data.put("count", count);
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(data));
+            } catch (SQLException e) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                        JsonUtil.error("Database error: " + e.getMessage()));
+            }
+            return;
+        }
+
+        // GET /api/cart — full cart with items
         try {
             Cart cart      = cartDAO.getOrCreateCart(customerId);
             int  itemCount = cartDAO.getItemCount(customerId);
