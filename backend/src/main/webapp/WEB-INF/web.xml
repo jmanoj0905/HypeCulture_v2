@@ -7,11 +7,96 @@
 
     <display-name>HypeCulture</display-name>
 
-    <!--
-        Servlet and filter mappings live here.
-        Person 2 (controller) will populate this file.
-        Keeping a valid minimal web.xml so the WAR deploys cleanly.
-    -->
+    <!-- ================================================================
+         Filters
+         ================================================================ -->
+
+    <!-- CORS — must run before AuthFilter so preflight OPTIONS pass through -->
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>com.hypeculture.filter.CorsFilter</filter-class>
+        <init-param>
+            <param-name>allowedOrigin</param-name>
+            <!-- Lock to actual domain in production -->
+            <param-value>http://localhost:5173</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Auth — protects all /api/* except /api/auth/* -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.hypeculture.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ================================================================
+         Servlets
+         ================================================================ -->
+
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.AuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/api/auth/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProductServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.ProductServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductServlet</servlet-name>
+        <url-pattern>/api/products/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ListingServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.ListingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListingServlet</servlet-name>
+        <url-pattern>/api/listings/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/api/cart/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.OrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/api/orders/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.hypeculture.servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/api/admin/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- ================================================================
+         Session config
+         ================================================================ -->
 
     <session-config>
         <!-- 30-minute session timeout -->
