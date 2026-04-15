@@ -153,6 +153,39 @@ public class OrderDAO {
     }
 
     /**
+     * Returns all orders that contain at least one listing belonging to the
+     * given seller. Used by the seller dashboard to track their sales.
+     */
+    public List<Order> findBySeller(int sellerId) throws SQLException {
+        String sql = """
+                SELECT DISTINCT o.*
+                  FROM orders o
+                  JOIN order_items oi ON oi.order_id  = o.order_id
+                  JOIN listings    l  ON l.listing_id = oi.listing_id
+                 WHERE l.seller_id = ?
+                 ORDER BY o.created_at DESC
+                """;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, sellerId);
+            rs = stmt.executeQuery();
+            List<Order> orders = new ArrayList<>();
+            while (rs.next()) {
+                Order order = mapOrderRow(rs);
+                order.setItems(loadItems(order.getOrderId(), conn));
+                orders.add(order);
+            }
+            return orders;
+        } finally {
+            DBConnection.close(conn, stmt, rs);
+        }
+    }
+
+    /**
      * Returns all orders in the system (admin panel).
      * Items are loaded for each order.
      */

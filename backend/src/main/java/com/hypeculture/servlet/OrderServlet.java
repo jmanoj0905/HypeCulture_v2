@@ -22,6 +22,7 @@ import java.util.Map;
  * GET  /api/orders             — order history for logged-in customer (UC-07)
  * GET  /api/orders/{id}        — single order detail
  * PUT  /api/orders/{id}/cancel — cancel a PLACED order (customer only)
+ * GET  /api/orders/seller      — orders containing the seller's listings (SELLER only)
  */
 @WebServlet("/api/orders/*")
 public class OrderServlet extends HttpServlet {
@@ -36,14 +37,33 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        String pathInfo = req.getPathInfo();
+
+        // GET /api/orders/seller — seller views orders containing their listings
+        if ("/seller".equals(pathInfo)) {
+            if (!SessionManager.isSeller(req)) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
+                        JsonUtil.error("Seller account required"));
+                return;
+            }
+            try {
+                int sellerId = SessionManager.getUserId(req);
+                List<Order> orders = orderDAO.findBySeller(sellerId);
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(orders));
+            } catch (SQLException e) {
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                        JsonUtil.error("Database error: " + e.getMessage()));
+            }
+            return;
+        }
+
         if (!SessionManager.isCustomer(req)) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
                     JsonUtil.error("Customer account required"));
             return;
         }
 
-        String pathInfo   = req.getPathInfo();
-        int    customerId = SessionManager.getUserId(req);
+        int customerId = SessionManager.getUserId(req);
 
         // GET /api/orders/{id}
         if (pathInfo != null && pathInfo.length() > 1) {

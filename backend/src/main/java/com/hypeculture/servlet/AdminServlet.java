@@ -17,7 +17,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +41,15 @@ import java.util.Map;
  *   DELETE /api/admin/products/{id}    — deactivate product (UC-13)
  *
  * Orders
- *   GET /api/admin/orders              — list all orders (UC-14)
- *   PUT /api/admin/orders/{id}/status  — update order status (UC-14)
+ *   GET /api/admin/orders                      — list all orders (UC-14)
+ *   PUT /api/admin/orders/{id}/status          — update order status (UC-14)
+ *
+ * Reports
+ *   GET /api/admin/reports/revenue             — total revenue for a date range
+ *   GET /api/admin/reports/top-products        — top selling products for a date range
  *
  * Listings
- *   GET /api/admin/listings            — list all listings
+ *   GET /api/admin/listings                    — list all listings
  */
 @WebServlet("/api/admin/*")
 public class AdminServlet extends HttpServlet {
@@ -94,6 +102,53 @@ public class AdminServlet extends HttpServlet {
             } else if (path.equals("/listings")) {
                 JsonUtil.sendJson(resp, HttpServletResponse.SC_OK,
                         JsonUtil.ok(listingDAO.findAll()));
+
+            // GET /api/admin/reports/revenue?from=YYYY-MM-DD&to=YYYY-MM-DD
+            } else if (path.equals("/reports/revenue")) {
+                String fromParam = req.getParameter("from");
+                String toParam   = req.getParameter("to");
+                if (fromParam == null || toParam == null) {
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                            JsonUtil.error("from and to query params required (YYYY-MM-DD)"));
+                    return;
+                }
+                try {
+                    LocalDate   from    = LocalDate.parse(fromParam);
+                    LocalDate   to      = LocalDate.parse(toParam);
+                    BigDecimal  revenue = orderDAO.getTotalRevenue(from, to);
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("from",    fromParam);
+                    data.put("to",      toParam);
+                    data.put("revenue", revenue);
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(data));
+                } catch (DateTimeParseException e) {
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                            JsonUtil.error("Invalid date format — use YYYY-MM-DD"));
+                }
+
+            // GET /api/admin/reports/top-products?from=YYYY-MM-DD&to=YYYY-MM-DD&limit=N
+            } else if (path.equals("/reports/top-products")) {
+                String fromParam  = req.getParameter("from");
+                String toParam    = req.getParameter("to");
+                String limitParam = req.getParameter("limit");
+                if (fromParam == null || toParam == null) {
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                            JsonUtil.error("from and to query params required (YYYY-MM-DD)"));
+                    return;
+                }
+                try {
+                    LocalDate      from  = LocalDate.parse(fromParam);
+                    LocalDate      to    = LocalDate.parse(toParam);
+                    int            limit = limitParam != null ? Integer.parseInt(limitParam) : 10;
+                    List<Object[]> rows  = orderDAO.getTopSellingProducts(from, to, limit);
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(rows));
+                } catch (DateTimeParseException e) {
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                            JsonUtil.error("Invalid date format — use YYYY-MM-DD"));
+                } catch (NumberFormatException e) {
+                    JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                            JsonUtil.error("Invalid limit value"));
+                }
 
             } else {
                 JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
