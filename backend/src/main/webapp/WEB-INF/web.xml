@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>HypeCulture</display-name>
+
+    <!--
+        Servlet and filter mappings live here.
+        Person 2 (controller) will populate this file.
+        Keeping a valid minimal web.xml so the WAR deploys cleanly.
+    -->
+
+    <session-config>
+        <!-- 30-minute session timeout -->
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <!-- Set secure=true in production (HTTPS) -->
+            <secure>false</secure>
+        </cookie-config>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>

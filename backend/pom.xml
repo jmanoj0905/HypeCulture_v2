@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hypeculture</groupId>
+    <artifactId>hypeculture</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <name>HypeCulture</name>
+    <description>Sneaker reselling marketplace — Jakarta EE backend</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Tomcat 11 ships with Servlet 6.1 / Jakarta EE 11 -->
+        <jakarta.servlet.version>6.1.0</jakarta.servlet.version>
+        <gson.version>2.11.0</gson.version>
+        <mysql.version>8.3.0</mysql.version>
+        <bcrypt.version>0.10.2</bcrypt.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- =====================================================
+             Jakarta Servlet API — provided by Tomcat at runtime
+             ===================================================== -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta.servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- =====================================================
+             Gson — JSON serialisation / deserialisation
+             ===================================================== -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
+        <!-- =====================================================
+             MySQL JDBC Driver — bundled in the WAR
+             ===================================================== -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- =====================================================
+             jBCrypt — password hashing
+             ===================================================== -->
+        <dependency>
+            <groupId>at.favre.lib</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>${bcrypt.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>hypeculture</finalName>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <!-- web.xml is present — no need to fail on missing -->
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
