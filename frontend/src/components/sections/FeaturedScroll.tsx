@@ -1,21 +1,22 @@
+import { useEffect, useState } from 'react'
 import { DragGallery } from '@components/interactive/DragGallery'
 import { TiltCard } from '@components/interactive/TiltCard'
 import { ChapterLabel } from '@components/typography/ChapterLabel'
 import { ScrambleText } from '@components/typography/ScrambleText'
 import { PriceTag } from '@components/ui/PriceTag'
 import { TransitionLink } from '@components/navigation/TransitionLink'
-
-const featured = [
-  { id: 1, name: 'Air Jordan 1 Retro High', brand: 'Nike', price: 189, image: '/images/products/1-air-jordan-1.jpg' },
-  { id: 2, name: 'Yeezy Boost 350 V2', brand: 'Adidas', price: 230, image: '/images/products/2-yeezy-350.jpg' },
-  { id: 3, name: 'Dunk Low Panda', brand: 'Nike', price: 120, image: '/images/products/3-dunk-low-panda.jpg' },
-  { id: 4, name: 'New Balance 550', brand: 'New Balance', price: 110, image: '/images/products/4-nb-550.jpg' },
-  { id: 5, name: 'Air Force 1 Low', brand: 'Nike', price: 100, image: '/images/products/5-air-force-1.jpg' },
-  { id: 6, name: 'Ultra Boost', brand: 'Adidas', price: 180, image: '/images/products/8-ultra-boost.jpg' },
-  { id: 7, name: 'Chuck Taylor 70', brand: 'Converse', price: 85, image: '/images/products/6-chuck-taylor.jpg' },
-]
+import { getProducts, type Product } from '@api/products'
 
 export function FeaturedScroll() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    getProducts({})
+      .then((res) => {
+        if (res.data.success) setProducts(res.data.data.slice(0, 7))
+      })
+      .catch(console.error)
+  }, [])
   return (
     <section className="relative bg-void py-24 lg:py-32 overflow-hidden">
       <div className="max-w-[1600px] mx-auto px-6 lg:px-10 mb-12 flex items-end justify-between gap-6">
@@ -33,10 +34,10 @@ export function FeaturedScroll() {
       </div>
 
       <DragGallery className="pl-6 lg:pl-10 pb-10">
-        {featured.map((p, i) => (
+        {products.map((p, i) => (
           <TransitionLink
-            key={p.id}
-            to={`/product/${p.id}`}
+            key={p.productId}
+            to={`/product/${p.productId}`}
             data-cursor="view"
             className="shrink-0 w-[300px] md:w-[340px] group"
           >
@@ -46,8 +47,8 @@ export function FeaturedScroll() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <img
-                  src={p.image}
-                  alt={p.name}
+                  src={p.imageUrl}
+                  alt={p.shoeName}
                   className="w-full h-full object-cover transition-transform duration-700 ease-[var(--ease-out-quart)] group-hover:scale-105"
                   draggable={false}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
@@ -56,9 +57,8 @@ export function FeaturedScroll() {
                 <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between pointer-events-none">
                   <div>
                     <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-dust mb-1">{p.brand}</p>
-                    <h3 className="font-heading text-base text-white leading-tight max-w-[180px]">{p.name}</h3>
+                    <h3 className="font-heading text-base text-white leading-tight max-w-[180px]">{p.shoeName}</h3>
                   </div>
-                  <PriceTag amount={p.price} size="md" />
                 </div>
               </div>
             </TiltCard>

@@ -21,10 +21,10 @@ export interface Order {
 
 export interface CheckoutPayload {
   shippingAddress: string
-  city: string
-  state: string
-  zipCode: string
-  paymentMethod: 'Credit Card' | 'UPI' | 'Cash on Delivery'
+  shippingCity: string
+  shippingState: string
+  shippingZip: string
+  paymentMethod: 'CREDIT_CARD' | 'UPI' | 'CASH_ON_DELIVERY'
 }
 
 export const checkout = (payload: CheckoutPayload) =>

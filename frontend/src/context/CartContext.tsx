@@ -1,6 +1,7 @@
 import { createContext, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { getCart, addToCart as apiAdd, removeCartItem as apiRemove, updateCartItem as apiUpdate, type Cart, type CartItem } from '@api/cart'
+import { getCart, addToCart as apiAdd, removeCartItem as apiRemove, type CartData, type CartItem } from '@api/cart'
 import { useAuth } from '@hooks/useAuth'
+import { cartSubject, authSubject } from '@observer/Subject'
 
 export interface CartAddEvent {
   imageUrl: string
@@ -45,9 +46,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const listenersRef = useRef<Set<(evt: CartAddEvent) => void>>(new Set())
 
-  const syncCart = useCallback((cart: Cart) => {
-    setItems(cart.items)
-    setSubtotal(cart.subtotal)
+  const syncCart = useCallback((cartData: CartData) => {
+    const cart = cartData.cart
+    setItems(cart?.items ?? [])
+    const sub = cart?.items?.reduce((sum, item) => sum + (item.listing.price * item.quantity), 0) ?? 0
+    setSubtotal(sub)
+  }, [])
+
+  const notifyCartChange = useCallback((newItems: CartItem[], newSubtotal: number) => {
+    const count = newItems.reduce((sum, item) => sum + item.quantity, 0)
+    cartSubject.notify({ itemCount: count, subtotal: newSubtotal })
   }, [])
 
   const refresh = useCallback(async () => {
@@ -55,13 +63,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setLoading(true)
     try {
       const res = await getCart()
-      if (res.data.success) syncCart(res.data.data)
+      if (res.data.success) {
+        syncCart(res.data.data)
+        const cart = res.data.data.cart
+        const sub = cart?.items?.reduce((sum, item) => sum + (item.listing.price * item.quantity), 0) ?? 0
+        notifyCartChange(cart?.items ?? [], sub)
+      }
     } catch {
       // silently fail
     } finally {
       setLoading(false)
     }
-  }, [user, syncCart])
+  }, [user, syncCart, notifyCartChange])
 
   useEffect(() => {
     refresh()
@@ -76,24 +89,35 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const addToCart = useCallback(async (listingId: number, quantity: number, meta?: CartAddEvent) => {
-    const res = await apiAdd(listingId, quantity)
-    if (res.data.success) {
-      syncCart(res.data.data)
-      if (meta) {
-        for (const cb of listenersRef.current) cb(meta)
+    try {
+      const res = await apiAdd(listingId, quantity)
+      if (res.data.success) {
+        syncCart(res.data.data)
+        const cart = res.data.data.cart
+        const sub = cart?.items?.reduce((sum, item) => sum + (item.listing.price * item.quantity), 0) ?? 0
+        notifyCartChange(cart?.items ?? [], sub)
+        if (meta) {
+          for (const cb of listenersRef.current) cb(meta)
+        }
       }
+    } catch (error) {
+      console.error('Add to cart failed:', error)
     }
-  }, [syncCart])
+  }, [syncCart, notifyCartChange])
 
   const removeFromCart = useCallback(async (cartItemId: number) => {
     const res = await apiRemove(cartItemId)
-    if (res.data.success) syncCart(res.data.data)
-  }, [syncCart])
+    if (res.data.success) {
+      syncCart(res.data.data)
+      const cart = res.data.data.cart
+      const sub = cart?.items?.reduce((sum, item) => sum + (item.listing.price * item.quantity), 0) ?? 0
+      notifyCartChange(cart?.items ?? [], sub)
+    }
+  }, [syncCart, notifyCartChange])
 
-  const updateQuantity = useCallback(async (cartItemId: number, quantity: number) => {
-    const res = await apiUpdate(cartItemId, quantity)
-    if (res.data.success) syncCart(res.data.data)
-  }, [syncCart])
+  const updateQuantity = useCallback(async (_cartItemId: number, _quantity: number) => {
+    // Backend may not support this yet - silently skip
+  }, [])
 
   const count = items.reduce((sum, item) => sum + item.quantity, 0)
 

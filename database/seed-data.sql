@@ -24,23 +24,23 @@ INSERT INTO categories (category_name, description) VALUES
 
 -- Admins
 INSERT INTO users (username, email, password_hash, role, admin_level) VALUES
-    ('admin',       'admin@hypeculture.com',   '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'ADMIN', 1),
-    ('superadmin',  'super@hypeculture.com',   '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'ADMIN', 2);
+    ('admin',       'admin@hypeculture.com',   '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'ADMIN', 1),
+    ('superadmin',  'super@hypeculture.com',   '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'ADMIN', 2);
 
 -- Sellers
 INSERT INTO users (username, email, password_hash, role, seller_rating, total_sales, is_verified) VALUES
-    ('kicksvault',    'kicks@vault.com',        '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'SELLER', 4.80, 312, 1),
-    ('solematrix',    'sole@matrix.com',        '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'SELLER', 4.60, 198, 1),
-    ('hypegarage',    'hype@garage.com',        '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'SELLER', 4.20, 87,  0),
-    ('droptrade',     'drop@trade.com',         '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'SELLER', 3.90, 54,  0);
+    ('kicksvault',    'kicks@vault.com',        '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'SELLER', 4.80, 312, 1),
+    ('solematrix',    'sole@matrix.com',        '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'SELLER', 4.60, 198, 1),
+    ('hypegarage',    'hype@garage.com',        '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'SELLER', 4.20, 87,  0),
+    ('droptrade',     'drop@trade.com',         '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'SELLER', 3.90, 54,  0);
 
 -- Customers
 INSERT INTO users (username, email, password_hash, role, shipping_address, city, state, zip_code) VALUES
-    ('jordanfan99',   'jordan@example.com',    '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'CUSTOMER', '12 Oak Street',      'Chicago',      'IL', '60601'),
-    ('sneakerhead42', 'sneaker42@example.com', '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'CUSTOMER', '88 Maple Ave',       'New York',     'NY', '10001'),
-    ('kickcollector', 'kickcol@example.com',   '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'CUSTOMER', '5 Sunset Blvd',      'Los Angeles',  'CA', '90028'),
-    ('freshstepz',    'fresh@example.com',     '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'CUSTOMER', '33 Peachtree Road',  'Atlanta',      'GA', '30301'),
-    ('hypebot2000',   'hypebot@example.com',   '$2a$12$3vWBzWqLvb/KjKTwYl9Z8.6VJgAKs7RfmhpG0OBPGzZ6X2Y7VQNZG', 'CUSTOMER', '7 Congress Ave',     'Austin',       'TX', '78701');
+    ('jordanfan99',   'jordan@example.com',    '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'CUSTOMER', '12 Oak Street',      'Chicago',      'IL', '60601'),
+    ('sneakerhead42', 'sneaker42@example.com', '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'CUSTOMER', '88 Maple Ave',       'New York',     'NY', '10001'),
+    ('kickcollector', 'kickcol@example.com',   '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'CUSTOMER', '5 Sunset Blvd',      'Los Angeles',  'CA', '90028'),
+    ('freshstepz',    'fresh@example.com',     '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'CUSTOMER', '33 Peachtree Road',  'Atlanta',      'GA', '30301'),
+    ('hypebot2000',   'hypebot@example.com',   '$2a$12$UG0ehJiQWNQe77y4Ttm/nefQFTFKz229U7bFrgF9YQIgTFUOjTkP.', 'CUSTOMER', '7 Congress Ave',     'Austin',       'TX', '78701');
 
 -- =============================================================
 -- PRODUCTS  (master catalog)

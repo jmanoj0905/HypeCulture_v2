@@ -17,6 +17,9 @@ export default defineConfig({
       '@layouts': path.resolve(__dirname, './src/layouts'),
       '@context': path.resolve(__dirname, './src/context'),
       '@lib': path.resolve(__dirname, './src/lib'),
+      '@observer': path.resolve(__dirname, './src/observer'),
+      '@strategies': path.resolve(__dirname, './src/strategies'),
+      '@states': path.resolve(__dirname, './src/states'),
     },
   },
   server: {

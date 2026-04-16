@@ -33,7 +33,10 @@
       "@three/*": ["src/three/*"],
       "@layouts/*": ["src/layouts/*"],
       "@context/*": ["src/context/*"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@observer/*": ["src/observer/*"],
+      "@strategies/*": ["src/strategies/*"],
+      "@states/*": ["src/states/*"]
     }
   },
   "include": ["src"]

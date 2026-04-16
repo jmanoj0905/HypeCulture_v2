@@ -28,6 +28,7 @@ public class SessionManager {
         HttpSession old = req.getSession(false);
         if (old != null) old.invalidate();
         HttpSession session = req.getSession(true);
+        session.setMaxInactiveInterval(30 * 60);
         session.setAttribute(ATTR_USER_ID,  user.getUserId());
         session.setAttribute(ATTR_ROLE,     user.getRole().name());
         session.setAttribute(ATTR_USERNAME, user.getUsername());

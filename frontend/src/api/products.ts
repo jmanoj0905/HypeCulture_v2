@@ -11,35 +11,39 @@ export interface Product {
   shoeName: string
   brand: string
   model: string
-  categoryId: number
+  category: Category
   imageUrl: string
   description: string
-  lowestPrice?: number
-  listingCount?: number
+  active: boolean
+  createdAt: string
 }
 
 export interface Listing {
   listingId: number
   product: Product
   seller: { userId: number; username: string; sellerRating: number }
-  size: string
-  condition: 'New' | 'Used'
+  size: number
+  condition: 'NEW' | 'USED'
   price: number
   stockQuantity: number
-  status: string
+  status: 'ACTIVE'
+  description?: string
+  imageUrl?: string
+  createdAt: string
+  updatedAt?: string
 }
 
 export const getCategories = () =>
   client.get<{ success: boolean; data: Category[] }>('/categories')
 
-export const getProducts = (params: { category?: number; sort?: string; page?: number }) =>
-  client.get<{ success: boolean; data: { products: Product[]; totalPages: number; currentPage: number } }>('/products', { params })
+export const getProducts = (params?: { category?: number; sort?: string; page?: number }) =>
+  client.get<{ success: boolean; data: Product[] }>('/products', { params })
 
 export const getProduct = (id: number) =>
   client.get<{ success: boolean; data: Product }>(`/products/${id}`)
 
 export const getListingsForProduct = (productId: number) =>
-  client.get<{ success: boolean; data: Listing[] }>(`/products/${productId}/sellers`)
+  client.get<{ success: boolean; data: Listing[] }>(`/listings`, { params: { productId } })
 
 export const searchProducts = (query: string) =>
   client.get<{ success: boolean; data: Product[] }>('/products/search', { params: { q: query } })
