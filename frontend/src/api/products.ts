@@ -16,6 +16,8 @@ export interface Product {
   description: string
   active: boolean
   createdAt: string
+  lowestPrice?: number
+  listingCount?: number
 }
 
 export interface Listing {

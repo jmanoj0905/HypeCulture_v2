@@ -8,6 +8,7 @@ export function BrowsePage() {
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
+  const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc'>('default')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -23,6 +24,14 @@ export function BrowsePage() {
   const filteredProducts = selectedCategory
     ? products.filter(p => p.category?.categoryId === selectedCategory)
     : products
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = a.lowestPrice ?? 0
+    const priceB = b.lowestPrice ?? 0
+    if (sortBy === 'price-asc') return priceA - priceB
+    if (sortBy === 'price-desc') return priceB - priceA
+    return 0
+  })
 
   if (loading) {
     return (
@@ -60,10 +69,19 @@ export function BrowsePage() {
             {cat.categoryName.toUpperCase()}
           </button>
         ))}
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+          className="ml-auto bg-asphalt border border-smoke text-chalk px-4 py-2 font-mono text-sm"
+        >
+          <option value="default">SORT: DEFAULT</option>
+          <option value="price-asc">PRICE: LOW → HIGH</option>
+          <option value="price-desc">PRICE: HIGH → LOW</option>
+        </select>
       </div>
 
       <div className="text-white grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {filteredProducts.map(p => (
+        {sortedProducts.map(p => (
           <div
             key={p.productId}
             onClick={() => navigate(`/product/${p.productId}`)}
@@ -71,6 +89,9 @@ export function BrowsePage() {
           >
             <h2 className="text-lg">{p.shoeName}</h2>
             <p className="text-dust text-sm">{p.brand}</p>
+            {p.lowestPrice && (
+              <p className="text-neon-green font-mono mt-2">${p.lowestPrice}</p>
+            )}
           </div>
         ))}
       </div>
