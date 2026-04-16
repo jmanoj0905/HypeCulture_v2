@@ -5,6 +5,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AuthProvider } from '@context/AuthContext'
 import { CartProvider } from '@context/CartContext'
+import { Preloader } from '@components/system/Preloader'
+import { MagneticCursor } from '@components/cursor/MagneticCursor'
 import { router } from './router'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -13,9 +15,13 @@ export default function App() {
   const lenisRef = useRef<Lenis | null>(null)
 
   useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return
+
     const lenis = new Lenis({
       autoRaf: false,
-      lerp: 0.1,
+      lerp: 0.08,
+      smoothWheel: true,
     })
     lenisRef.current = lenis
 
@@ -25,7 +31,6 @@ export default function App() {
 
     gsap.ticker.add(raf)
     gsap.ticker.lagSmoothing(0)
-
     lenis.on('scroll', ScrollTrigger.update)
 
     return () => {
@@ -37,6 +42,8 @@ export default function App() {
   return (
     <AuthProvider>
       <CartProvider>
+        <Preloader />
+        <MagneticCursor />
         <RouterProvider router={router} />
       </CartProvider>
     </AuthProvider>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ProductCard } from '@components/cards/ProductCard'
 import { NeonDivider } from '@components/ui/NeonDivider'
 import { Spinner } from '@components/ui/Spinner'
+import { MagneticButton } from '@components/interactive/MagneticButton'
 import type { Category, Product } from '@api/products'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -33,11 +34,78 @@ const MOCK_PRODUCTS: Product[] = [
   { productId: 12, shoeName: 'Gel-Kayano 29', brand: 'ASICS', model: 'Gel-Kayano', categoryId: 3, imageUrl: '/images/products/12-asics-gel-kayano.jpg', description: '', lowestPrice: 135, listingCount: 5 },
 ]
 
+function CategoryPill({ category, active, onClick }: { category: { categoryId: number; categoryName: string }; active: boolean; onClick: () => void }) {
+  return (
+    <MagneticButton as="div" strength={0.3} radius={80}>
+      <button
+        onClick={onClick}
+        className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
+          ${active
+            ? 'bg-neon-green text-void border-neon-green'
+            : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
+          }`}
+      >
+        {category.categoryName}
+      </button>
+    </MagneticButton>
+  )
+}
+
+function SortOption({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+  return (
+    <MagneticButton as="div" strength={0.2} radius={60}>
+      <button
+        onClick={onClick}
+        className={`font-mono text-xs uppercase tracking-wider transition-colors duration-200
+          ${active ? 'text-neon-green' : 'text-dust hover:text-chalk'}`}
+      >
+        {label}
+      </button>
+    </MagneticButton>
+  )
+}
+
+function MasonryGrid({ products }: { products: Product[] }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(() => {
+    if (!containerRef.current) return
+    const cards = containerRef.current.querySelectorAll('.masonry-item')
+    
+    gsap.from(cards, {
+      y: 60,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power4.out',
+      stagger: 0.06,
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 85%',
+        once: true,
+      },
+    })
+  }, { scope: containerRef })
+
+  return (
+    <div ref={containerRef} className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+      {products.map((product, i) => (
+        <div
+          key={product.productId}
+          className="masonry-item break-inside-avoid"
+          style={{ animationDelay: `${i * 50}ms` }}
+        >
+          <ProductCard product={product} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 type SortKey = 'price_asc' | 'price_desc' | 'newest'
 
 const SORT_LABELS: Record<SortKey, string> = {
-  price_asc: 'Price: Low → High',
-  price_desc: 'Price: High → Low',
+  price_asc: 'Price ↑',
+  price_desc: 'Price ↓',
   newest: 'Newest',
 }
 
@@ -48,7 +116,7 @@ function sortProducts(products: Product[], sort: SortKey): Product[] {
   return copy.sort((a, b) => b.productId - a.productId)
 }
 
-const PAGE_SIZE = 8
+const PAGE_SIZE = 12
 
 export function BrowsePage() {
   const { categoryId } = useParams<{ categoryId?: string }>()
@@ -56,148 +124,120 @@ export function BrowsePage() {
 
   const [selectedCat, setSelectedCat] = useState(initialCat)
   const [sort, setSort] = useState<SortKey>('newest')
-  const [page, setPage] = useState(1)
-  const [loading] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  // Stagger cards on scroll
-  useGSAP(() => {
-    if (!gridRef.current) return
-    gsap.from(gridRef.current.querySelectorAll('.product-card'), {
-      y: 40,
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-      stagger: 0.08,
-      scrollTrigger: {
-        trigger: gridRef.current,
-        start: 'top 85%',
-        once: true,
-      },
-    })
-  }, { scope: gridRef, dependencies: [selectedCat, sort, page] })
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [loading, setLoading] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const filtered = selectedCat === 0
     ? MOCK_PRODUCTS
     : MOCK_PRODUCTS.filter((p) => p.categoryId === selectedCat)
 
   const sorted = sortProducts(filtered, sort)
-  const totalPages = Math.ceil(sorted.length / PAGE_SIZE)
-  const paged = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const hasMore = visibleCount < sorted.length
 
   const handleCatChange = (id: number) => {
     setSelectedCat(id)
-    setPage(1)
+    setVisibleCount(PAGE_SIZE)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const loadMore = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setVisibleCount((c) => Math.min(c + PAGE_SIZE, sorted.length))
+      setLoading(false)
+    }, 400)
+  }
+
+  const paged = sorted.slice(0, visibleCount)
+
   return (
-    <div className="min-h-screen bg-void pt-8 pb-24">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <h1 className="font-display text-7xl text-white tracking-wider">
-          BROWSE<span className="text-neon-green">.</span>
-        </h1>
-        <NeonDivider className="mt-3 mb-8" />
+    <div className="min-h-screen bg-void">
+      {/* Hero header */}
+      <section className="pt-8 pb-6">
+        <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
+          <h1 className="font-display text-6xl lg:text-8xl text-white tracking-tighter">
+            BROWSE
+            <span className="text-neon-green">.</span>
+          </h1>
+          
+          {/* Filter bar */}
+          <div className="mt-6 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
+            {/* Category pills */}
+            <div className="flex flex-wrap gap-2">
+              <MagneticButton as="div" strength={0.3} radius={80}>
+                <button
+                  onClick={() => handleCatChange(0)}
+                  className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
+                    ${selectedCat === 0
+                      ? 'bg-neon-green text-void border-neon-green'
+                      : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
+                    }`}
+                >
+                  All
+                </button>
+              </MagneticButton>
+              {MOCK_CATEGORIES.map((cat) => (
+                <CategoryPill
+                  key={cat.categoryId}
+                  category={cat}
+                  active={selectedCat === cat.categoryId}
+                  onClick={() => handleCatChange(cat.categoryId)}
+                />
+              ))}
+            </div>
 
-        {/* Category pills */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <button
-            onClick={() => handleCatChange(0)}
-            className={`font-heading text-xs uppercase tracking-widest px-4 py-2 border transition-all duration-200
-              ${selectedCat === 0
-                ? 'bg-neon-green text-void border-neon-green'
-                : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
-              }`}
-          >
-            All
-          </button>
-          {MOCK_CATEGORIES.map((cat) => (
-            <button
-              key={cat.categoryId}
-              onClick={() => handleCatChange(cat.categoryId)}
-              className={`font-heading text-xs uppercase tracking-widest px-4 py-2 border transition-all duration-200
-                ${selectedCat === cat.categoryId
-                  ? 'bg-neon-green text-void border-neon-green'
-                  : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
-                }`}
-            >
-              {cat.categoryName}
-            </button>
-          ))}
+            {/* Sort + count */}
+            <div className="flex items-center gap-4 lg:ml-auto">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs text-smoke uppercase tracking-wider">Sort</span>
+                {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
+                  <SortOption
+                    key={key}
+                    label={SORT_LABELS[key]}
+                    active={sort === key}
+                    onClick={() => setSort(key)}
+                  />
+                ))}
+              </div>
+              <span className="font-mono text-xs text-smoke">
+                {filtered.length} items
+              </span>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Sort controls */}
-        <div className="flex items-center gap-3 mb-8">
-          <span className="font-mono text-xs text-smoke uppercase tracking-wider">Sort:</span>
-          {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
-            <button
-              key={key}
-              onClick={() => setSort(key)}
-              className={`font-mono text-xs uppercase tracking-wider transition-colors duration-200
-                ${sort === key ? 'text-neon-green' : 'text-dust hover:text-chalk'}`}
-            >
-              {SORT_LABELS[key]}
-            </button>
-          ))}
-
-          <span className="ml-auto font-mono text-xs text-smoke">
-            {filtered.length} results
-          </span>
+      {/* Products grid */}
+      <section className="pb-24">
+        <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
+          {paged.length === 0 ? (
+            <div className="text-center py-24">
+              <p className="font-display text-5xl text-smoke/40">NO DROPS</p>
+              <p className="font-body text-dust mt-3">Nothing here yet. Check back soon.</p>
+            </div>
+          ) : (
+            <>
+              <MasonryGrid products={paged} />
+              
+              {/* Load more */}
+              {hasMore && (
+                <div className="flex justify-center mt-12">
+                  <MagneticButton as="div" strength={0.4}>
+                    <button
+                      onClick={loadMore}
+                      disabled={loading}
+                      className="px-8 py-3 border border-smoke text-dust font-heading text-xs uppercase tracking-widest hover:border-neon-green hover:text-neon-green transition-all duration-200"
+                    >
+                      {loading ? 'Loading...' : 'Load More'}
+                    </button>
+                  </MagneticButton>
+                </div>
+              )}
+            </>
+          )}
         </div>
-
-        {/* Grid */}
-        {loading ? (
-          <div className="flex items-center justify-center py-24">
-            <Spinner size="lg" />
-          </div>
-        ) : paged.length === 0 ? (
-          <div className="text-center py-24">
-            <p className="font-display text-5xl text-smoke/40">NO DROPS</p>
-            <p className="font-body text-dust mt-3">Nothing here yet. Check back soon.</p>
-          </div>
-        ) : (
-          <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {paged.map((product) => (
-              <ProductCard key={product.productId} product={product} />
-            ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-12">
-            <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="font-mono text-sm text-dust hover:text-neon-green disabled:opacity-30 transition-colors px-2"
-            >
-              ←
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <button
-                key={p}
-                onClick={() => setPage(p)}
-                className={`font-mono text-sm w-8 h-8 border transition-all duration-200
-                  ${p === page
-                    ? 'border-neon-green text-neon-green'
-                    : 'border-smoke text-dust hover:border-neon-green hover:text-neon-green'
-                  }`}
-              >
-                {p}
-              </button>
-            ))}
-
-            <button
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages}
-              className="font-mono text-sm text-dust hover:text-neon-green disabled:opacity-30 transition-colors px-2"
-            >
-              →
-            </button>
-          </div>
-        )}
-      </div>
+      </section>
     </div>
   )
 }

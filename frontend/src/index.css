@@ -11,7 +11,7 @@
   --color-chalk: #e0e0e0;
   --color-white: #f5f5f5;
 
-  /* Neon accents */
+  /* Neon accents — green now canonical; others kept for legacy pages */
   --color-neon-green: #39ff14;
   --color-neon-pink: #ff2d7b;
   --color-neon-cyan: #00f0ff;
@@ -35,9 +35,10 @@
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Base styles */
+/* Base */
 html {
   background-color: var(--color-void);
   color: var(--color-chalk);
@@ -52,38 +53,121 @@ body {
   overflow-x: hidden;
 }
 
-/* Noise grain overlay */
+/* Hide native cursor when custom cursor active (toggled by MagneticCursor) */
+html[data-cursor="custom"],
+html[data-cursor="custom"] * {
+  cursor: none !important;
+}
+
+/* Grain overlay */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 50;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.06;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-void);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-smoke);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-dust);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-void); }
+::-webkit-scrollbar-thumb { background: var(--color-smoke); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-dust); }
 
 /* Selection */
 ::selection {
   background-color: rgba(57, 255, 20, 0.25);
   color: var(--color-white);
+}
+
+/* Mega display type util */
+.text-mega {
+  font-family: var(--font-family-display);
+  font-size: clamp(5rem, 18vw, 20rem);
+  line-height: 0.82;
+  letter-spacing: -0.01em;
+}
+
+.text-hero {
+  font-family: var(--font-family-display);
+  font-size: clamp(3.5rem, 9vw, 9rem);
+  line-height: 0.85;
+}
+
+/* Marquee keyframes */
+@keyframes marquee-ltr {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marquee-rtl {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee-ltr var(--marquee-duration, 30s) linear infinite;
+  animation-play-state: var(--marquee-state, running);
+}
+
+.marquee-track[data-dir="rtl"] {
+  animation-name: marquee-rtl;
+}
+
+/* Preloader bar fill */
+@keyframes preloader-bar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Chromatic aberration hover helper — applied via class toggle in HoverAberration */
+.aberration-target {
+  position: relative;
+  display: inline-block;
+}
+
+.aberration-target::before,
+.aberration-target::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-quart), transform 0.3s var(--ease-out-quart);
+  mix-blend-mode: screen;
+}
+
+.aberration-target::before { color: #ff2d7b; }
+.aberration-target::after  { color: #00f0ff; }
+
+.aberration-target:hover::before {
+  opacity: 0.9;
+  transform: translate3d(-3px, 0, 0);
+}
+
+.aberration-target:hover::after {
+  opacity: 0.9;
+  transform: translate3d(3px, 0, 0);
+}
+
+/* Reduced motion: kill everything decorative */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .marquee-track { animation: none !important; }
+
+  html[data-cursor="custom"],
+  html[data-cursor="custom"] * {
+    cursor: auto !important;
+  }
 }

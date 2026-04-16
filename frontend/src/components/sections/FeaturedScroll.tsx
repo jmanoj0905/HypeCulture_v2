@@ -1,109 +1,71 @@
-import { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ScrollRevealText } from '@components/typography/ScrollRevealText'
-import { NeonDivider } from '@components/ui/NeonDivider'
+import { DragGallery } from '@components/interactive/DragGallery'
+import { TiltCard } from '@components/interactive/TiltCard'
+import { ChapterLabel } from '@components/typography/ChapterLabel'
+import { ScrambleText } from '@components/typography/ScrambleText'
 import { PriceTag } from '@components/ui/PriceTag'
 import { TransitionLink } from '@components/navigation/TransitionLink'
 
-gsap.registerPlugin(ScrollTrigger)
-
-// Mock featured products (replaced by API data later)
 const featured = [
   { id: 1, name: 'Air Jordan 1 Retro High', brand: 'Nike', price: 189, image: '/images/products/1-air-jordan-1.jpg' },
   { id: 2, name: 'Yeezy Boost 350 V2', brand: 'Adidas', price: 230, image: '/images/products/2-yeezy-350.jpg' },
   { id: 3, name: 'Dunk Low Panda', brand: 'Nike', price: 120, image: '/images/products/3-dunk-low-panda.jpg' },
   { id: 4, name: 'New Balance 550', brand: 'New Balance', price: 110, image: '/images/products/4-nb-550.jpg' },
   { id: 5, name: 'Air Force 1 Low', brand: 'Nike', price: 100, image: '/images/products/5-air-force-1.jpg' },
+  { id: 6, name: 'Ultra Boost', brand: 'Adidas', price: 180, image: '/images/products/8-ultra-boost.jpg' },
+  { id: 7, name: 'Chuck Taylor 70', brand: 'Converse', price: 85, image: '/images/products/6-chuck-taylor.jpg' },
 ]
 
 export function FeaturedScroll() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-
-  useGSAP(() => {
-    if (!containerRef.current || !trackRef.current) return
-
-    const cards = gsap.utils.toArray<HTMLElement>('.featured-card', trackRef.current)
-    const totalWidth = trackRef.current.scrollWidth - containerRef.current.offsetWidth
-
-    const scrollAnimation = gsap.to(trackRef.current, {
-      x: -totalWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top top',
-        end: () => `+=${totalWidth}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-      },
-    })
-
-    // Staggered card entrance — link to horizontal scroll animation
-    cards.forEach((card, i) => {
-      gsap.from(card, {
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.6,
-        delay: i * 0.1,
-        scrollTrigger: {
-          trigger: card,
-          containerAnimation: scrollAnimation,
-          start: 'left 80%',
-          once: true,
-        },
-      })
-    })
-  }, { scope: containerRef })
-
   return (
-    <section ref={containerRef} className="relative bg-void overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 pt-20 pb-8">
-        <ScrollRevealText as="h2" className="font-display text-6xl text-white tracking-wider">
-          TRENDING NOW
-        </ScrollRevealText>
-        <NeonDivider className="mt-4 mb-8" />
+    <section className="relative bg-void py-24 lg:py-32 overflow-hidden">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-10 mb-12 flex items-end justify-between gap-6">
+        <div>
+          <ChapterLabel number="02" title="Trending" className="mb-5" />
+          <h2 className="font-display text-6xl md:text-7xl text-white tracking-wider leading-none">
+            <ScrambleText>MOST</ScrambleText>{' '}
+            <span className="text-neon-green"><ScrambleText>WANTED.</ScrambleText></span>
+          </h2>
+        </div>
+        <p className="hidden md:block font-mono text-[10px] uppercase tracking-[0.3em] text-dust max-w-xs text-right">
+          Drag · scroll · swipe<br />
+          <span className="text-neon-green">/07</span>
+        </p>
       </div>
 
-      <div ref={trackRef} className="flex gap-6 px-6 pb-20" style={{ width: 'max-content' }}>
-        {featured.map((product) => (
+      <DragGallery className="pl-6 lg:pl-10 pb-10">
+        {featured.map((p, i) => (
           <TransitionLink
-            key={product.id}
-            to={`/product/${product.id}`}
-            className="featured-card flex-shrink-0 w-80 group"
+            key={p.id}
+            to={`/product/${p.id}`}
+            data-cursor="view"
+            className="shrink-0 w-[300px] md:w-[340px] group"
           >
-            <div className="relative bg-asphalt border border-smoke overflow-hidden
-                            transition-all duration-300 ease-[var(--ease-out-expo)]
-                            group-hover:border-neon-green/50
-                            group-hover:shadow-[0_0_30px_rgba(57,255,20,0.1)]">
-              {/* Image placeholder */}
-              <div className="h-72 bg-concrete flex items-center justify-center
-                              transition-transform duration-500 ease-[var(--ease-out-expo)]
-                              group-hover:scale-105">
-                <span className="font-display text-4xl text-smoke/50 tracking-wider">
-                  {product.brand.charAt(0)}
+            <TiltCard className="block">
+              <div className="relative aspect-[4/5] bg-asphalt border border-smoke/60 overflow-hidden transition-colors duration-500 group-hover:border-neon-green/50">
+                <span className="absolute top-4 left-4 z-10 font-mono text-[10px] uppercase tracking-[0.3em] text-dust">
+                  {String(i + 1).padStart(2, '0')}
                 </span>
-              </div>
-
-              {/* Info */}
-              <div className="p-5">
-                <p className="font-mono text-xs text-dust uppercase">{product.brand}</p>
-                <h3 className="font-heading text-lg text-white mt-1 leading-tight">{product.name}</h3>
-                <div className="mt-3 flex items-center justify-between">
-                  <PriceTag amount={product.price} size="md" />
-                  <span className="font-mono text-xs text-dust opacity-0 translate-y-2
-                                   group-hover:opacity-100 group-hover:translate-y-0
-                                   transition-all duration-300">
-                    View &rarr;
-                  </span>
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-[var(--ease-out-quart)] group-hover:scale-105"
+                  draggable={false}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-void via-void/20 to-transparent opacity-70 pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between pointer-events-none">
+                  <div>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-dust mb-1">{p.brand}</p>
+                    <h3 className="font-heading text-base text-white leading-tight max-w-[180px]">{p.name}</h3>
+                  </div>
+                  <PriceTag amount={p.price} size="md" />
                 </div>
               </div>
-            </div>
+            </TiltCard>
           </TransitionLink>
         ))}
-      </div>
+        <div className="shrink-0 w-6" />
+      </DragGallery>
     </section>
   )
 }
