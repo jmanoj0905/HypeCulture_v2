@@ -89,8 +89,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const addToCart = useCallback(async (listingId: number, quantity: number, meta?: CartAddEvent) => {
+    console.log('addToCart called:', listingId, quantity)
     try {
       const res = await apiAdd(listingId, quantity)
+      console.log('addToCart response:', res)
       if (res.data.success) {
         syncCart(res.data.data)
         const cart = res.data.data.cart

@@ -125,14 +125,26 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
   const textRef = useRef<HTMLSpanElement>(null)
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!btnRef.current || loading) return
+    console.log('FlyToCartButton clicked, loading:', loading)
+    if (!btnRef.current) {
+      console.log('btnRef not ready')
+      onClick()
+      return
+    }
+    if (loading) {
+      console.log('loading true, skipping animation')
+      onClick()
+      return
+    }
     
     const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement
     if (!cartIcon) {
+      console.log('no cart icon, calling onClick')
       onClick()
       return
     }
 
+    console.log('playing fly animation')
     const btnRect = btnRef.current.getBoundingClientRect()
     const cartRect = cartIcon.getBoundingClientRect()
     const midX = btnRect.left + btnRect.width / 2

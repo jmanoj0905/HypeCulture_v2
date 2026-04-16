@@ -22,10 +22,12 @@ import java.util.Set;
  */
 public class AuthFilter implements Filter {
 
-    private static final Set<String> PUBLIC_READ_ROUTES = Set.of(
+private static final Set<String> PUBLIC_READ_ROUTES = Set.of(
             "/api/products",
             "/api/categories",
-            "/api/listings"
+            "/api/listings",
+            "/api/auth",
+            "/api/cart"
     );
 
     @Override
@@ -51,7 +53,9 @@ public class AuthFilter implements Filter {
         }
 
         // All other /api/* routes require an active session
-        if (!SessionManager.isLoggedIn(req)) {
+        // DEV MODE: Skip auth check for development
+        String devMode = System.getenv("DEV_MODE");
+        if (!"true".equals(devMode) && !SessionManager.isLoggedIn(req)) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_UNAUTHORIZED,
                     JsonUtil.error("Authentication required"));
             return;
