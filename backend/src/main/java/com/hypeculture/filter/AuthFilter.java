@@ -16,13 +16,14 @@ import java.util.Set;
  * - GET /api/products/*
  * - GET /api/categories/*
  * - GET /api/listings (public browse)
+ * - GET /api/cart (view cart)
  *
  * Unauthenticated requests to protected endpoints receive 401.
  * Role-based checks (ADMIN, SELLER) are done in each servlet individually.
  */
 public class AuthFilter implements Filter {
 
-private static final Set<String> PUBLIC_READ_ROUTES = Set.of(
+    private static final Set<String> PUBLIC_READ_ROUTES = Set.of(
             "/api/products",
             "/api/categories",
             "/api/listings",

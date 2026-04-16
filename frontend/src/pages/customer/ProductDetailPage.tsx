@@ -219,8 +219,22 @@ export function ProductDetailPage() {
         if (pRes.data.success) setProduct(pRes.data.data)
         else setProduct(MOCK_PRODUCTS[id] ?? null)
 
-        if (lRes.data.success) setListings(lRes.data.data)
-        else setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
+        if (lRes.data.success) {
+          const rawListings = lRes.data.data
+          const transformed = rawListings.map((listing: any) => ({
+            listingId: listing.listingId,
+            product: listing.product,
+            seller: listing.seller,
+            size: String(listing.size),
+            condition: listing.condition === 'NEW' ? 'New' : 'Used',
+            price: Number(listing.price),
+            stockQuantity: listing.stockQuantity,
+            status: listing.status,
+          }))
+          setListings(transformed)
+        } else {
+          setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
+        }
       })
       .catch(() => {
         setProduct(MOCK_PRODUCTS[id] ?? null)
@@ -380,6 +394,26 @@ export function ProductDetailPage() {
                     {sortedListings.length} seller{sortedListings.length > 1 ? 's' : ''} offering this size
                   </p>
                   <div className="mt-4 border border-smoke/50 bg-asphalt/30">
+                    {sortedListings.map((listing) => (
+                      <SellerOfferCard
+                        key={listing.listingId}
+                        listing={listing}
+                        onAddToCart={handleAddToCart}
+                        loading={addingId === listing.listingId}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Seller Offers */}
+              {sortedListings.length > 0 && (
+                <div className="mt-8">
+                  <NeonDivider className="mb-6" />
+                  <p className="font-heading text-sm uppercase tracking-widest text-dust mb-4">
+                    Seller Offers
+                  </p>
+                  <div className="border border-smoke/30 divide-y divide-smoke/30">
                     {sortedListings.map((listing) => (
                       <SellerOfferCard
                         key={listing.listingId}

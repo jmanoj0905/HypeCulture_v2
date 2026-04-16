@@ -321,7 +321,7 @@ public class AuthServlet extends HttpServlet {
 
         Map<String, Object> info = new HashMap<>();
         info.put("userId",   SessionManager.getUserId(req));
-        info.put("role",     SessionManager.getRole(req));
+        info.put("role",     SessionManager.getRole(req).toLowerCase());
         info.put("username", SessionManager.getUsername(req));
         JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(info));
     }
