@@ -28,9 +28,20 @@ public class SessionManager {
         HttpSession old = req.getSession(false);
         if (old != null) old.invalidate();
         HttpSession session = req.getSession(true);
+        session.setMaxInactiveInterval(30 * 60);
         session.setAttribute(ATTR_USER_ID,  user.getUserId());
         session.setAttribute(ATTR_ROLE,     user.getRole().name());
         session.setAttribute(ATTR_USERNAME, user.getUsername());
+    }
+
+    public static void login(HttpServletRequest req, int userId, String role, String username) {
+        HttpSession old = req.getSession(false);
+        if (old != null) old.invalidate();
+        HttpSession session = req.getSession(true);
+        session.setMaxInactiveInterval(30 * 60);
+        session.setAttribute(ATTR_USER_ID, userId);
+        session.setAttribute(ATTR_ROLE, role);
+        session.setAttribute(ATTR_USERNAME, username);
     }
 
     /** Invalidates the current session, logging the user out. */

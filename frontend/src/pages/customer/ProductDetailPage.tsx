@@ -44,7 +44,7 @@ const MOCK_LISTINGS: Listing[] = [
   { listingId: 4, product: MOCK_PRODUCTS[1]!, seller: { userId: 13, username: 'UrbanKicks', sellerRating: 4.9 }, size: '11', condition: 'New', price: 210, stockQuantity: 2, status: 'Active' },
 ]
 
-const ALL_SIZES = ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12']
+const ALL_SIZES = [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12]
 
 function KineticTitle({ children }: { children: string }) {
   const words = children.split(' ')
@@ -86,7 +86,7 @@ function KineticTitle({ children }: { children: string }) {
   )
 }
 
-function SizePill({ size, active, available, onClick }: { size: string; active: boolean; available: boolean; onClick: () => void }) {
+function SizePill({ size, active, available, onClick }: { size: number; active: boolean; available: boolean; onClick: () => void }) {
   const ref = useRef<HTMLButtonElement>(null)
 
   useGSAP(() => {
@@ -101,12 +101,11 @@ function SizePill({ size, active, available, onClick }: { size: string; active: 
     return () => { gsap.killTweensOf(ref.current) }
   }, [available])
 
-  return (
-    <MagneticButton as="div" strength={0.5} radius={100}>
+return (
+    <MagneticButton as="div" strength={0.5} radius={100} onClick={onClick}>
       <button
         ref={ref}
         disabled={!available}
-        onClick={onClick}
         className={`w-14 h-14 font-mono text-sm border transition-all duration-200
           ${active
             ? 'bg-neon-green text-void border-neon-green'
@@ -126,14 +125,26 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
   const textRef = useRef<HTMLSpanElement>(null)
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!btnRef.current || loading) return
+    console.log('FlyToCartButton clicked, loading:', loading)
+    if (!btnRef.current) {
+      console.log('btnRef not ready')
+      onClick()
+      return
+    }
+    if (loading) {
+      console.log('loading true, skipping animation')
+      onClick()
+      return
+    }
     
     const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement
     if (!cartIcon) {
+      console.log('no cart icon, calling onClick')
       onClick()
       return
     }
 
+    console.log('playing fly animation')
     const btnRect = btnRef.current.getBoundingClientRect()
     const cartRect = cartIcon.getBoundingClientRect()
     const midX = btnRect.left + btnRect.width / 2
@@ -194,7 +205,7 @@ export function ProductDetailPage() {
 
   const [product, setProduct] = useState<Product | null>(null)
   const [listings, setListings] = useState<Listing[]>([])
-  const [selectedSize, setSelectedSize] = useState<string | null>(null)
+  const [selectedSize, setSelectedSize] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [addingId, setAddingId] = useState<number | null>(null)
   const { addToCart } = useCart()
@@ -208,8 +219,22 @@ export function ProductDetailPage() {
         if (pRes.data.success) setProduct(pRes.data.data)
         else setProduct(MOCK_PRODUCTS[id] ?? null)
 
-        if (lRes.data.success) setListings(lRes.data.data)
-        else setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
+        if (lRes.data.success) {
+          const rawListings = lRes.data.data
+          const transformed = rawListings.map((listing: any) => ({
+            listingId: listing.listingId,
+            product: listing.product,
+            seller: listing.seller,
+            size: String(listing.size),
+            condition: listing.condition === 'NEW' ? 'New' : 'Used',
+            price: Number(listing.price),
+            stockQuantity: listing.stockQuantity,
+            status: listing.status,
+          }))
+          setListings(transformed)
+        } else {
+          setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
+        }
       })
       .catch(() => {
         setProduct(MOCK_PRODUCTS[id] ?? null)
@@ -222,16 +247,16 @@ export function ProductDetailPage() {
     setAddingId(listingId)
     try {
       await addToCart(listingId, 1)
-    } catch {
-      // silently fail — backend not up yet
+    } catch (err) {
+      console.error('Add to cart failed:', err)
     } finally {
       setAddingId(null)
     }
   }
 
-  const availableSizes = [...new Set(listings.map((l) => l.size))]
+  const availableSizes = [...new Set(listings.map((l) => String(l.size)))]
   const filteredListings = selectedSize
-    ? listings.filter((l) => l.size === selectedSize)
+    ? listings.filter((l) => String(l.size) === String(selectedSize))
     : listings
   const sortedListings = [...filteredListings].sort((a, b) => a.price - b.price)
 
@@ -298,13 +323,11 @@ export function ProductDetailPage() {
               <div className="mt-6 flex items-baseline gap-4">
                 <div className="flex items-baseline gap-2">
                   <span className="font-mono text-xs text-dust uppercase">From</span>
-                  <PriceTag amount={product.lowestPrice ?? 0} size="xl" />
+                  <PriceTag amount={listings.length > 0 ? Math.min(...listings.map(l => l.price)) : 0} size="xl" />
                 </div>
-                {product.listingCount !== undefined && (
-                  <Badge variant="outline" className="border-neon-green text-neon-green">
-                    {product.listingCount} listings
-                  </Badge>
-                )}
+                <Badge variant="outline" className="border-neon-green text-neon-green">
+                  {listings.length} listings
+                </Badge>
               </div>
 
               {/* Description */}
@@ -332,7 +355,7 @@ export function ProductDetailPage() {
                 
                 <div className="grid grid-cols-6 gap-2">
                   {ALL_SIZES.map((size) => {
-                    const available = availableSizes.includes(size)
+                    const available = availableSizes.includes(String(size))
                     const active = selectedSize === size
                     return (
                       <SizePill
@@ -370,6 +393,36 @@ export function ProductDetailPage() {
                   <p className="font-mono text-xs text-smoke">
                     {sortedListings.length} seller{sortedListings.length > 1 ? 's' : ''} offering this size
                   </p>
+                  <div className="mt-4 border border-smoke/50 bg-asphalt/30">
+                    {sortedListings.map((listing) => (
+                      <SellerOfferCard
+                        key={listing.listingId}
+                        listing={listing}
+                        onAddToCart={handleAddToCart}
+                        loading={addingId === listing.listingId}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Seller Offers */}
+              {sortedListings.length > 0 && (
+                <div className="mt-8">
+                  <NeonDivider className="mb-6" />
+                  <p className="font-heading text-sm uppercase tracking-widest text-dust mb-4">
+                    Seller Offers
+                  </p>
+                  <div className="border border-smoke/30 divide-y divide-smoke/30">
+                    {sortedListings.map((listing) => (
+                      <SellerOfferCard
+                        key={listing.listingId}
+                        listing={listing}
+                        onAddToCart={handleAddToCart}
+                        loading={addingId === listing.listingId}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

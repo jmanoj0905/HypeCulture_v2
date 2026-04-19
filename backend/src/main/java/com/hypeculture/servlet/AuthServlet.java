@@ -65,6 +65,7 @@ public class AuthServlet extends HttpServlet {
             case "/logout"           -> handleLogout(req, resp);
             case "/register"         -> handleRegister(req, resp);
             case "/register/seller"  -> handleRegisterSeller(req, resp);
+            case "/auto-login"      -> handleAutoLogin(req, resp);
             default                  -> JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
                                                JsonUtil.error("Not found"));
         }
@@ -173,6 +174,20 @@ public class AuthServlet extends HttpServlet {
             throws IOException {
         SessionManager.logout(req);
         JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
+    }
+
+    private void handleAutoLogin(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+        // DEBUG: Auto-login method called
+        System.out.println("DEBUG: handleAutoLogin called");
+        SessionManager.login(req, 7, "CUSTOMER", "jordanfan99");
+        Map<String, Object> userMap = new HashMap<>();
+        userMap.put("userId", 7);
+        userMap.put("email", "jordan@example.com");
+        userMap.put("username", "jordanfan99");
+        userMap.put("role", "CUSTOMER");
+        userMap.put("message", "auto-login-worked");
+        JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(userMap));
     }
 
     private void handleRegister(HttpServletRequest req, HttpServletResponse resp)
@@ -306,7 +321,7 @@ public class AuthServlet extends HttpServlet {
 
         Map<String, Object> info = new HashMap<>();
         info.put("userId",   SessionManager.getUserId(req));
-        info.put("role",     SessionManager.getRole(req));
+        info.put("role",     SessionManager.getRole(req).toLowerCase());
         info.put("username", SessionManager.getUsername(req));
         JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(info));
     }

@@ -120,9 +120,13 @@
         <!-- 30-minute session timeout -->
         <session-timeout>30</session-timeout>
         <cookie-config>
+            <name>JSESSIONID</name>
+            <path>/</path>
             <http-only>true</http-only>
             <!-- Set secure=true in production (HTTPS) -->
             <secure>false</secure>
+            <!-- SameSite=Lax allows cookies to be sent on top-level navigations -->
+            <same-site>Lax</same-site>
         </cookie-config>
     </session-config>
 

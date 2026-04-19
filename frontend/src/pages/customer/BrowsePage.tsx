@@ -4,22 +4,20 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ProductCard } from '@components/cards/ProductCard'
-import { NeonDivider } from '@components/ui/NeonDivider'
 import { Spinner } from '@components/ui/Spinner'
 import { MagneticButton } from '@components/interactive/MagneticButton'
-import type { Category, Product } from '@api/products'
+import { getCategories, getProducts, type Category, type Product } from '@api/products'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// --- Mock data (replace with API when backend is ready) ---
-const MOCK_CATEGORIES: Category[] = [
+const FALLBACK_CATEGORIES: Category[] = [
   { categoryId: 1, categoryName: 'Sneakers', description: 'Jordan, Dunk, Air Max' },
   { categoryId: 2, categoryName: 'Boots', description: 'Timberland, Dr. Martens' },
   { categoryId: 3, categoryName: 'Running', description: 'Ultra Boost, Gel-Kayano' },
   { categoryId: 4, categoryName: 'Casual', description: 'Vans, Converse, NB 550' },
 ]
 
-const MOCK_PRODUCTS: Product[] = [
+const FALLBACK_PRODUCTS: Product[] = [
   { productId: 1, shoeName: 'Air Jordan 1 Retro High OG', brand: 'Nike', model: 'AJ1', categoryId: 1, imageUrl: '/images/products/1-air-jordan-1.jpg', description: '', lowestPrice: 189, listingCount: 12 },
   { productId: 2, shoeName: 'Yeezy Boost 350 V2', brand: 'Adidas', model: 'Yeezy 350', categoryId: 1, imageUrl: '/images/products/2-yeezy-350.jpg', description: '', lowestPrice: 230, listingCount: 8 },
   { productId: 3, shoeName: 'Dunk Low Panda', brand: 'Nike', model: 'Dunk Low', categoryId: 1, imageUrl: '/images/products/3-dunk-low-panda.jpg', description: '', lowestPrice: 120, listingCount: 15 },
@@ -122,15 +120,41 @@ export function BrowsePage() {
   const { categoryId } = useParams<{ categoryId?: string }>()
   const initialCat = categoryId ? Number(categoryId) : 0
 
+  const [categories, setCategories] = useState<Category[]>(FALLBACK_CATEGORIES)
+  const [products, setProducts] = useState<Product[]>([])
   const [selectedCat, setSelectedCat] = useState(initialCat)
   const [sort, setSort] = useState<SortKey>('newest')
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [initialLoading, setInitialLoading] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    Promise.all([getCategories(), getProducts({})])
+      .then(([catRes, prodRes]) => {
+        if (catRes.data.success) setCategories(catRes.data.data)
+        if (prodRes.data.success) setProducts(prodRes.data.data)
+      })
+      .catch(() => {})
+      .finally(() => setInitialLoading(false))
+  }, [])
+
+  useEffect(() => {
+    setLoading(true)
+    const params: { category?: number } = {}
+    if (selectedCat !== 0) params.category = selectedCat
+    
+    getProducts(params)
+      .then((res) => {
+        if (res.data.success) setProducts(res.data.data)
+      })
+      .catch(() => setProducts(FALLBACK_PRODUCTS))
+      .finally(() => setLoading(false))
+  }, [selectedCat])
+
   const filtered = selectedCat === 0
-    ? MOCK_PRODUCTS
-    : MOCK_PRODUCTS.filter((p) => p.categoryId === selectedCat)
+    ? products
+    : products.filter((p) => p.categoryId === selectedCat)
 
   const sorted = sortProducts(filtered, sort)
   const hasMore = visibleCount < sorted.length
@@ -177,7 +201,7 @@ export function BrowsePage() {
                   All
                 </button>
               </MagneticButton>
-              {MOCK_CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <CategoryPill
                   key={cat.categoryId}
                   category={cat}
@@ -211,7 +235,11 @@ export function BrowsePage() {
       {/* Products grid */}
       <section className="pb-24">
         <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
-          {paged.length === 0 ? (
+          {initialLoading || loading ? (
+            <div className="flex justify-center py-24">
+              <Spinner size="lg" />
+            </div>
+          ) : paged.length === 0 ? (
             <div className="text-center py-24">
               <p className="font-display text-5xl text-smoke/40">NO DROPS</p>
               <p className="font-body text-dust mt-3">Nothing here yet. Check back soon.</p>
