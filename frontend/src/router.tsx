@@ -6,6 +6,7 @@ import { CustomerLayout } from '@layouts/CustomerLayout'
 import { SellerLayout } from '@layouts/SellerLayout'
 import { AdminLayout } from '@layouts/AdminLayout'
 
+
 import { LandingPage } from '@pages/public/LandingPage'
 import { LoginPage } from '@pages/public/LoginPage'
 import { BrowsePage } from '@pages/customer/BrowsePage'
@@ -23,6 +24,8 @@ import { CatalogPage } from '@pages/admin/CatalogPage'
 import { ReportsPage } from '@pages/admin/ReportsPage'
 import { NotFoundPage } from '@pages/NotFoundPage'
 import { TestPage } from '@pages/test/TestPage'
+import { SellerEditListing } from '@pages/seller/SellerEditListing'
+import { Component } from 'react'
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +56,7 @@ export const router = createBrowserRouter([
           { index: true, Component: SellerDashboard },
           { path: 'new-listing', Component: NewListingPage },
           { path: 'inventory', Component: InventoryPage },
+          { path: 'edit/:id', Component: SellerEditListing }, // <-- ADD THIS LINE
         ],
       },
       {
