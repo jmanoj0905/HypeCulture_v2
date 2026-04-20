@@ -1,31 +1,42 @@
-import { useEffect, useState } from 'react'
+// File: frontend/src/pages/test/TestPage.tsx
+import { Card } from '../../components/ui/Card'
+import { Button } from '../../components/ui/Button'
 
 export function TestPage() {
-  const [data, setData] = useState<any>(null)
-  const [error, setError] = useState<string>('')
-
-  useEffect(() => {
-    fetch('/api/products', { credentials: 'include' })
-      .then(r => r.json())
-      .then(d => {
-        console.log('SUCCESS:', d.success, 'COUNT:', d.data?.length)
-        setData(d)
-      })
-      .catch(e => {
-        console.error('ERROR:', e)
-        setError(e.message)
-      })
-  }, [])
-
-  if (error) return <div className="p-8 text-red-500">ERROR: {error}</div>
-  if (!data) return <div className="p-8">Loading...</div>
+  // Mock data based on your Java Product and Listing models
+  const mockListing = {
+    imageUrl: 'https://images.unsplash.com/photo-1552346154-21d32810baa3?auto=format&fit=crop&q=80&w=800',
+    shoeName: 'Nike Air Force 1 Low 07',
+    size: '10',
+    condition: 'NEW',
+    price: '$120.00'
+  }
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl text-neon-green mb-4">Products: {data.data?.length}</h1>
-      {data.data?.slice(0,3).map((p: any) => (
-        <div key={p.productId} className="text-white">{p.shoeName}</div>
-      ))}
+    <div className="min-h-screen bg-void p-10 flex flex-col items-center justify-center">
+      <h1 className="text-neon-green font-heading text-3xl mb-10 tracking-widest uppercase">
+        UI Sandbox: Card Component
+      </h1>
+
+      {/* The Component Test */}
+      <div className="w-full max-w-sm">
+        <Card>
+          <Card.Image src={mockListing.imageUrl} alt={mockListing.shoeName} />
+          <Card.Body>
+            <Card.Title>{mockListing.shoeName}</Card.Title>
+            <p className="text-dust font-body text-sm mt-2">
+              Size: {mockListing.size} | Condition: {mockListing.condition}
+            </p>
+          </Card.Body>
+          <Card.Footer>
+            <span className="text-price font-mono text-lg">{mockListing.price}</span>
+            <div className="flex gap-3">
+              <Button variant="secondary" size="sm">Edit</Button>
+              <Button variant="danger" size="sm">Remove</Button>
+            </div>
+          </Card.Footer>
+        </Card>
+      </div>
     </div>
   )
 }

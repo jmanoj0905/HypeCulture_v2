@@ -21,7 +21,7 @@ export const AuthContext = createContext<AuthState>({
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const AUTO_LOGIN_USER: User = { userId: 7, username: 'jordanfan99', email: 'jordan@example.com', role: 'customer', status: 'ACTIVE' }
+  const AUTO_LOGIN_USER: User = { userId: 1, username: 'admin_boss', email: 'admin@hypeculture.com', role: 'admin', status: 'ACTIVE' }
 
   const [user, setUser] = useState<User | null>(AUTO_LOGIN_USER)
   const [loading, setLoading] = useState(false)
