@@ -39,14 +39,11 @@ END $$
 -- =============================================================
 DROP TRIGGER IF EXISTS trg_mark_sold_out_on_zero_stock $$
 CREATE TRIGGER trg_mark_sold_out_on_zero_stock
-AFTER UPDATE ON listings
+BEFORE UPDATE ON listings
 FOR EACH ROW
 BEGIN
     IF NEW.stock_quantity <= 0 AND OLD.stock_quantity > 0 THEN
-        UPDATE listings
-        SET status     = 'SOLD_OUT',
-            updated_at = CURRENT_TIMESTAMP
-        WHERE listing_id = NEW.listing_id;
+        SET NEW.status = 'SOLD_OUT';
     END IF;
 END $$
 

@@ -13,8 +13,8 @@ interface MagneticButtonProps {
 export function MagneticButton({
   children,
   className = '',
-  strength = 0.35,
-  radius = 120,
+  strength = 0.2,
+  radius = 80,
   as: Tag = 'button',
   onClick,
 }: MagneticButtonProps) {

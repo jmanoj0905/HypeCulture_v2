@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java -version)",
+      "Bash(javac -version)",
+      "Bash(npm -v)",
+      "Bash(mysql --version)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(python3:*)",
+      "Bash(npm --version)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:sketchfab.com)",
+      "WebFetch(domain:market.pmnd.rs)",
+      "WebSearch",
+      "WebFetch(domain:r3f.docs.pmnd.rs)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:www.nike.com)",
+      "WebFetch(domain:www.adidas.com)",
+      "WebFetch(domain:www.newbalance.com)",
+      "WebFetch(domain:sneakernews.com)",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(npx playwright:*)",
+      "WebFetch(domain:www.goat.com)",
+      "Bash(node:*)",
+      "Bash(npm list:*)",
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl -s -I http://localhost:5173/)",
+      "Bash(python *)",
+      "Bash(curl -s -I http://localhost:5173/models/sneaker.glb)",
+      "Bash(wc -l /Users/manojj/Documents/CSE-Projects/HypeCulture/frontend/src/**/*.tsx)"
+    ]
+  }
+}

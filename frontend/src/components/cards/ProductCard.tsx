@@ -97,8 +97,8 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
               </h3>
             </div>
 
-            {/* Price tag — slides up on hover */}
-            <div className="flex-shrink-0 transition-all duration-300 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+            {/* Price tag — always visible */}
+            <div className="flex-shrink-0">
               {product.lowestPrice !== undefined && (
                 <PriceTag amount={product.lowestPrice} size="sm" />
               )}

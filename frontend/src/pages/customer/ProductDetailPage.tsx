@@ -102,7 +102,7 @@ function SizePill({ size, active, available, onClick }: { size: number; active: 
   }, [available])
 
 return (
-    <MagneticButton as="div" strength={0.5} radius={100} onClick={onClick}>
+    <MagneticButton as="div" strength={0.25} radius={60} onClick={onClick}>
       <button
         ref={ref}
         disabled={!available}
@@ -176,7 +176,7 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
 
   return (
     <HoverAberration intensity={2}>
-      <MagneticButton as="div" strength={0.4}>
+      <MagneticButton as="div">
         <button
           ref={btnRef}
           onClick={handleClick}
