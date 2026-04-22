@@ -26,5 +26,8 @@ export const addToCart = (listingId: number, quantity: number) =>
 export const removeCartItem = (cartItemId: number) =>
   client.delete<{ success: boolean; data: CartData }>(`/cart/items/${cartItemId}`)
 
+export const updateCartItemQuantity = (cartItemId: number, quantity: number) =>
+  client.put<{ success: boolean; data: CartData }>(`/cart/items/${cartItemId}`, { quantity })
+
 export const getCartCount = () =>
   client.get<{ success: boolean; data: { count: number } }>('/cart/count')

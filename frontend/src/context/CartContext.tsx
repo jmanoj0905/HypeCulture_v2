@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { getCart, addToCart as apiAdd, removeCartItem as apiRemove, type CartData, type CartItem } from '@api/cart'
+import { getCart, addToCart as apiAdd, removeCartItem as apiRemove, updateCartItemQuantity as apiSetQty, type CartData, type CartItem } from '@api/cart'
 import { useAuth } from '@hooks/useAuth'
 import { cartSubject, authSubject } from '@observer/Subject'
 
@@ -118,27 +118,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [syncCart, notifyCartChange])
 
   const updateQuantity = useCallback(async (cartItemId: number, newQuantity: number) => {
-    const item = items.find((i) => i.cartItemId === cartItemId)
-    if (!item) return
-    const delta = newQuantity - item.quantity
-    try {
-      if (delta > 0) {
-        await apiAdd(item.listing.listingId, delta)
-      } else if (delta < 0) {
-        await apiRemove(cartItemId)
-        if (newQuantity > 0) {
-          await apiAdd(item.listing.listingId, newQuantity)
-        }
-      }
-      const res = await getCart()
-      if (res.data.success) {
-        syncCart(res.data.data)
-        const cart = res.data.data.cart
-        const sub = cart?.items?.reduce((sum, i) => sum + (i.listing.price * i.quantity), 0) ?? 0
-        notifyCartChange(cart?.items ?? [], sub)
-      }
-    } catch {
-      // silently fail
+    const found = items.find((i) => i.cartItemId === cartItemId)
+    if (!found || newQuantity === found.quantity) return
+    let res
+    if (newQuantity <= 0) {
+      await apiRemove(cartItemId)
+      res = await getCart()
+    } else {
+      res = await apiSetQty(cartItemId, newQuantity)
+    }
+    if (res.data.success) {
+      syncCart(res.data.data)
+      const cart = res.data.data.cart
+      const sub = cart?.items?.reduce((sum, i) => sum + (i.listing.price * i.quantity), 0) ?? 0
+      notifyCartChange(cart?.items ?? [], sub)
     }
   }, [items, syncCart, notifyCartChange])
 

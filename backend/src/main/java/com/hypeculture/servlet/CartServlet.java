@@ -153,6 +153,68 @@ public class CartServlet extends HttpServlet {
     }
 
     // ------------------------------------------------------------------
+    // PUT /api/cart/items/{itemId} — set absolute quantity
+    // ------------------------------------------------------------------
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        String devMode = System.getenv("DEV_MODE");
+        if (!"true".equals(devMode) && !SessionManager.isCustomer(req)) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_FORBIDDEN,
+                    JsonUtil.error("Customer account required"));
+            return;
+        }
+
+        String pathInfo = req.getPathInfo();
+        if (pathInfo == null || !pathInfo.startsWith("/items/")) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_NOT_FOUND,
+                    JsonUtil.error("Not found"));
+            return;
+        }
+
+        String idStr = pathInfo.substring("/items/".length());
+        int cartItemId;
+        try {
+            cartItemId = Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Invalid cart item ID"));
+            return;
+        }
+
+        Map<String, Object> body = JsonUtil.fromJson(req.getReader(), Map.class);
+        if (body == null) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("Request body required"));
+            return;
+        }
+
+        Number quantityNum = (Number) body.get("quantity");
+        if (quantityNum == null || quantityNum.intValue() < 1) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
+                    JsonUtil.error("quantity must be at least 1"));
+            return;
+        }
+
+        try {
+            int customerId = SessionManager.getUserId(req);
+            cartDAO.updateItemQuantity(customerId, cartItemId, quantityNum.intValue());
+
+            Cart cart      = cartDAO.getOrCreateCart(customerId);
+            int  itemCount = cartDAO.getItemCount(customerId);
+            Map<String, Object> cartData = new HashMap<>();
+            cartData.put("cart",      cart);
+            cartData.put("itemCount", itemCount);
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(cartData));
+        } catch (SQLException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    JsonUtil.error("Database error: " + e.getMessage()));
+        }
+    }
+
+    // ------------------------------------------------------------------
     // DELETE /api/cart/items/{itemId}  |  DELETE /api/cart
     // ------------------------------------------------------------------
 

@@ -116,6 +116,32 @@ public class CartDAO {
     }
 
     /**
+     * Sets the quantity of an existing cart item directly.
+     * Verifies the item belongs to the customer's cart before updating.
+     */
+    public void updateItemQuantity(int customerId, int cartItemId, int quantity) throws SQLException {
+        String sql = """
+                UPDATE cart_items ci
+                  JOIN carts c ON c.cart_id = ci.cart_id
+                   SET ci.quantity = ?
+                 WHERE ci.cart_item_id = ?
+                   AND c.customer_id   = ?
+                """;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, quantity);
+            stmt.setInt(2, cartItemId);
+            stmt.setInt(3, customerId);
+            stmt.executeUpdate();
+        } finally {
+            DBConnection.close(conn, stmt);
+        }
+    }
+
+    /**
      * Removes a single cart item by its cart_item_id.
      * Verifies the item belongs to the customer's cart before deleting
      * to prevent cross-customer tampering.

@@ -1,22 +1,21 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import gsap from 'gsap'
 import { PriceTag } from '@components/ui/PriceTag'
 import type { CartItem } from '@api/cart'
 
 interface CartItemCardProps {
   item: CartItem
-  onRemove: (cartItemId: number) => void
-  onQuantityChange: (cartItemId: number, quantity: number) => void
+  onRemove: (cartItemId: number) => Promise<void>
+  onQuantityChange: (cartItemId: number, quantity: number) => Promise<void>
 }
 
 export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [qty, setQty] = useState(item.quantity)
   const [updating, setUpdating] = useState(false)
 
-  useEffect(() => {
-    setQty(item.quantity)
-  }, [item.quantity])
+  const product = item.listing.product
+  const qty = item.quantity
+  const lineTotal = item.listing.price * qty
 
   const handleRemove = () => {
     if (!cardRef.current) return
@@ -31,8 +30,7 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
 
   const handleQty = async (delta: number) => {
     const next = qty + delta
-    if (next < 1 || next > item.listing.stockQuantity) return
-    setQty(next)
+    if (next < 1) return
     setUpdating(true)
     try {
       await onQuantityChange(item.cartItemId, next)
@@ -41,12 +39,9 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
     }
   }
 
-  const product = item.listing.product
-  const lineTotal = item.listing.price * qty
-
   return (
     <div ref={cardRef} className="flex gap-4 py-5 border-b border-smoke/50">
-      {/* Image placeholder */}
+      {/* Image */}
       <div className="w-20 h-20 bg-concrete flex-shrink-0 flex items-center justify-center">
         {product.imageUrl ? (
           <img src={product.imageUrl} alt={product.shoeName} className="w-full h-full object-cover" />
@@ -75,12 +70,12 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
                        hover:border-neon-green hover:text-neon-green
                        disabled:opacity-30 transition-colors duration-200"
           >
-            -
+            −
           </button>
           <span className="font-mono text-sm text-chalk w-4 text-center">{qty}</span>
           <button
             onClick={() => handleQty(1)}
-            disabled={qty >= item.listing.stockQuantity || updating}
+            disabled={updating}
             className="w-6 h-6 border border-smoke text-chalk font-mono text-sm
                        hover:border-neon-green hover:text-neon-green
                        disabled:opacity-30 transition-colors duration-200"
