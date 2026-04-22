@@ -49,8 +49,8 @@ export function OrdersPage() {
 
   useEffect(() => {
     getOrders()
-      .then((res: any) => {
-        if (res.success) setOrders(res.data)
+      .then((res) => {
+        if (res.data.success) setOrders(res.data.data)
         else setOrders(MOCK_ORDERS)
       })
       .catch(() => setOrders(MOCK_ORDERS))

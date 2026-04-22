@@ -10,23 +10,28 @@ export interface ShippingDetails {
 
 export class ShippingStep implements CheckoutState {
   readonly step: CheckoutStep = 'shipping'
-  readonly items: CartItem[]
-  readonly subtotal: number
   private _shippingDetails: ShippingDetails
+  private _errors: string[] = []
 
   constructor(
-    items: CartItem[],
-    subtotal: number,
+    private readonly items: CartItem[],
+    private readonly _subtotal: number,
     initialDetails?: Partial<ShippingDetails>
   ) {
-    this.items = items
-    this.subtotal = subtotal
     this._shippingDetails = {
       address: initialDetails?.address ?? '',
       city: initialDetails?.city ?? '',
       state: initialDetails?.state ?? '',
       zipCode: initialDetails?.zipCode ?? '',
     }
+  }
+
+  get items(): CartItem[] {
+    return this.items
+  }
+
+  get subtotal(): number {
+    return this._subtotal
   }
 
   get shippingDetails(): ShippingDetails {
@@ -57,6 +62,7 @@ export class ShippingStep implements CheckoutState {
     else if (!/^\d{5}(-\d{4})?$/.test(zipCode))
       errors.push('Invalid ZIP code format')
 
+    this._errors = errors
     return { valid: errors.length === 0, errors }
   }
 }

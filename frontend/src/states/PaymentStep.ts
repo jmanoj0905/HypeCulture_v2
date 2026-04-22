@@ -9,21 +9,21 @@ export interface PaymentDetails {
 
 export class PaymentStep implements CheckoutState {
   readonly step: CheckoutStep = 'payment'
-  readonly items: CartItem[]
-  private _subtotal: number
   private _paymentDetails: PaymentDetails
   private _errors: string[] = []
 
   constructor(
-    items: CartItem[],
-    subtotal: number,
+    private readonly items: CartItem[],
+    private readonly _subtotal: number,
     initialMethod?: PaymentMethod
   ) {
-    this.items = items
-    this._subtotal = subtotal
     this._paymentDetails = {
       method: initialMethod ?? 'Credit Card',
     }
+  }
+
+  get items(): CartItem[] {
+    return this.items
   }
 
   get subtotal(): number {

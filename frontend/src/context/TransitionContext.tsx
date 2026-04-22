@@ -65,7 +65,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       duration: 0.1,
     }, '+=0.05')
     // Swap route behind curtain
-    tl.call(() => { navigate(path) })
+    tl.call(() => navigate(path))
     // Reveal new page from top
     tl.to(curtain, {
       yPercent: -100,

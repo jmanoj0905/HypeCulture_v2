@@ -21,22 +21,12 @@ public class Product {
     private String        imageUrl;
     private boolean       active;
     private LocalDateTime createdAt;
-    private int           lowestPrice;
-    private int           listingCount;
 
     public Product() {}
 
     public Product(int productId, String shoeName, String brand, String model,
                    Category category, String description, String imageUrl,
                    boolean active, LocalDateTime createdAt) {
-        this(productId, shoeName, brand, model, category, description,
-            imageUrl, active, createdAt, 0, 0);
-    }
-
-    public Product(int productId, String shoeName, String brand, String model,
-                   Category category, String description, String imageUrl,
-                   boolean active, LocalDateTime createdAt,
-                   int lowestPrice, int listingCount) {
         this.productId   = productId;
         this.shoeName    = shoeName;
         this.brand       = brand;
@@ -46,8 +36,6 @@ public class Product {
         this.imageUrl    = imageUrl;
         this.active      = active;
         this.createdAt   = createdAt;
-        this.lowestPrice = lowestPrice;
-        this.listingCount = listingCount;
     }
 
     // ------------------------------------------------------------------
@@ -63,8 +51,6 @@ public class Product {
     public String        getImageUrl()    { return imageUrl; }
     public boolean       isActive()       { return active; }
     public LocalDateTime getCreatedAt()   { return createdAt; }
-    public int           getLowestPrice() { return lowestPrice; }
-    public int           getListingCount() { return listingCount; }
 
     // ------------------------------------------------------------------
     // Setters
@@ -79,8 +65,6 @@ public class Product {
     public void setImageUrl(String imageUrl)          { this.imageUrl    = imageUrl; }
     public void setActive(boolean active)             { this.active      = active; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt   = createdAt; }
-    public void setLowestPrice(int lowestPrice)         { this.lowestPrice = lowestPrice; }
-    public void setListingCount(int listingCount)     { this.listingCount = listingCount; }
 
     /**
      * Returns "Brand Model" — e.g. "Nike Air Force 1 Low 07".
