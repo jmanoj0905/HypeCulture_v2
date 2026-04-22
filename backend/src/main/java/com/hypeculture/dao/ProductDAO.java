@@ -21,7 +21,11 @@ public class ProductDAO {
     private static final String BASE_SELECT = """
             SELECT p.product_id, p.shoe_name, p.brand, p.model,
                    p.description, p.image_url, p.is_active, p.created_at,
-                   c.category_id, c.category_name, c.description AS cat_description
+                   c.category_id, c.category_name, c.description AS cat_description,
+                   COALESCE((SELECT MIN(l.price) FROM listings l
+                            WHERE l.product_id = p.product_id AND l.status = 'ACTIVE'), 0) AS lowest_price,
+                   (SELECT COUNT(*) FROM listings l
+                            WHERE l.product_id = p.product_id AND l.status = 'ACTIVE') AS listing_count
               FROM products p
               JOIN categories c ON c.category_id = p.category_id
             """;
@@ -261,6 +265,8 @@ public class ProductDAO {
 
         Timestamp createdTs = rs.getTimestamp("created_at");
         LocalDateTime createdAt = createdTs != null ? createdTs.toLocalDateTime() : null;
+        int lowestPrice = rs.getInt("lowest_price");
+        int listingCount = rs.getInt("listing_count");
 
         return new Product(
                 rs.getInt("product_id"),
@@ -271,7 +277,9 @@ public class ProductDAO {
                 rs.getString("description"),
                 rs.getString("image_url"),
                 rs.getBoolean("is_active"),
-                createdAt
+                createdAt,
+                lowestPrice,
+                listingCount
         );
     }
 }

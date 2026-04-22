@@ -3,17 +3,14 @@ import type { CheckoutState, CheckoutStep } from './CheckoutState'
 
 export class ReviewStep implements CheckoutState {
   readonly step: CheckoutStep = 'review'
+  readonly items: CartItem[]
+  readonly subtotal: number
   constructor(
-    private readonly items: CartItem[],
-    private readonly _subtotal: number
-  ) {}
-
-  get items(): CartItem[] {
-    return this.items
-  }
-
-  get subtotal(): number {
-    return this._subtotal
+    items: CartItem[],
+    subtotal: number
+  ) {
+    this.items = items
+    this.subtotal = subtotal
   }
 
   canProceed(): boolean {

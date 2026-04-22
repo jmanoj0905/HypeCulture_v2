@@ -18,7 +18,7 @@
         <init-param>
             <param-name>allowedOrigin</param-name>
             <!-- Lock to actual domain in production -->
-            <param-value>http://localhost:5173</param-value>
+            <param-value>*</param-value>
         </init-param>
     </filter>
     <filter-mapping>

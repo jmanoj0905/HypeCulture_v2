@@ -8,20 +8,17 @@ export interface ConfirmationData {
 
 export class ConfirmationStep implements CheckoutState {
   readonly step: CheckoutStep = 'confirmation'
+  readonly items: CartItem[]
+  readonly subtotal: number
   private _orderResult: ConfirmationData | null = null
   private _errors: string[] = []
 
   constructor(
-    private readonly items: CartItem[],
-    private readonly _subtotal: number
-  ) {}
-
-  get items(): CartItem[] {
-    return this.items
-  }
-
-  get subtotal(): number {
-    return this._subtotal
+    items: CartItem[],
+    subtotal: number
+  ) {
+    this.items = items
+    this.subtotal = subtotal
   }
 
   get orderResult(): ConfirmationData | null {

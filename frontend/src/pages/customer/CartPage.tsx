@@ -1,5 +1,4 @@
 import { CartItemCard } from '@components/cards/CartItemCard'
-import { Button } from '@components/ui/Button'
 import { NeonDivider } from '@components/ui/NeonDivider'
 import { PriceTag } from '@components/ui/PriceTag'
 import { TransitionLink } from '@components/navigation/TransitionLink'
