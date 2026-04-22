@@ -6,9 +6,15 @@ import { NeonDivider } from '@components/ui/NeonDivider'
 import { PriceTag } from '@components/ui/PriceTag'
 import { TransitionLink } from '@components/navigation/TransitionLink'
 import { useCart } from '@hooks/useCart'
-import { checkout, type CheckoutPayload } from '@api/orders'
+import { checkout } from '@api/orders'
 
-type PaymentMethod = 'Credit Card' | 'UPI' | 'Cash on Delivery'
+type PaymentMethod = 'CREDIT_CARD' | 'UPI' | 'CASH_ON_DELIVERY'
+
+const PAYMENT_METHODS: { value: PaymentMethod; label: string }[] = [
+  { value: 'CREDIT_CARD', label: 'Credit Card' },
+  { value: 'UPI', label: 'UPI' },
+  { value: 'CASH_ON_DELIVERY', label: 'Cash on Delivery' },
+]
 
 const STEPS = ['Review', 'Shipping', 'Payment', 'Confirm'] as const
 
@@ -20,7 +26,7 @@ export function CheckoutPage() {
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
   const [zipCode, setZipCode] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('Credit Card')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('CREDIT_CARD')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [confirmedOrder, setConfirmedOrder] = useState<{ orderId: number; total: number } | null>(null)
@@ -59,17 +65,18 @@ export function CheckoutPage() {
   const handlePlaceOrder = async () => {
     setLoading(true)
     setError(null)
-    const payload: CheckoutPayload = {
+    const payload = {
       shippingAddress: address,
-      city,
-      state,
-      zipCode,
+      shippingCity: city,
+      shippingState: state,
+      shippingZip: zipCode,
       paymentMethod,
     }
     try {
       const res = await checkout(payload)
-      if (res.data.success) {
-        setConfirmedOrder({ orderId: res.data.data.orderId, total: res.data.data.totalAmount })
+      const orderData = (res as any).success ? (res as any).data : null
+      if (orderData) {
+        setConfirmedOrder({ orderId: orderData.orderId, total: orderData.totalAmount })
         await refresh()
         goToStep(3)
       } else {
@@ -248,23 +255,23 @@ export function CheckoutPage() {
               </h2>
 
               <div className="flex flex-col gap-3">
-                {(['Credit Card', 'UPI', 'Cash on Delivery'] as PaymentMethod[]).map((method) => (
+                {PAYMENT_METHODS.map((m) => (
                   <button
-                    key={method}
-                    onClick={() => setPaymentMethod(method)}
+                    key={m.value}
+                    onClick={() => setPaymentMethod(m.value)}
                     className={`flex items-center gap-4 px-4 py-4 border text-left transition-all duration-200
-                      ${paymentMethod === method
+                      ${paymentMethod === m.value
                         ? 'border-neon-green bg-neon-green/5'
                         : 'border-smoke hover:border-neon-green/50'
                       }`}
                   >
                     <div
                       className={`w-4 h-4 border flex-shrink-0 transition-colors duration-200
-                        ${paymentMethod === method ? 'border-neon-green bg-neon-green' : 'border-smoke'}`}
+                        ${paymentMethod === m.value ? 'border-neon-green bg-neon-green' : 'border-smoke'}`}
                     />
                     <span className={`font-heading text-sm uppercase tracking-wider
-                      ${paymentMethod === method ? 'text-neon-green' : 'text-chalk'}`}>
-                      {method}
+                      ${paymentMethod === m.value ? 'text-neon-green' : 'text-chalk'}`}>
+                      {m.label}
                     </span>
                   </button>
                 ))}
@@ -362,7 +369,7 @@ export function CheckoutPage() {
                   Keep Shopping
                 </TransitionLink>
               </div>
-            </div>
+              </div>
           )}
         </div>
       </div>

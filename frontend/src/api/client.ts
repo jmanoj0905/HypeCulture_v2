@@ -1,17 +1,6 @@
 import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestConfig } from 'axios'
 
-/**
- * Facade Pattern for API Client
- *
- * Provides unified interface with:
- * - Caching for GET requests
- * - Retry logic for transient failures
- * - Error handling abstraction
- * - Public endpoint detection
- *
- * GRASP: Indirection - mediates between pages and API
- * SOLID: Dependency Inversion - depends on abstraction, not concrete implementation
- */
+
 
 const PUBLIC_ENDPOINTS = ['/products', '/categories', '/listings', '/cart']
 const CACHE_TTL = 60 * 1000

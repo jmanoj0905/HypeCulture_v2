@@ -38,7 +38,7 @@ export function LoginPage() {
           ease: 'none',
           repeat: 5,
           yoyo: true,
-          onComplete: () => gsap.set(formRef.current, { x: 0 }),
+          onComplete: () => { gsap.set(formRef.current, { x: 0 }) },
         }
       )
     }

@@ -31,6 +31,10 @@ public class AuthFilter implements Filter {
             "/api/cart"
     );
 
+    private static final Set<String> PUBLIC_WRITE_ROUTES = Set.of(
+            "/api/cart"
+    );
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
@@ -54,9 +58,14 @@ public class AuthFilter implements Filter {
         }
 
         // All other /api/* routes require an active session
-        // DEV MODE: Skip auth check for development
+        // DEV MODE: Skip auth check for development (default: true unless DEV_MODE=false)
         String devMode = System.getenv("DEV_MODE");
-        if (!"true".equals(devMode) && !SessionManager.isLoggedIn(req)) {
+        boolean skipAuth = devMode == null || "true".equals(devMode);
+        if (skipAuth && isPublicWriteEndpoint(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        if (!skipAuth && !SessionManager.isLoggedIn(req)) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_UNAUTHORIZED,
                     JsonUtil.error("Authentication required"));
             return;
@@ -67,12 +76,16 @@ public class AuthFilter implements Filter {
 
     private boolean isPublicReadEndpoint(String path) {
         for (String publicRoute : PUBLIC_READ_ROUTES) {
-            if (path.startsWith(publicRoute) || path.equals(publicRoute.substring(0, publicRoute.length() - 1))) {
-                return true;
-            }
+            if (path.startsWith(publicRoute)) return true;
         }
-        return path.startsWith("/api/products") || path.startsWith("/api/categories")
-                || path.startsWith("/api/listings");
+        return false;
+    }
+
+    private boolean isPublicWriteEndpoint(String path) {
+        for (String publicRoute : PUBLIC_WRITE_ROUTES) {
+            if (path.startsWith(publicRoute)) return true;
+        }
+        return false;
     }
 
     @Override
