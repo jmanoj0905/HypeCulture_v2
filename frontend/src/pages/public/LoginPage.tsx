@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router'
+import { useNavigate, Link } from 'react-router'
 import gsap from 'gsap'
 import { useAuth } from '@hooks/useAuth'
 import { Input } from '@components/ui/Input'
@@ -95,6 +95,13 @@ export function LoginPage() {
             Enter
           </Button>
         </form>
+
+        <p className="text-center text-dust text-xs font-mono mt-6">
+          No account?{' '}
+          <Link to="/register" className="text-neon-green hover:underline">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   )

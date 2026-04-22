@@ -9,6 +9,7 @@ import { AdminLayout } from '@layouts/AdminLayout'
 
 import { LandingPage } from '@pages/public/LandingPage'
 import { LoginPage } from '@pages/public/LoginPage'
+import { RegisterPage } from '@pages/public/RegisterPage'
 import { BrowsePage } from '@pages/customer/BrowsePage'
 import { ProductDetailPage } from '@pages/customer/ProductDetailPage'
 import { CartPage } from '@pages/customer/CartPage'
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
         children: [
           { path: '/', Component: LandingPage },
           { path: '/login', Component: LoginPage },
+          { path: '/register', Component: RegisterPage },
           { path: '/browse', Component: BrowsePage },
           { path: '/browse/:categoryId', Component: BrowsePage },
           { path: '/product/:productId', Component: ProductDetailPage },

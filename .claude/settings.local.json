@@ -43,7 +43,10 @@
       "Bash(xargs cat *)",
       "Bash(mvn clean *)",
       "Bash(sudo cp *)",
-      "Bash(sudo systemctl *)"
+      "Bash(sudo systemctl *)",
+      "Bash(mysql -u root -p'' -e \"SELECT user, host FROM mysql.user;\")",
+      "Bash(mysql *)",
+      "Bash(sudo mysql *)"
     ]
   }
 }

@@ -21,3 +21,25 @@ export const logout = () =>
 
 export const getSession = () =>
   client.get<{ success: boolean; data: User }>('/auth/me')
+
+export interface RegisterCustomerPayload {
+  username: string
+  email: string
+  password: string
+  shippingAddress?: string
+  city?: string
+  state?: string
+  zipCode?: string
+}
+
+export interface RegisterSellerPayload {
+  username: string
+  email: string
+  password: string
+}
+
+export const registerCustomer = (payload: RegisterCustomerPayload) =>
+  client.post<{ success: boolean; data: User; error?: string }>('/auth/register', payload)
+
+export const registerSeller = (payload: RegisterSellerPayload) =>
+  client.post<{ success: boolean; data: User; error?: string }>('/auth/register/seller', payload)
