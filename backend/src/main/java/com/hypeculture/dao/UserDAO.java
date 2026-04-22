@@ -292,6 +292,20 @@ public class UserDAO {
         }
     }
 
+    public void activate(int userId) throws SQLException {
+        String sql = "UPDATE users SET status = 'ACTIVE' WHERE user_id = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = DBConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.executeUpdate();
+        } finally {
+            DBConnection.close(conn, stmt);
+        }
+    }
+
     // ------------------------------------------------------------------
     // Row mapper
     // ------------------------------------------------------------------

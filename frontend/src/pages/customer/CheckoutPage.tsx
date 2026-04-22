@@ -56,29 +56,33 @@ export function CheckoutPage() {
     gsap.fromTo(checkmarkRef.current, { strokeDashoffset: 40 }, { strokeDashoffset: 0, duration: 0.7, delay: 0.3, ease: 'power2.out' })
   }, [step])
 
+  const PAYMENT_MAP: Record<PaymentMethod, CheckoutPayload['paymentMethod']> = {
+    'Credit Card': 'CREDIT_CARD',
+    'UPI': 'UPI',
+    'Cash on Delivery': 'CASH_ON_DELIVERY',
+  }
+
   const handlePlaceOrder = async () => {
     setLoading(true)
     setError(null)
     const payload: CheckoutPayload = {
       shippingAddress: address,
-      city,
-      state,
-      zipCode,
-      paymentMethod,
+      shippingCity: city,
+      shippingState: state,
+      shippingZip: zipCode,
+      paymentMethod: PAYMENT_MAP[paymentMethod],
     }
     try {
       const res = await checkout(payload)
       if (res.data.success) {
-        setConfirmedOrder({ orderId: res.data.data.orderId, total: res.data.data.totalAmount })
+        setConfirmedOrder({ orderId: res.data.data.orderId, total: Number(res.data.data.totalAmount) })
         await refresh()
         goToStep(3)
       } else {
         setError('Checkout failed. Please try again.')
       }
-    } catch {
-      // Backend not up — simulate success for demo
-      setConfirmedOrder({ orderId: Math.floor(Math.random() * 9000) + 1000, total: subtotal })
-      goToStep(3)
+    } catch (err: any) {
+      setError(err?.response?.data?.error ?? 'Checkout failed. Please try again.')
     } finally {
       setLoading(false)
     }

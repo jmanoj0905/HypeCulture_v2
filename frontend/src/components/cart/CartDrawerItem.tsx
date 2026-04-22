@@ -81,7 +81,7 @@ export function CartDrawerItem({ item }: Props) {
           <p className="font-mono text-[9px] text-dust uppercase tracking-[0.25em]">{p.brand}</p>
           <h3 className="font-heading text-sm text-white uppercase tracking-[0.1em] truncate">{p.shoeName}</h3>
           <p className="font-mono text-[9px] text-dust mt-0.5">
-            Size: {item.listing.size} · {item.listing.condition}
+            Size: {item.listing.size} · {item.listing.condition === 'NEW' ? 'New' : 'Used'}
           </p>
         </div>
         <div className="flex items-center justify-between mt-2">

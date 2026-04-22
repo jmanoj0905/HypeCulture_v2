@@ -11,12 +11,16 @@ export interface OrderItem {
 
 export interface Order {
   orderId: number
-  date: string
+  customerId: number
+  createdAt: string
   items: OrderItem[]
   totalAmount: number
-  status: 'Placed' | 'Shipped' | 'Delivered' | 'Cancelled'
+  status: 'PLACED' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
   shippingAddress: string
-  paymentMethod: string
+  shippingCity: string
+  shippingState: string
+  shippingZip: string
+  paymentMethod: 'CREDIT_CARD' | 'UPI' | 'CASH_ON_DELIVERY'
 }
 
 export interface CheckoutPayload {
@@ -28,10 +32,13 @@ export interface CheckoutPayload {
 }
 
 export const checkout = (payload: CheckoutPayload) =>
-  client.post<{ success: boolean; data: { orderId: number; estimatedDelivery: string; totalAmount: number } }>('/orders', payload)
+  client.post<{ success: boolean; data: Order }>('/orders', payload)
 
 export const getOrders = () =>
   client.get<{ success: boolean; data: Order[] }>('/orders')
 
 export const getOrderDetails = (orderId: number) =>
   client.get<{ success: boolean; data: Order }>(`/orders/${orderId}`)
+
+export const cancelOrder = (orderId: number) =>
+  client.put<{ success: boolean }>(`/orders/${orderId}/cancel`)

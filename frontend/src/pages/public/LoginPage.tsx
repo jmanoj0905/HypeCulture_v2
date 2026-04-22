@@ -21,7 +21,7 @@ export function LoginPage() {
   const prevError = useRef<string | null>(null)
 
   useEffect(() => {
-    if (user && !window.location.pathname.includes('/login')) {
+    if (user) {
       navigate(roleDashboards[user.role] ?? '/', { replace: true })
     }
   }, [user, navigate])

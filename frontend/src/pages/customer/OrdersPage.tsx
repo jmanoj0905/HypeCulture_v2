@@ -5,55 +5,17 @@ import { Spinner } from '@components/ui/Spinner'
 import { TransitionLink } from '@components/navigation/TransitionLink'
 import { getOrders, type Order } from '@api/orders'
 
-// Mock orders shown when backend is unavailable
-const MOCK_ORDERS: Order[] = [
-  {
-    orderId: 1001,
-    date: '2024-12-01T10:30:00Z',
-    status: 'Delivered',
-    totalAmount: 309,
-    shippingAddress: '123 Street Rd, Brooklyn, NY 11201',
-    paymentMethod: 'Credit Card',
-    items: [
-      { orderItemId: 1, shoeName: 'Air Jordan 1 Retro High OG', sellerName: 'KicksVault', size: '10', quantity: 1, priceAtPurchase: 189 },
-      { orderItemId: 2, shoeName: 'Dunk Low Panda', sellerName: 'SoleMate', size: '10', quantity: 1, priceAtPurchase: 120 },
-    ],
-  },
-  {
-    orderId: 1002,
-    date: '2025-01-15T14:00:00Z',
-    status: 'Shipped',
-    totalAmount: 230,
-    shippingAddress: '456 Neon Ave, Brooklyn, NY 11201',
-    paymentMethod: 'UPI',
-    items: [
-      { orderItemId: 3, shoeName: 'Yeezy Boost 350 V2', sellerName: 'HypeDrop', size: '10.5', quantity: 1, priceAtPurchase: 230 },
-    ],
-  },
-  {
-    orderId: 1003,
-    date: '2025-02-20T09:00:00Z',
-    status: 'Placed',
-    totalAmount: 110,
-    shippingAddress: '789 Asphalt Blvd, Brooklyn, NY 11201',
-    paymentMethod: 'Cash on Delivery',
-    items: [
-      { orderItemId: 4, shoeName: 'New Balance 550', sellerName: 'UrbanKicks', size: '9', quantity: 1, priceAtPurchase: 110 },
-    ],
-  },
-]
-
 export function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     getOrders()
       .then((res) => {
         if (res.data.success) setOrders(res.data.data)
-        else setOrders(MOCK_ORDERS)
       })
-      .catch(() => setOrders(MOCK_ORDERS))
+      .catch(() => setError('Failed to load orders'))
       .finally(() => setLoading(false))
   }, [])
 
@@ -68,6 +30,10 @@ export function OrdersPage() {
         {loading ? (
           <div className="flex justify-center py-24">
             <Spinner size="lg" />
+          </div>
+        ) : error ? (
+          <div className="text-center py-32">
+            <p className="font-body text-danger">{error}</p>
           </div>
         ) : orders.length === 0 ? (
           <div className="text-center py-32">

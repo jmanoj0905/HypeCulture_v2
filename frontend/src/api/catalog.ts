@@ -11,7 +11,10 @@ export interface AddProductPayload {
 }
 
 export const addProduct = (payload: AddProductPayload) =>
-  client.post<{ success: boolean; data: Product }>('/admin/catalog', payload)
+  client.post<{ success: boolean; data: Product }>('/admin/products', payload)
 
-export const getAdminProducts = (params?: { category?: number; brand?: string }) =>
-  client.get<{ success: boolean; data: Product[] }>('/admin/products', { params })
+export const getAdminProducts = () =>
+  client.get<{ success: boolean; data: Product[] }>('/admin/products')
+
+export const deleteProduct = (productId: number) =>
+  client.delete<{ success: boolean }>(`/admin/products/${productId}`)

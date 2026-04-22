@@ -13,36 +13,13 @@ import { HoverAberration } from '@components/interactive/HoverAberration'
 import { DragGallery } from '@components/interactive/DragGallery'
 import { ProductCard } from '@components/cards/ProductCard'
 import { useCart } from '@hooks/useCart'
-import { getProduct, getListingsForProduct, type Product, type Listing } from '@api/products'
+import { getProduct, getListingsForProduct, getProducts, type Product, type Listing } from '@api/products'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const ProductViewer = lazy(() =>
   import('@three/ProductViewer').then((m) => ({ default: m.ProductViewer }))
 )
-
-// Mock product data (replace with API when backend is ready)
-const MOCK_PRODUCTS: Record<number, Product> = {
-  1: { productId: 1, shoeName: 'Air Jordan 1 Retro High OG', brand: 'Nike', model: 'AJ1 High', categoryId: 1, imageUrl: '/images/products/1-air-jordan-1.jpg', description: 'The Air Jordan 1 Retro High OG is a legendary silhouette that defined sneaker culture. Originally released in 1985, this colorway remains one of the most coveted in the game.', lowestPrice: 189, listingCount: 12 },
-  2: { productId: 2, shoeName: 'Yeezy Boost 350 V2', brand: 'Adidas', model: 'Yeezy 350', categoryId: 1, imageUrl: '/images/products/2-yeezy-350.jpg', description: 'The Yeezy Boost 350 V2 features a Primeknit upper with Boost cushioning for all-day comfort. A staple silhouette in the hype culture.', lowestPrice: 230, listingCount: 8 },
-  3: { productId: 3, shoeName: 'Dunk Low Panda', brand: 'Nike', model: 'Dunk Low', categoryId: 1, imageUrl: '/images/products/3-dunk-low-panda.jpg', description: 'The iconic black and white colorway that broke the internet. Clean, classic, timeless.', lowestPrice: 120, listingCount: 15 },
-  4: { productId: 4, shoeName: 'New Balance 550', brand: 'New Balance', model: '550', categoryId: 4, imageUrl: '/images/products/4-nb-550.jpg', description: 'A retro basketball silhouette revived for the modern era. Low-profile with a premium leather upper.', lowestPrice: 110, listingCount: 6 },
-  5: { productId: 5, shoeName: 'Air Force 1 Low', brand: 'Nike', model: 'AF1', categoryId: 1, imageUrl: '/images/products/5-air-force-1.jpg', description: "The shoe that launched a thousand colourways. Nike's AF1 Low in all-white — the standard by which all-white sneakers are measured.", lowestPrice: 100, listingCount: 20 },
-  6: { productId: 6, shoeName: 'Chuck Taylor All Star', brand: 'Converse', model: 'Chuck Taylor', categoryId: 4, imageUrl: '/images/products/6-chuck-taylor.jpg', description: 'The original sneaker. Canvas upper, vulcanized rubber sole, and a legacy that spans generations.', lowestPrice: 65, listingCount: 11 },
-  7: { productId: 7, shoeName: '6-Inch Premium Boot', brand: 'Timberland', model: '6-Inch', categoryId: 2, imageUrl: '/images/products/7-timberland-6inch.jpg', description: 'Iconic wheat nubuck boot built for durability. Waterproof construction, padded collar, and lug sole.', lowestPrice: 198, listingCount: 4 },
-  8: { productId: 8, shoeName: 'Ultra Boost 22', brand: 'Adidas', model: 'Ultra Boost', categoryId: 3, imageUrl: '/images/products/8-ultra-boost.jpg', description: 'Responsive Boost midsole meets a sock-like Primeknit upper. The gold standard for performance running with streetwear appeal.', lowestPrice: 155, listingCount: 7 },
-  9: { productId: 9, shoeName: 'Old Skool', brand: 'Vans', model: 'Old Skool', categoryId: 4, imageUrl: '/images/products/9-vans-old-skool.jpg', description: "Vans' first style to feature the iconic side stripe. Durable suede and canvas upper with waffle outsole.", lowestPrice: 75, listingCount: 14 },
-  10: { productId: 10, shoeName: 'Air Max 90', brand: 'Nike', model: 'Air Max 90', categoryId: 1, imageUrl: '/images/products/10-air-max-90.jpg', description: 'The Air Max 90 remains one of the most beloved silhouettes in Nike history. Bold Max Air unit, overlaid upper, and timeless style.', lowestPrice: 145, listingCount: 9 },
-  11: { productId: 11, shoeName: '1460 Pascal', brand: 'Dr. Martens', model: '1460 Pascal', categoryId: 2, imageUrl: '/images/products/11-dr-martens-1460.jpg', description: 'The 1460 Pascal features Virginia leather with a subtle wax finish. 8-eye lace-up with air-cushioned sole for all-day wear.', lowestPrice: 170, listingCount: 3 },
-  12: { productId: 12, shoeName: 'Gel-Kayano 29', brand: 'ASICS', model: 'Gel-Kayano', categoryId: 3, imageUrl: '/images/products/12-asics-gel-kayano.jpg', description: 'ASICS flagship stability runner. GEL technology cushioning, FF BLAST+ midsole, and engineered mesh upper for controlled comfort.', lowestPrice: 135, listingCount: 5 },
-}
-
-const MOCK_LISTINGS: Listing[] = [
-  { listingId: 1, product: MOCK_PRODUCTS[1]!, seller: { userId: 10, username: 'KicksVault', sellerRating: 4.8 }, size: '9', condition: 'New', price: 189, stockQuantity: 3, status: 'Active' },
-  { listingId: 2, product: MOCK_PRODUCTS[1]!, seller: { userId: 11, username: 'SoleMate', sellerRating: 4.5 }, size: '9.5', condition: 'New', price: 195, stockQuantity: 1, status: 'Active' },
-  { listingId: 3, product: MOCK_PRODUCTS[1]!, seller: { userId: 12, username: 'HypeDrop', sellerRating: 4.2 }, size: '10', condition: 'Used', price: 160, stockQuantity: 1, status: 'Active' },
-  { listingId: 4, product: MOCK_PRODUCTS[1]!, seller: { userId: 13, username: 'UrbanKicks', sellerRating: 4.9 }, size: '11', condition: 'New', price: 210, stockQuantity: 2, status: 'Active' },
-]
 
 const ALL_SIZES = [7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12]
 
@@ -77,7 +54,7 @@ function KineticTitle({ children }: { children: string }) {
               className="char inline-block [transform-style:preserve-3d]"
               style={{ willChange: 'transform, opacity' }}
             >
-              {char === ' ' ? '\u00A0' : char}
+              {char === ' ' ? ' ' : char}
             </span>
           ))}
         </span>
@@ -124,27 +101,13 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
   const btnRef = useRef<HTMLButtonElement>(null)
   const textRef = useRef<HTMLSpanElement>(null)
 
-  const handleClick = (e: React.MouseEvent) => {
-    console.log('FlyToCartButton clicked, loading:', loading)
-    if (!btnRef.current) {
-      console.log('btnRef not ready')
-      onClick()
-      return
-    }
-    if (loading) {
-      console.log('loading true, skipping animation')
-      onClick()
-      return
-    }
-    
-    const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement
-    if (!cartIcon) {
-      console.log('no cart icon, calling onClick')
-      onClick()
-      return
-    }
+  const handleClick = () => {
+    if (loading) return
+    if (!btnRef.current) { onClick(); return }
 
-    console.log('playing fly animation')
+    const cartIcon = document.querySelector('[data-cart-icon]') as HTMLElement
+    if (!cartIcon) { onClick(); return }
+
     const btnRect = btnRef.current.getBoundingClientRect()
     const cartRect = cartIcon.getBoundingClientRect()
     const midX = btnRect.left + btnRect.width / 2
@@ -192,19 +155,13 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
   )
 }
 
-const RELATED_PRODUCTS: Product[] = [
-  MOCK_PRODUCTS[2]!,
-  MOCK_PRODUCTS[3]!,
-  MOCK_PRODUCTS[5]!,
-  MOCK_PRODUCTS[10]!,
-]
-
 export function ProductDetailPage() {
   const { productId } = useParams<{ productId: string }>()
   const id = Number(productId)
 
   const [product, setProduct] = useState<Product | null>(null)
   const [listings, setListings] = useState<Listing[]>([])
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
   const [selectedSize, setSelectedSize] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
   const [addingId, setAddingId] = useState<number | null>(null)
@@ -217,31 +174,22 @@ export function ProductDetailPage() {
     Promise.all([getProduct(id), getListingsForProduct(id)])
       .then(([pRes, lRes]) => {
         if (pRes.data.success) setProduct(pRes.data.data)
-        else setProduct(MOCK_PRODUCTS[id] ?? null)
-
-        if (lRes.data.success) {
-          const rawListings = lRes.data.data
-          const transformed = rawListings.map((listing: any) => ({
-            listingId: listing.listingId,
-            product: listing.product,
-            seller: listing.seller,
-            size: String(listing.size),
-            condition: listing.condition === 'NEW' ? 'New' : 'Used',
-            price: Number(listing.price),
-            stockQuantity: listing.stockQuantity,
-            status: listing.status,
-          }))
-          setListings(transformed)
-        } else {
-          setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
-        }
+        if (lRes.data.success) setListings(lRes.data.data)
       })
-      .catch(() => {
-        setProduct(MOCK_PRODUCTS[id] ?? null)
-        setListings(MOCK_LISTINGS.map((l) => ({ ...l, product: MOCK_PRODUCTS[id] ?? l.product })))
-      })
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [id])
+
+  useEffect(() => {
+    if (!product) return
+    getProducts({ categoryId: product.category?.categoryId })
+      .then((res) => {
+        if (res.data.success) {
+          setRelatedProducts(res.data.data.filter((p) => p.productId !== id).slice(0, 4))
+        }
+      })
+      .catch(() => {})
+  }, [product, id])
 
   const handleAddToCart = async (listingId: number) => {
     setAddingId(listingId)
@@ -254,9 +202,9 @@ export function ProductDetailPage() {
     }
   }
 
-  const availableSizes = [...new Set(listings.map((l) => String(l.size)))]
+  const availableSizes = [...new Set(listings.map((l) => l.size))]
   const filteredListings = selectedSize
-    ? listings.filter((l) => String(l.size) === String(selectedSize))
+    ? listings.filter((l) => l.size === selectedSize)
     : listings
   const sortedListings = [...filteredListings].sort((a, b) => a.price - b.price)
 
@@ -284,7 +232,7 @@ export function ProductDetailPage() {
       <section className="relative pt-8 pb-16">
         <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-            
+
             {/* Left: 3D Viewer - editorial size */}
             <div className="relative">
               <div className="relative aspect-square lg:aspect-[4/5] bg-concrete overflow-hidden">
@@ -295,7 +243,7 @@ export function ProductDetailPage() {
                 }>
                   <ProductViewer productId={id} />
                 </Suspense>
-                
+
                 {/* Corner labels */}
                 <div className="absolute top-4 left-4 font-mono text-xs text-dust uppercase tracking-widest">
                   3D View
@@ -304,7 +252,7 @@ export function ProductDetailPage() {
                   Drag to rotate
                 </div>
               </div>
-              
+
               {/* Brand + model breadcrumb */}
               <div className="mt-4 flex items-center gap-3">
                 <span className="h-px w-8 bg-neon-green" />
@@ -352,10 +300,10 @@ export function ProductDetailPage() {
                     </button>
                   )}
                 </div>
-                
+
                 <div className="grid grid-cols-6 gap-2">
                   {ALL_SIZES.map((size) => {
-                    const available = availableSizes.includes(String(size))
+                    const available = availableSizes.includes(size)
                     const active = selectedSize === size
                     return (
                       <SizePill
@@ -385,6 +333,10 @@ export function ProductDetailPage() {
                     US {sortedListings[0]!.size} · {sortedListings[0]!.seller.username} · {sortedListings[0]!.condition}
                   </p>
                 </div>
+              )}
+
+              {sortedListings.length === 0 && (
+                <p className="font-mono text-sm text-smoke">No listings available for this product.</p>
               )}
 
               {/* All listings toggle */}
@@ -431,22 +383,24 @@ export function ProductDetailPage() {
       </section>
 
       {/* Related Products - Drag Gallery */}
-      <section className="py-16 border-t border-smoke/30">
-        <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
-          <div className="flex items-center gap-4 mb-8">
-            <h2 className="font-display text-4xl text-white">Related</h2>
-            <div className="h-px flex-1 bg-smoke/30" />
+      {relatedProducts.length > 0 && (
+        <section className="py-16 border-t border-smoke/30">
+          <div className="max-w-[1800px] mx-auto px-4 lg:px-8">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="font-display text-4xl text-white">Related</h2>
+              <div className="h-px flex-1 bg-smoke/30" />
+            </div>
+
+            <DragGallery>
+              {relatedProducts.map((p) => (
+                <div key={p.productId} className="w-72 flex-shrink-0">
+                  <ProductCard product={p} />
+                </div>
+              ))}
+            </DragGallery>
           </div>
-          
-          <DragGallery>
-            {RELATED_PRODUCTS.map((p) => (
-              <div key={p.productId} className="w-72 flex-shrink-0">
-                <ProductCard product={p} />
-              </div>
-            ))}
-          </DragGallery>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   )
 }

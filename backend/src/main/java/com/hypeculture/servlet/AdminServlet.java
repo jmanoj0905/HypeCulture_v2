@@ -243,6 +243,13 @@ public class AdminServlet extends HttpServlet {
                 userDAO.deactivate(userId);
                 JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
 
+            // PUT /api/admin/users/{id}/activate
+            } else if (path.matches("/users/\\d+/activate")) {
+                String[] parts = path.split("/");
+                int userId = Integer.parseInt(parts[2]);
+                userDAO.activate(userId);
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
+
             // PUT /api/admin/orders/{id}/status
             } else if (path.matches("/orders/\\d+/status")) {
                 String[] parts = path.split("/");

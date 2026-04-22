@@ -1,53 +1,61 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import { useParams, useNavigate, Link } from 'react-router'
-import { Card } from '@components/ui/Card' // Fixed alias and strict import
-import { Input } from '@components/ui/Input' // Fixed alias
-import { Button } from '@components/ui/Button' // Fixed alias
-
-interface FormData {
-  price: number
-  stockQuantity: number
-}
-
-const MOCK_LISTING: FormData = {
-  price: 250,
-  stockQuantity: 2,
-}
+import { Card } from '@components/ui/Card'
+import { Input } from '@components/ui/Input'
+import { Button } from '@components/ui/Button'
+import { Spinner } from '@components/ui/Spinner'
+import { getListing, updateListing } from '@api/listings'
 
 export function SellerEditListing() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const [formData, setFormData] = useState<FormData>(MOCK_LISTING)
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [price, setPrice] = useState('')
+  const [stockQuantity, setStockQuantity] = useState('')
+  const [productName, setProductName] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (id) {
-      console.log('Fetching listing:', id)
-    }
+    if (!id) return
+    getListing(Number(id))
+      .then((res) => {
+        if (res.data.success) {
+          const listing = res.data.data
+          setPrice(String(listing.price))
+          setStockQuantity(String(listing.stockQuantity))
+          setProductName(listing.product.shoeName)
+        } else {
+          setError('Listing not found')
+        }
+      })
+      .catch(() => setError('Failed to load listing'))
+      .finally(() => setLoading(false))
   }, [id])
-
-  const handleChange = (field: keyof FormData) => (e: { target: { value: string } }) => {
-    const value = Number(e.target.value)
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-
-    // Simulating API call since backend is offline
-    setTimeout(() => {
-      setLoading(false)
-      setSuccess(true)
-      setTimeout(() => {
-        navigate('/seller/inventory')
-      }, 1500)
-    }, 1000)
+    setSaving(true)
+    setError(null)
+    try {
+      await updateListing(Number(id), {
+        price: Number(price),
+        stockQuantity: Number(stockQuantity),
+      })
+      navigate('/seller/inventory')
+    } catch (err: any) {
+      setError(err?.response?.data?.error ?? 'Failed to update listing')
+    } finally {
+      setSaving(false)
+    }
   }
 
-  const handleCancel = () => {
-    navigate('/seller/inventory')
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <Spinner size="lg" />
+      </div>
+    )
   }
 
   return (
@@ -59,17 +67,21 @@ export function SellerEditListing() {
         <h1 className="font-display text-4xl text-white">Edit Listing</h1>
       </div>
 
+      {productName && (
+        <p className="font-heading text-sm text-dust uppercase tracking-wider mb-6">{productName}</p>
+      )}
+
       <Card>
-        <Card.Body> {/* Fixed to use dot-notation */}
-          <Card.Title className="mb-6">Update Price & Stock</Card.Title> {/* Fixed to use dot-notation */}
+        <Card.Body>
+          <Card.Title className="mb-6">Update Price & Stock</Card.Title>
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <Input
               label="Price"
               type="number"
               min={1}
               step={0.01}
-              value={formData.price || ''}
-              onChange={handleChange('price')}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               placeholder="Enter price"
               required
             />
@@ -77,21 +89,19 @@ export function SellerEditListing() {
               label="Stock Quantity"
               type="number"
               min={0}
-              value={formData.stockQuantity || ''}
-              onChange={handleChange('stockQuantity')}
+              value={stockQuantity}
+              onChange={(e) => setStockQuantity(e.target.value)}
               placeholder="Enter stock quantity"
               required
             />
 
-            {success && (
-              <div className="text-success font-body">Listing updated successfully!</div>
-            )}
+            {error && <p className="text-danger font-mono text-sm">{error}</p>}
 
             <div className="flex gap-4 mt-2">
-              <Button type="submit" loading={loading}>
+              <Button type="submit" loading={saving}>
                 Save Changes
               </Button>
-              <Button type="button" variant="ghost" onClick={handleCancel}>
+              <Button type="button" variant="ghost" onClick={() => navigate('/seller/inventory')}>
                 Cancel
               </Button>
             </div>

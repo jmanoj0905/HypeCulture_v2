@@ -30,8 +30,8 @@ export interface Listing {
   listingId: number
   product: Product
   seller: Seller
-  size: string
-  condition: 'New' | 'Used'
+  size: number
+  condition: 'NEW' | 'USED'
   price: number
   stockQuantity: number
   status: 'ACTIVE'
@@ -44,14 +44,14 @@ export interface Listing {
 export const getCategories = () =>
   client.get<{ success: boolean; data: Category[] }>('/categories')
 
-export const getProducts = (params: { category?: number; sort?: string; page?: number }) =>
+export const getProducts = (params: { categoryId?: number; sort?: string; page?: number }) =>
   client.get<{ success: boolean; data: Product[] }>('/products', { params })
 
 export const getProduct = (id: number) =>
   client.get<{ success: boolean; data: Product }>(`/products/${id}`)
 
 export const getListingsForProduct = (productId: number) =>
-  client.get<{ success: boolean; data: any[] }>('/listings', { params: { productId } })
+  client.get<{ success: boolean; data: Listing[] }>('/listings', { params: { productId } })
 
 export const searchProducts = (query: string) =>
-  client.get<{ success: boolean; data: Product[] }>('/products/search', { params: { q: query } })
+  client.get<{ success: boolean; data: Product[] }>('/products', { params: { search: query } })

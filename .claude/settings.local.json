@@ -34,7 +34,16 @@
       "Bash(curl -s -I http://localhost:5173/)",
       "Bash(python *)",
       "Bash(curl -s -I http://localhost:5173/models/sneaker.glb)",
-      "Bash(wc -l /Users/manojj/Documents/CSE-Projects/HypeCulture/frontend/src/**/*.tsx)"
+      "Bash(wc -l /Users/manojj/Documents/CSE-Projects/HypeCulture/frontend/src/**/*.tsx)",
+      "Bash(sudo find *)",
+      "Read(//opt/**)",
+      "Bash(dpkg -l)",
+      "Bash(systemctl list-units *)",
+      "Bash(apt-cache search *)",
+      "Bash(xargs cat *)",
+      "Bash(mvn clean *)",
+      "Bash(sudo cp *)",
+      "Bash(sudo systemctl *)"
     ]
   }
 }

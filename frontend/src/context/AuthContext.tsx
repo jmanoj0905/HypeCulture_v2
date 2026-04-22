@@ -1,19 +1,19 @@
 import { createContext, useCallback, useEffect, useState, type ReactNode } from 'react'
-import type { User } from '@api/auth'
+import { getSession, login as apiLogin, logout as apiLogout, type User } from '@api/auth'
 import { authSubject, type PendingAction } from '@observer/Subject'
 
 interface AuthState {
   user: User | null
   loading: boolean
   error: string | null
-  login: (payload: any) => Promise<void>
+  login: (payload: { email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
   storePendingAction: (action: PendingAction) => void
 }
 
 export const AuthContext = createContext<AuthState>({
-  user: { userId: 7, username: 'jordanfan99', email: 'jordan@example.com', role: 'customer', status: 'ACTIVE' },
-  loading: false,
+  user: null,
+  loading: true,
   error: null,
   login: async () => {},
   logout: async () => {},
@@ -21,32 +21,56 @@ export const AuthContext = createContext<AuthState>({
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const AUTO_LOGIN_USER: User = { userId: 1, username: 'admin_boss', email: 'admin@hypeculture.com', role: 'admin', status: 'ACTIVE' }
-
-  const [user, setUser] = useState<User | null>(AUTO_LOGIN_USER)
-  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const notifyAuthChange = useCallback((u?: User | null) => {
-    const currentUser = u ?? user
+  const notifyAuthChange = useCallback((u: User | null) => {
     authSubject.notify({
-      userId: currentUser?.userId ?? null,
-      role: currentUser?.role ?? null,
+      userId: u?.userId ?? null,
+      role: u?.role ?? null,
     })
-  }, [user])
+  }, [])
 
   useEffect(() => {
-    notifyAuthChange(AUTO_LOGIN_USER)
+    getSession()
+      .then((res) => {
+        if (res.data.success && res.data.data) {
+          setUser(res.data.data)
+          notifyAuthChange(res.data.data)
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false))
   }, [notifyAuthChange])
 
-  const login = useCallback(async (_payload: any) => {
-    // Already logged in via auto-login
-  }, [])
+  const login = useCallback(async (payload: { email: string; password: string }) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await apiLogin(payload)
+      if (res.data.success && res.data.data) {
+        setUser(res.data.data)
+        notifyAuthChange(res.data.data)
+      } else {
+        setError(res.data.error ?? 'Login failed')
+      }
+    } catch (err: any) {
+      const msg = err?.response?.data?.error ?? 'Invalid email or password'
+      setError(msg)
+    } finally {
+      setLoading(false)
+    }
+  }, [notifyAuthChange])
 
   const logout = useCallback(async () => {
-    // Stay logged in - just clear any pending actions
+    try {
+      await apiLogout()
+    } catch {}
+    setUser(null)
+    notifyAuthChange(null)
     authSubject.clearPendingActions()
-  }, [])
+  }, [notifyAuthChange])
 
   const storePendingAction = useCallback((action: PendingAction) => {
     authSubject.storePendingAction(action)

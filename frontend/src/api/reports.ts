@@ -1,22 +1,16 @@
 import client from './client'
 
-export interface ReportParams {
-  startDate?: string
-  endDate?: string
-  category?: number
+export interface RevenueData {
+  from: string
+  to: string
+  revenue: number
 }
 
-export const getSalesSummary = (params?: ReportParams) =>
-  client.get('/admin/reports/sales', { params })
+export const getRevenue = (from: string, to: string) =>
+  client.get<{ success: boolean; data: RevenueData }>('/admin/reports/revenue', { params: { from, to } })
 
-export const getInventoryReport = (params?: ReportParams) =>
-  client.get('/admin/reports/inventory', { params })
+export const getTopProducts = (from: string, to: string, limit = 10) =>
+  client.get<{ success: boolean; data: any[] }>('/admin/reports/top-products', { params: { from, to, limit } })
 
-export const getUserActivity = (params?: ReportParams) =>
-  client.get('/admin/reports/users', { params })
-
-export const getSellerPerformance = (params?: ReportParams) =>
-  client.get('/admin/reports/sellers', { params })
-
-export const getAllOrders = (params?: ReportParams & { status?: string }) =>
+export const getAllOrders = (params?: { status?: string }) =>
   client.get('/admin/orders', { params })

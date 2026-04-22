@@ -135,15 +135,17 @@ export function BrowsePage() {
         if (catRes.data.success) setCategories(catRes.data.data)
         if (prodRes.data.success) setProducts(prodRes.data.data)
       })
-      .catch(() => {})
+      .catch(() => {
+        setProducts(FALLBACK_PRODUCTS)
+      })
       .finally(() => setInitialLoading(false))
   }, [])
 
   useEffect(() => {
     setLoading(true)
-    const params: { category?: number } = {}
-    if (selectedCat !== 0) params.category = selectedCat
-    
+    const params: { categoryId?: number } = {}
+    if (selectedCat !== 0) params.categoryId = selectedCat
+
     getProducts(params)
       .then((res) => {
         if (res.data.success) setProducts(res.data.data)
@@ -154,7 +156,7 @@ export function BrowsePage() {
 
   const filtered = selectedCat === 0
     ? products
-    : products.filter((p) => p.categoryId === selectedCat)
+    : products.filter((p) => p.category?.categoryId === selectedCat)
 
   const sorted = sortProducts(filtered, sort)
   const hasMore = visibleCount < sorted.length

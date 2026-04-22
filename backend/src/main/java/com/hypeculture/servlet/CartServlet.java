@@ -47,7 +47,6 @@ public class CartServlet extends HttpServlet {
 
         String pathInfo  = req.getPathInfo();
         int customerId = SessionManager.getUserId(req);
-        if (customerId == -1) customerId = 7;
 
         // GET /api/cart/count — lightweight count only, used for navbar badge
         if ("/count".equals(pathInfo)) {
@@ -135,9 +134,14 @@ public class CartServlet extends HttpServlet {
             }
 
             int customerId = SessionManager.getUserId(req);
-            if (customerId == -1) customerId = 7;
             cartDAO.addItem(customerId, listingId, quantity);
-            JsonUtil.sendJson(resp, HttpServletResponse.SC_CREATED, JsonUtil.ok());
+
+            Cart cart      = cartDAO.getOrCreateCart(customerId);
+            int  itemCount = cartDAO.getItemCount(customerId);
+            Map<String, Object> cartData = new HashMap<>();
+            cartData.put("cart",      cart);
+            cartData.put("itemCount", itemCount);
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_CREATED, JsonUtil.ok(cartData));
 
         } catch (ClassCastException e) {
             JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
@@ -165,7 +169,6 @@ public class CartServlet extends HttpServlet {
 
         String pathInfo   = req.getPathInfo();
         int    customerId = SessionManager.getUserId(req);
-        if (customerId == -1) customerId = 7;
 
         // DELETE /api/cart — clear entire cart
         if (pathInfo == null || "/".equals(pathInfo)) {
@@ -185,7 +188,13 @@ public class CartServlet extends HttpServlet {
             try {
                 int cartItemId = Integer.parseInt(idStr);
                 cartDAO.removeItem(customerId, cartItemId);
-                JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok());
+
+                Cart cart      = cartDAO.getOrCreateCart(customerId);
+                int  itemCount = cartDAO.getItemCount(customerId);
+                Map<String, Object> cartData = new HashMap<>();
+                cartData.put("cart",      cart);
+                cartData.put("itemCount", itemCount);
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(cartData));
             } catch (NumberFormatException e) {
                 JsonUtil.sendJson(resp, HttpServletResponse.SC_BAD_REQUEST,
                         JsonUtil.error("Invalid cart item ID"));

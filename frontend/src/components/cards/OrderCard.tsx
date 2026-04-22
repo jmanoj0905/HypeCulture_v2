@@ -8,10 +8,17 @@ import type { Order } from '@api/orders'
 type BadgeVariant = 'cyan' | 'yellow' | 'green' | 'danger' | 'neutral'
 
 const STATUS_BADGE: Record<Order['status'], BadgeVariant> = {
-  Placed: 'cyan',
-  Shipped: 'yellow',
-  Delivered: 'green',
-  Cancelled: 'danger',
+  PLACED: 'cyan',
+  SHIPPED: 'yellow',
+  DELIVERED: 'green',
+  CANCELLED: 'danger',
+}
+
+const STATUS_LABEL: Record<Order['status'], string> = {
+  PLACED: 'Placed',
+  SHIPPED: 'Shipped',
+  DELIVERED: 'Delivered',
+  CANCELLED: 'Cancelled',
 }
 
 interface OrderCardProps {
@@ -45,7 +52,7 @@ export function OrderCard({ order }: OrderCardProps) {
     }
   }
 
-  const date = new Date(order.date).toLocaleDateString('en-US', {
+  const date = new Date(order.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -67,7 +74,7 @@ export function OrderCard({ order }: OrderCardProps) {
         </div>
 
         <div className="flex items-center gap-4 flex-shrink-0">
-          <Badge variant={STATUS_BADGE[order.status]}>{order.status}</Badge>
+          <Badge variant={STATUS_BADGE[order.status]}>{STATUS_LABEL[order.status]}</Badge>
           <PriceTag amount={order.totalAmount} size="sm" />
           <span
             className={`font-mono text-xs text-dust transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
@@ -113,7 +120,7 @@ export function OrderCard({ order }: OrderCardProps) {
             <div className="mt-4 pt-4 border-t border-smoke/40 flex flex-col sm:flex-row gap-4 text-xs font-mono text-dust">
               <div>
                 <span className="text-smoke uppercase tracking-wider block mb-0.5">Ship to</span>
-                {order.shippingAddress}
+                {order.shippingAddress}, {order.shippingCity}, {order.shippingState} {order.shippingZip}
               </div>
               <div>
                 <span className="text-smoke uppercase tracking-wider block mb-0.5">Payment</span>

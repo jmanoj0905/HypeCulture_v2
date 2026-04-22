@@ -1,13 +1,17 @@
-import { useState, type FormEvent } from 'react'
-import { Card } from '@components/ui/Card' // Fixed alias and strict import
-import { Input } from '@components/ui/Input' // Fixed alias
-import { Button } from '@components/ui/Button' // Fixed alias
+import { useEffect, useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router'
+import { Card } from '@components/ui/Card'
+import { Input } from '@components/ui/Input'
+import { Button } from '@components/ui/Button'
+import { addProduct } from '@api/catalog'
+import { getCategories, type Category } from '@api/products'
 
 interface FormData {
   shoeName: string
   brand: string
   model: string
   categoryId: number
+  description: string
   imageUrl: string
 }
 
@@ -16,13 +20,24 @@ const INITIAL_FORM: FormData = {
   brand: '',
   model: '',
   categoryId: 0,
+  description: '',
   imageUrl: '',
 }
 
 export function ProductsPage() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM)
+  const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    getCategories()
+      .then((res) => {
+        if (res.data.success) setCategories(res.data.data)
+      })
+      .catch(() => {})
+  }, [])
 
   const handleChange = (field: keyof FormData) => (e: { target: { value: string } }) => {
     const value = field === 'categoryId' ? Number(e.target.value) : e.target.value
@@ -32,13 +47,22 @@ export function ProductsPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setSuccess(false)
-
-    setTimeout(() => {
+    setError(null)
+    try {
+      await addProduct({
+        shoeName: formData.shoeName,
+        brand: formData.brand,
+        model: formData.model,
+        categoryId: formData.categoryId,
+        description: formData.description,
+        imageUrl: formData.imageUrl || undefined,
+      })
+      navigate('/admin/catalog')
+    } catch (err: any) {
+      setError(err?.response?.data?.error ?? 'Failed to add product')
+    } finally {
       setLoading(false)
-      setSuccess(true)
-      setFormData(INITIAL_FORM)
-    }, 1000)
+    }
   }
 
   return (
@@ -46,8 +70,8 @@ export function ProductsPage() {
       <h1 className="font-display text-5xl text-white mb-8">Add Product</h1>
 
       <Card>
-        <Card.Body> {/* Fixed to use dot-notation */}
-          <Card.Title className="mb-6">Add to Master Catalog</Card.Title> {/* Fixed to use dot-notation */}
+        <Card.Body>
+          <Card.Title className="mb-6">Add to Master Catalog</Card.Title>
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <Input
               label="Shoe Name"
@@ -73,14 +97,30 @@ export function ProductsPage() {
               placeholder="e.g., Retro High"
               required
             />
+            <div className="flex flex-col gap-1.5">
+              <label className="font-heading text-sm uppercase tracking-wider text-dust">
+                Category
+              </label>
+              <select
+                value={formData.categoryId}
+                onChange={(e) => setFormData((prev) => ({ ...prev, categoryId: Number(e.target.value) }))}
+                className="bg-transparent border-b-2 border-smoke px-0 py-2.5 text-chalk font-body text-base outline-none transition-colors duration-300 focus:border-neon-green"
+                required
+              >
+                <option value={0} className="bg-void">Select category</option>
+                {categories.map((c) => (
+                  <option key={c.categoryId} value={c.categoryId} className="bg-void">
+                    {c.categoryName}
+                  </option>
+                ))}
+              </select>
+            </div>
             <Input
-              label="Category ID"
-              type="number"
-              min={1}
-              value={formData.categoryId || ''}
-              onChange={handleChange('categoryId')}
-              placeholder="e.g., 1"
-              required
+              label="Description"
+              type="text"
+              value={formData.description}
+              onChange={handleChange('description')}
+              placeholder="Brief product description"
             />
             <Input
               label="Image URL"
@@ -90,11 +130,7 @@ export function ProductsPage() {
               placeholder="https://example.com/image.jpg"
             />
 
-            {success && (
-              <div className="text-success font-body">
-                Product added to master catalog successfully!
-              </div>
-            )}
+            {error && <p className="text-danger font-mono text-sm">{error}</p>}
 
             <Button type="submit" loading={loading} className="mt-2">
               Add Product

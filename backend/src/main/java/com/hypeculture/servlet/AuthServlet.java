@@ -319,11 +319,21 @@ public class AuthServlet extends HttpServlet {
             return;
         }
 
-        Map<String, Object> info = new HashMap<>();
-        info.put("userId",   SessionManager.getUserId(req));
-        info.put("role",     SessionManager.getRole(req).toLowerCase());
-        info.put("username", SessionManager.getUsername(req));
-        JsonUtil.sendJson(resp, HttpServletResponse.SC_OK, JsonUtil.ok(info));
+        try {
+            int userId = SessionManager.getUserId(req);
+            User user = userDAO.findById(userId);
+            if (user == null) {
+                SessionManager.logout(req);
+                JsonUtil.sendJson(resp, HttpServletResponse.SC_UNAUTHORIZED,
+                        JsonUtil.error("Session invalid"));
+                return;
+            }
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_OK,
+                    JsonUtil.ok(buildUserMap(user)));
+        } catch (SQLException e) {
+            JsonUtil.sendJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    JsonUtil.error("Database error: " + e.getMessage()));
+        }
     }
 
     // ------------------------------------------------------------------
@@ -335,7 +345,8 @@ public class AuthServlet extends HttpServlet {
         m.put("userId",   user.getUserId());
         m.put("username", user.getUsername());
         m.put("email",    user.getEmail());
-        m.put("role",     user.getRole().name());
+        m.put("role",     user.getRole().name().toLowerCase());
+        m.put("status",   user.getStatus().name());
         return m;
     }
 }

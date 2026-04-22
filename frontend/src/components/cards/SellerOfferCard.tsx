@@ -37,8 +37,8 @@ export function SellerOfferCard({ listing, onAddToCart, loading = false }: Selle
       {/* Size + condition */}
       <div className="text-center flex-shrink-0">
         <p className="font-mono text-sm text-white">US {listing.size}</p>
-        <Badge variant={listing.condition === 'New' ? 'green' : 'neutral'} className="mt-0.5">
-          {listing.condition}
+        <Badge variant={listing.condition === 'NEW' ? 'green' : 'neutral'} className="mt-0.5">
+          {listing.condition === 'NEW' ? 'New' : 'Used'}
         </Badge>
       </div>
 

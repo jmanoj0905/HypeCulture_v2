@@ -63,7 +63,7 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
         </h4>
         <div className="flex gap-3 mt-1">
           <span className="font-mono text-xs text-dust">Size US {item.listing.size}</span>
-          <span className="font-mono text-xs text-dust">{item.listing.condition}</span>
+          <span className="font-mono text-xs text-dust">{item.listing.condition === 'NEW' ? 'New' : 'Used'}</span>
         </div>
 
         {/* Quantity stepper */}

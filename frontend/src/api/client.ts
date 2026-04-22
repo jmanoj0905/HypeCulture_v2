@@ -1,54 +1,22 @@
-import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestConfig } from 'axios'
-
-/**
- * Facade Pattern for API Client
- *
- * Provides unified interface with:
- * - Caching for GET requests
- * - Retry logic for transient failures
- * - Error handling abstraction
- * - Public endpoint detection
- *
- * GRASP: Indirection - mediates between pages and API
- * SOLID: Dependency Inversion - depends on abstraction, not concrete implementation
- */
-
-const PUBLIC_ENDPOINTS = ['/products', '/categories', '/listings', '/cart']
-const CACHE_TTL = 60 * 1000
-
-interface CacheEntry<T> {
-  data: T
-  timestamp: number
-}
+import axios, {
+  type AxiosInstance,
+  type AxiosError,
+  type AxiosResponse,
+  type AxiosRequestConfig,
+  type InternalAxiosRequestConfig,
+} from 'axios'
 
 class APIClientFacade {
   private client: AxiosInstance
-  private cache: Map<string, CacheEntry<unknown>>
-  private retryConfig: { retries: number; delay: number }
+  private retries = 3
 
   constructor() {
     this.client = axios.create({
       baseURL: '/api',
       withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     })
-    this.cache = new Map()
-    this.retryConfig = { retries: 3, delay: 1000 }
     this.setupInterceptors()
-  }
-
-  private isPublicEndpoint(url: string): boolean {
-    return PUBLIC_ENDPOINTS.some((endpoint) => url.includes(endpoint))
-  }
-
-  private getCacheKey(config: InternalAxiosRequestConfig): string {
-    return `${config.method}:${config.url}:${JSON.stringify(config.params || {})}`
-  }
-
-  private isCacheValid(entry: CacheEntry<unknown>): boolean {
-    return Date.now() - entry.timestamp < CACHE_TTL
   }
 
   private setupInterceptors(): void {
@@ -58,14 +26,12 @@ class APIClientFacade {
         const config = error.config as InternalAxiosRequestConfig | undefined
         if (!config) return Promise.reject(error)
 
-        const shouldRetry =
-          !error.response &&
-          this.retryConfig.retries > 0 &&
-          ['GET'].includes(config.method || '')
+        const isNetworkError = !error.response
+        const isGet = (config.method ?? '').toUpperCase() === 'GET'
 
-        if (shouldRetry) {
-          await this.delay(this.retryConfig.delay)
-          this.retryConfig.retries--
+        if (isNetworkError && isGet && this.retries > 0) {
+          this.retries--
+          await new Promise((r) => setTimeout(r, 1000))
           return this.client(config)
         }
 
@@ -74,48 +40,24 @@ class APIClientFacade {
     )
   }
 
-  private delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms))
+  get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.client.get<T>(url, config)
   }
 
-  async get<T>(url: string, params?: Record<string, unknown>): Promise<T> {
-    const response = await this.client.get<T>(url, { params })
-    return response.data
+  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.client.post<T>(url, data, config)
   }
 
-  async post<T>(url: string, data?: unknown): Promise<T> {
-    this.clearCache()
-    const response = await this.client.post<T>(url, data)
-    return response.data
+  put<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.client.put<T>(url, data, config)
   }
 
-  async put<T>(url: string, data?: unknown): Promise<T> {
-    this.clearCache()
-    const response = await this.client.put<T>(url, data)
-    return response.data
-  }
-
-  async delete<T>(url: string): Promise<T> {
-    this.clearCache()
-    const response = await this.client.delete<T>(url)
-    return response.data
-  }
-
-  clearCache(): void {
-    this.cache.clear()
-  }
-
-  clearCacheByPattern(pattern: string): void {
-    for (const key of this.cache.keys()) {
-      if (key.includes(pattern)) {
-        this.cache.delete(key)
-      }
-    }
+  delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.client.delete<T>(url, config)
   }
 }
 
 const apiFacade = new APIClientFacade()
 
 export default apiFacade
-
 export { apiFacade, APIClientFacade }
