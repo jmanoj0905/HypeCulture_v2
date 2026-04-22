@@ -12,8 +12,8 @@ export function FeaturedScroll() {
 
   useEffect(() => {
     getProducts({})
-      .then((res: any) => {
-        if (res.success) setProducts(res.data.slice(0, 7))
+      .then((res) => {
+        if (res.data.success) setProducts(res.data.data.slice(0, 7))
       })
       .catch(console.error)
   }, [])

@@ -18,18 +18,18 @@ const FALLBACK_CATEGORIES: Category[] = [
 ]
 
 const FALLBACK_PRODUCTS: Product[] = [
-  { productId: 1, shoeName: 'Air Jordan 1 Retro High OG', brand: 'Nike', model: 'AJ1', category: { categoryId: 1, categoryName: 'Sneakers', description: '' }, imageUrl: '/images/products/1-air-jordan-1.jpg', description: '', lowestPrice: 189, listingCount: 12, active: true, createdAt: '' },
-  { productId: 2, shoeName: 'Yeezy Boost 350 V2', brand: 'Adidas', model: 'Yeezy 350', category: { categoryId: 1, categoryName: 'Sneakers', description: '' }, imageUrl: '/images/products/2-yeezy-350.jpg', description: '', lowestPrice: 230, listingCount: 8, active: true, createdAt: '' },
-  { productId: 3, shoeName: 'Dunk Low Panda', brand: 'Nike', model: 'Dunk Low', category: { categoryId: 1, categoryName: 'Sneakers', description: '' }, imageUrl: '/images/products/3-dunk-low-panda.jpg', description: '', lowestPrice: 120, listingCount: 15, active: true, createdAt: '' },
-  { productId: 4, shoeName: 'New Balance 550', brand: 'New Balance', model: '550', category: { categoryId: 4, categoryName: 'Casual', description: '' }, imageUrl: '/images/products/4-nb-550.jpg', description: '', lowestPrice: 110, listingCount: 6, active: true, createdAt: '' },
-  { productId: 5, shoeName: 'Air Force 1 Low', brand: 'Nike', model: 'AF1', category: { categoryId: 1, categoryName: 'Sneakers', description: '' }, imageUrl: '/images/products/5-air-force-1.jpg', description: '', lowestPrice: 100, listingCount: 20, active: true, createdAt: '' },
-  { productId: 6, shoeName: 'Chuck Taylor All Star', brand: 'Converse', model: 'Chuck Taylor', category: { categoryId: 4, categoryName: 'Casual', description: '' }, imageUrl: '/images/products/6-chuck-taylor.jpg', description: '', lowestPrice: 65, listingCount: 11, active: true, createdAt: '' },
-  { productId: 7, shoeName: '6-Inch Premium Boot', brand: 'Timberland', model: '6-Inch', category: { categoryId: 2, categoryName: 'Boots', description: '' }, imageUrl: '/images/products/7-timberland-6inch.jpg', description: '', lowestPrice: 198, listingCount: 4, active: true, createdAt: '' },
-  { productId: 8, shoeName: 'Ultra Boost 22', brand: 'Adidas', model: 'Ultra Boost', category: { categoryId: 3, categoryName: 'Running', description: '' }, imageUrl: '/images/products/8-ultra-boost.jpg', description: '', lowestPrice: 155, listingCount: 7, active: true, createdAt: '' },
-  { productId: 9, shoeName: 'Old Skool', brand: 'Vans', model: 'Old Skool', category: { categoryId: 4, categoryName: 'Casual', description: '' }, imageUrl: '/images/products/9-vans-old-skool.jpg', description: '', lowestPrice: 75, listingCount: 14, active: true, createdAt: '' },
-  { productId: 10, shoeName: 'Air Max 90', brand: 'Nike', model: 'Air Max 90', category: { categoryId: 1, categoryName: 'Sneakers', description: '' }, imageUrl: '/images/products/10-air-max-90.jpg', description: '', lowestPrice: 145, listingCount: 9, active: true, createdAt: '' },
-  { productId: 11, shoeName: '1460 Pascal', brand: 'Dr. Martens', model: '1460 Pascal', category: { categoryId: 2, categoryName: 'Boots', description: '' }, imageUrl: '/images/products/11-dr-martens-1460.jpg', description: '', lowestPrice: 170, listingCount: 3, active: true, createdAt: '' },
-  { productId: 12, shoeName: 'Gel-Kayano 29', brand: 'ASICS', model: 'Gel-Kayano', category: { categoryId: 3, categoryName: 'Running', description: '' }, imageUrl: '/images/products/12-asics-gel-kayano.jpg', description: '', lowestPrice: 135, listingCount: 5, active: true, createdAt: '' },
+  { productId: 1, shoeName: 'Air Jordan 1 Retro High OG', brand: 'Nike', model: 'AJ1', categoryId: 1, imageUrl: '/images/products/1-air-jordan-1.jpg', description: '', lowestPrice: 189, listingCount: 12 },
+  { productId: 2, shoeName: 'Yeezy Boost 350 V2', brand: 'Adidas', model: 'Yeezy 350', categoryId: 1, imageUrl: '/images/products/2-yeezy-350.jpg', description: '', lowestPrice: 230, listingCount: 8 },
+  { productId: 3, shoeName: 'Dunk Low Panda', brand: 'Nike', model: 'Dunk Low', categoryId: 1, imageUrl: '/images/products/3-dunk-low-panda.jpg', description: '', lowestPrice: 120, listingCount: 15 },
+  { productId: 4, shoeName: 'New Balance 550', brand: 'New Balance', model: '550', categoryId: 4, imageUrl: '/images/products/4-nb-550.jpg', description: '', lowestPrice: 110, listingCount: 6 },
+  { productId: 5, shoeName: 'Air Force 1 Low', brand: 'Nike', model: 'AF1', categoryId: 1, imageUrl: '/images/products/5-air-force-1.jpg', description: '', lowestPrice: 100, listingCount: 20 },
+  { productId: 6, shoeName: 'Chuck Taylor All Star', brand: 'Converse', model: 'Chuck Taylor', categoryId: 4, imageUrl: '/images/products/6-chuck-taylor.jpg', description: '', lowestPrice: 65, listingCount: 11 },
+  { productId: 7, shoeName: '6-Inch Premium Boot', brand: 'Timberland', model: '6-Inch', categoryId: 2, imageUrl: '/images/products/7-timberland-6inch.jpg', description: '', lowestPrice: 198, listingCount: 4 },
+  { productId: 8, shoeName: 'Ultra Boost 22', brand: 'Adidas', model: 'Ultra Boost', categoryId: 3, imageUrl: '/images/products/8-ultra-boost.jpg', description: '', lowestPrice: 155, listingCount: 7 },
+  { productId: 9, shoeName: 'Old Skool', brand: 'Vans', model: 'Old Skool', categoryId: 4, imageUrl: '/images/products/9-vans-old-skool.jpg', description: '', lowestPrice: 75, listingCount: 14 },
+  { productId: 10, shoeName: 'Air Max 90', brand: 'Nike', model: 'Air Max 90', categoryId: 1, imageUrl: '/images/products/10-air-max-90.jpg', description: '', lowestPrice: 145, listingCount: 9 },
+  { productId: 11, shoeName: '1460 Pascal', brand: 'Dr. Martens', model: '1460 Pascal', categoryId: 2, imageUrl: '/images/products/11-dr-martens-1460.jpg', description: '', lowestPrice: 170, listingCount: 3 },
+  { productId: 12, shoeName: 'Gel-Kayano 29', brand: 'ASICS', model: 'Gel-Kayano', categoryId: 3, imageUrl: '/images/products/12-asics-gel-kayano.jpg', description: '', lowestPrice: 135, listingCount: 5 },
 ]
 
 function CategoryPill({ category, active, onClick }: { category: { categoryId: number; categoryName: string }; active: boolean; onClick: () => void }) {
@@ -127,12 +127,13 @@ export function BrowsePage() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [loading, setLoading] = useState(true)
   const [initialLoading, setInitialLoading] = useState(true)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     Promise.all([getCategories(), getProducts({})])
-      .then(([catRes, prodRes]: any[]) => {
-        if (catRes.success) setCategories(catRes.data)
-        if (prodRes.success) setProducts(prodRes.data)
+      .then(([catRes, prodRes]) => {
+        if (catRes.data.success) setCategories(catRes.data.data)
+        if (prodRes.data.success) setProducts(prodRes.data.data)
       })
       .catch(() => {})
       .finally(() => setInitialLoading(false))
@@ -144,8 +145,8 @@ export function BrowsePage() {
     if (selectedCat !== 0) params.category = selectedCat
     
     getProducts(params)
-      .then((res: any) => {
-        if (res.success) setProducts(res.data)
+      .then((res) => {
+        if (res.data.success) setProducts(res.data.data)
       })
       .catch(() => setProducts(FALLBACK_PRODUCTS))
       .finally(() => setLoading(false))
@@ -153,7 +154,7 @@ export function BrowsePage() {
 
   const filtered = selectedCat === 0
     ? products
-    : products.filter((p) => p.category?.categoryId === selectedCat || p.category?.categoryId === selectedCat)
+    : products.filter((p) => p.categoryId === selectedCat)
 
   const sorted = sortProducts(filtered, sort)
   const hasMore = visibleCount < sorted.length
