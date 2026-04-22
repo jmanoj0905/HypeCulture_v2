@@ -6,6 +6,7 @@ import { TransitionLink } from '@components/navigation/TransitionLink'
 import { FluidRevealEffect } from '@components/effects/FluidRevealEffect'
 import { MagneticButton } from '@components/interactive/MagneticButton'
 import { ScrambleText } from '@components/typography/ScrambleText'
+import { useAuth } from '@hooks/useAuth'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,6 +26,7 @@ function useClock() {
 }
 
 export function HeroSection() {
+  const { user } = useAuth()
   const sectionRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const canvasWrapRef = useRef<HTMLDivElement>(null)
@@ -164,18 +166,20 @@ export function HeroSection() {
                 Browse Drops →
               </TransitionLink>
             </MagneticButton>
-            <MagneticButton as="div" className="inline-block">
-              <TransitionLink
-                to="/login"
-                data-cursor="link"
-                className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-8 py-4
-                           bg-transparent text-chalk border border-smoke/60
-                           hover:border-neon-green hover:text-neon-green
-                           transition-colors duration-300"
-              >
-                Sign In
-              </TransitionLink>
-            </MagneticButton>
+            {!user && (
+              <MagneticButton as="div" className="inline-block">
+                <TransitionLink
+                  to="/login"
+                  data-cursor="link"
+                  className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-8 py-4
+                             bg-transparent text-chalk border border-smoke/60
+                             hover:border-neon-green hover:text-neon-green
+                             transition-colors duration-300"
+                >
+                  Sign In
+                </TransitionLink>
+              </MagneticButton>
+            )}
           </div>
         </div>
 

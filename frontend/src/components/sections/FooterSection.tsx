@@ -16,7 +16,7 @@ function useUTCClock() {
   return t
 }
 
-export function FooterSection() {
+export function FooterSection({ hideSellerLinks = false }: { hideSellerLinks?: boolean }) {
   const ref = useRef<HTMLElement>(null)
   const giantRef = useRef<HTMLDivElement>(null)
   const clock = useUTCClock()
@@ -67,11 +67,13 @@ export function FooterSection() {
           <FLink to="/cart">Cart</FLink>
           <FLink to="/orders">Orders</FLink>
         </Col>
-        <Col title="Sell">
-          <FLink to="/login">Seller Portal</FLink>
-          <FLink to="/seller/new-listing">List a Pair</FLink>
-          <FLink to="/seller/inventory">Inventory</FLink>
-        </Col>
+        {!hideSellerLinks && (
+          <Col title="Sell">
+            <FLink to="/login">Seller Portal</FLink>
+            <FLink to="/seller/new-listing">List a Pair</FLink>
+            <FLink to="/seller/inventory">Inventory</FLink>
+          </Col>
+        )}
         <Col title="Coordinates">
           <div className="font-mono text-xs text-dust">N 40°44'21"</div>
           <div className="font-mono text-xs text-dust">W 73°59'11"</div>

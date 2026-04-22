@@ -7,8 +7,12 @@ import { CategoryGrid } from '@components/sections/CategoryGrid'
 import { StatsCounter } from '@components/sections/StatsCounter'
 import { ChapterSell } from '@components/sections/ChapterSell'
 import { FooterSection } from '@components/sections/FooterSection'
+import { useAuth } from '@hooks/useAuth'
 
 export function LandingPage() {
+  const { user } = useAuth()
+  const isCustomer = user?.role === 'customer'
+
   return (
     <main className="bg-void">
       <HeroSection />
@@ -18,8 +22,8 @@ export function LandingPage() {
       <ChapterAuth />
       <CategoryGrid />
       <StatsCounter />
-      <ChapterSell />
-      <FooterSection />
+      {!isCustomer && <ChapterSell />}
+      <FooterSection hideSellerLinks={isCustomer} />
     </main>
   )
 }

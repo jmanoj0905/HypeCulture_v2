@@ -358,25 +358,6 @@ export function ProductDetailPage() {
                 </div>
               )}
 
-              {/* Seller Offers */}
-              {sortedListings.length > 0 && (
-                <div className="mt-8">
-                  <NeonDivider className="mb-6" />
-                  <p className="font-heading text-sm uppercase tracking-widest text-dust mb-4">
-                    Seller Offers
-                  </p>
-                  <div className="border border-smoke/30 divide-y divide-smoke/30">
-                    {sortedListings.map((listing) => (
-                      <SellerOfferCard
-                        key={listing.listingId}
-                        listing={listing}
-                        onAddToCart={handleAddToCart}
-                        loading={addingId === listing.listingId}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>

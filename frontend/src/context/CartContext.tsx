@@ -117,9 +117,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [syncCart, notifyCartChange])
 
-  const updateQuantity = useCallback(async (_cartItemId: number, _quantity: number) => {
-    // Backend may not support this yet - silently skip
-  }, [])
+  const updateQuantity = useCallback(async (cartItemId: number, newQuantity: number) => {
+    const item = items.find((i) => i.cartItemId === cartItemId)
+    if (!item) return
+    const delta = newQuantity - item.quantity
+    try {
+      if (delta > 0) {
+        await apiAdd(item.listing.listingId, delta)
+      } else if (delta < 0) {
+        await apiRemove(cartItemId)
+        if (newQuantity > 0) {
+          await apiAdd(item.listing.listingId, newQuantity)
+        }
+      }
+      const res = await getCart()
+      if (res.data.success) {
+        syncCart(res.data.data)
+        const cart = res.data.data.cart
+        const sub = cart?.items?.reduce((sum, i) => sum + (i.listing.price * i.quantity), 0) ?? 0
+        notifyCartChange(cart?.items ?? [], sub)
+      }
+    } catch {
+      // silently fail
+    }
+  }, [items, syncCart, notifyCartChange])
 
   const count = items.reduce((sum, item) => sum + item.quantity, 0)
 

@@ -109,11 +109,11 @@ export function CartDrawerItem({ item }: Props) {
         </div>
       </div>
 
-      {/* Remove (desktop) */}
+      {/* Remove */}
       <button
         onClick={onRemove}
         data-cursor="link"
-        className="self-start shrink-0 font-mono text-[10px] text-dust hover:text-danger transition-colors mt-1"
+        className="self-start shrink-0 w-6 h-6 flex items-center justify-center border border-smoke/40 text-dust hover:border-danger hover:text-danger transition-colors mt-1 font-mono text-xs"
         aria-label="Remove item"
       >
         ✕
