@@ -1,34 +1,39 @@
 import { Link, useLocation } from 'react-router'
 import { useAuth } from '@hooks/useAuth'
 
-interface SidebarLink {
-  label: string
-  path: string
-}
+const SELLER_LINKS = [
+  { label: 'Dashboard', path: '/seller' },
+  { label: 'New Listing', path: '/seller/new-listing' },
+  { label: 'Inventory', path: '/seller/inventory' },
+]
 
-interface SidebarProps {
-  title: string
-  links: SidebarLink[]
-}
+const ADMIN_LINKS = [
+  { label: 'Dashboard', path: '/admin' },
+  { label: 'Users', path: '/admin/users' },
+  { label: 'Products', path: '/admin/products' },
+  { label: 'Catalog', path: '/admin/catalog' },
+  { label: 'Reports', path: '/admin/reports' },
+]
 
-export function Sidebar({ title, links }: SidebarProps) {
+export function Sidebar() {
   const location = useLocation()
   const { user, logout } = useAuth()
 
+  const links = user?.role === 'admin' ? ADMIN_LINKS : SELLER_LINKS
+  const panelTitle = user?.role === 'admin' ? 'ADMIN PANEL' : 'SELLER PANEL'
+
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-asphalt border-r border-smoke z-30 flex flex-col">
-      {/* Logo */}
       <div className="px-6 py-5 border-b border-smoke">
-        <Link to="/" className="font-display text-xl tracking-wider">
+        <h1 className="font-display text-2xl tracking-wider">
           <span className="text-neon-green">HC</span>
-        </Link>
-        <p className="font-heading text-xs uppercase tracking-widest text-dust mt-1">{title}</p>
+        </h1>
+        <p className="font-heading text-xs uppercase tracking-widest text-dust mt-1">{panelTitle}</p>
       </div>
 
-      {/* Nav links */}
       <nav className="flex-1 py-4">
         {links.map((link) => {
-          const active = location.pathname === link.path ||
+          const isActive = location.pathname === link.path ||
             (link.path !== '/seller' && link.path !== '/admin' && location.pathname.startsWith(link.path))
           return (
             <Link
@@ -37,7 +42,7 @@ export function Sidebar({ title, links }: SidebarProps) {
               className={`
                 flex items-center px-6 py-3 font-heading text-sm uppercase tracking-widest
                 transition-all duration-300 border-l-3
-                ${active
+                ${isActive
                   ? 'border-l-neon-green text-neon-green bg-neon-green/5'
                   : 'border-l-transparent text-dust hover:text-chalk hover:bg-white/3'
                 }
@@ -49,14 +54,13 @@ export function Sidebar({ title, links }: SidebarProps) {
         })}
       </nav>
 
-      {/* User info */}
       <div className="px-6 py-4 border-t border-smoke">
         <p className="font-mono text-xs text-dust truncate">{user?.email}</p>
         <button
           onClick={() => logout()}
           className="font-heading text-xs uppercase tracking-widest text-dust hover:text-danger transition-colors mt-2"
         >
-          Logout
+          LOGOUT
         </button>
       </div>
     </aside>

@@ -53,8 +53,22 @@ function KineticTitle({ children }: { children: string }) {
 }
 
 function SizePill({ size, active, available, onClick }: { size: number; active: boolean; available: boolean; onClick: () => void }) {
-  return (
-    <MagneticButton as="div" strength={0.3} radius={40}>
+  const ref = useRef<HTMLButtonElement>(null)
+
+  useGSAP(() => {
+    if (!ref.current || active || !available) return
+    gsap.to(ref.current, {
+      scale: 1.05,
+      duration: 0.3,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+    })
+    return () => { gsap.killTweensOf(ref.current) }
+  }, [available])
+
+return (
+    <MagneticButton as="div" strength={0.25} radius={60} onClick={onClick}>
       <button
         onClick={onClick}
         disabled={!available}
@@ -129,7 +143,7 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
 
   return (
     <HoverAberration intensity={2}>
-      <MagneticButton as="div" strength={0.4}>
+      <MagneticButton as="div">
         <button
           ref={btnRef}
           onClick={handleClick}

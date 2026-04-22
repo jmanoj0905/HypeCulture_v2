@@ -34,7 +34,7 @@ const FALLBACK_PRODUCTS: Product[] = [
 
 function CategoryPill({ category, active, onClick }: { category: { categoryId: number; categoryName: string }; active: boolean; onClick: () => void }) {
   return (
-    <MagneticButton as="div" strength={0.3} radius={80}>
+    <MagneticButton as="div" radius={80}>
       <button
         onClick={onClick}
         className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
@@ -51,7 +51,7 @@ function CategoryPill({ category, active, onClick }: { category: { categoryId: n
 
 function SortOption({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
-    <MagneticButton as="div" strength={0.2} radius={60}>
+    <MagneticButton as="div" radius={60}>
       <button
         onClick={onClick}
         className={`font-mono text-xs uppercase tracking-wider transition-colors duration-200
@@ -188,7 +188,7 @@ export function BrowsePage() {
           <div className="mt-6 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
             {/* Category pills */}
             <div className="flex flex-wrap gap-2">
-              <MagneticButton as="div" strength={0.3} radius={80}>
+              <MagneticButton as="div" radius={80}>
                 <button
                   onClick={() => handleCatChange(0)}
                   className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
@@ -250,7 +250,7 @@ export function BrowsePage() {
               {/* Load more */}
               {hasMore && (
                 <div className="flex justify-center mt-12">
-                  <MagneticButton as="div" strength={0.4}>
+                  <MagneticButton as="div">
                     <button
                       onClick={loadMore}
                       disabled={loading}

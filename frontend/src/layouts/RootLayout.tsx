@@ -6,7 +6,9 @@ export function RootLayout() {
   return (
     <TransitionProvider>
       <CartDrawer />
-      <Outlet />
+      <main id="main-content" tabIndex={-1}>
+        <Outlet />
+      </main>
     </TransitionProvider>
   )
 }
