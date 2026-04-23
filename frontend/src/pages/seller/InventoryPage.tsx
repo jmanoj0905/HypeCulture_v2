@@ -6,6 +6,7 @@ import { Spinner } from '@components/ui/Spinner'
 import { getSellerListings, deleteListing } from '@api/listings'
 import { useAuth } from '@hooks/useAuth'
 import type { Listing } from '@api/products'
+import { resolveImageUrl } from '@lib/imageUtils'
 
 export function InventoryPage() {
   const { user } = useAuth()
@@ -67,7 +68,7 @@ export function InventoryPage() {
           {listings.map((listing) => (
             <Card key={listing.listingId}>
               <Card.Image
-                src={listing.imageUrl || listing.product.imageUrl}
+                src={resolveImageUrl(listing.imageUrl || listing.product.imageUrl)}
                 alt={listing.product.shoeName}
               />
               <Card.Body>

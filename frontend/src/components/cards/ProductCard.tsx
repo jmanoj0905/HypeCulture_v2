@@ -4,6 +4,7 @@ import { TransitionLink } from '@components/navigation/TransitionLink'
 import { TiltCard } from '@components/interactive/TiltCard'
 import { HoverAberration } from '@components/interactive/HoverAberration'
 import type { Product } from '@api/products'
+import { resolveImageUrl } from '@lib/imageUtils'
 
 const ACCENTS = ['#39ff14', '#ff2d7b', '#00f0ff', '#f0ff00'] as const
 
@@ -40,7 +41,7 @@ export function ProductCard({ product, className = '' }: ProductCardProps) {
             >
               {product.imageUrl ? (
                 <img
-                  src={product.imageUrl}
+                  src={resolveImageUrl(product.imageUrl)}
                   alt={product.shoeName}
                   className="w-full h-full object-cover"
                 />

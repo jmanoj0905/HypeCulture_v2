@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import gsap from 'gsap'
 import { PriceTag } from '@components/ui/PriceTag'
 import type { CartItem } from '@api/cart'
+import { resolveImageUrl } from '@lib/imageUtils'
 
 interface CartItemCardProps {
   item: CartItem
@@ -44,7 +45,7 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
       {/* Image */}
       <div className="w-20 h-20 bg-concrete flex-shrink-0 flex items-center justify-center">
         {product.imageUrl ? (
-          <img src={product.imageUrl} alt={product.shoeName} className="w-full h-full object-cover" />
+          <img src={resolveImageUrl(product.imageUrl)} alt={product.shoeName} className="w-full h-full object-cover" />
         ) : (
           <span className="font-display text-2xl text-smoke/60">{product.brand.charAt(0)}</span>
         )}

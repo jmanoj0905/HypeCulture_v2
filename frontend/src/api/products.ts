@@ -55,3 +55,12 @@ export const getListingsForProduct = (productId: number) =>
 
 export const searchProducts = (query: string) =>
   client.get<{ success: boolean; data: Product[] }>('/products', { params: { search: query } })
+
+export const createProduct = (data: {
+  shoeName: string
+  brand: string
+  model?: string
+  categoryId: number
+  description?: string
+  imageUrl?: string
+}) => client.post<{ success: boolean; data: Product; error?: string }>('/products', data)

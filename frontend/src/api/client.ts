@@ -55,6 +55,16 @@ class APIClientFacade {
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     return this.client.delete<T>(url, config)
   }
+
+  uploadImage(file: File): Promise<AxiosResponse<{ success: boolean; data: { imageUrl: string; filename: string } }>> {
+    const formData = new FormData()
+    formData.append('image', file)
+    return this.client.post<{ success: boolean; data: { imageUrl: string; filename: string } }>(
+      '/upload',
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    )
+  }
 }
 
 const apiFacade = new APIClientFacade()

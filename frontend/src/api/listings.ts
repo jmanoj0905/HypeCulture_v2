@@ -8,6 +8,24 @@ export interface CreateListingPayload {
   price: number
   stockQuantity: number
   description: string
+  imageUrl?: string
+}
+
+export interface CreateBulkListingPayload {
+  productId?: number
+  shoeName?: string
+  brand?: string
+  model?: string
+  categoryId?: number
+  description?: string
+  imageUrl?: string
+  sizes: Array<{
+    size: number
+    condition: 'NEW' | 'USED'
+    price: number
+    stockQuantity: number
+    description?: string
+  }>
 }
 
 export const createListing = (payload: CreateListingPayload) =>
