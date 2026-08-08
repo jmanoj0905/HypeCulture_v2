@@ -1,0 +1,17 @@
+/* shadcn/ui Theme — extracted from https://landonorris.com/ */
+/* Paste into your globals.css */
+
+@layer base {
+  :root {
+    --background: 80 16% 15%;
+    --foreground: 0 0% 0%;
+    --primary: 71 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 69 56% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 100%;
+    --muted-foreground: 60 24% 94%;
+    --border: 76 20% 85%;
+    --radius: 6px;
+  }
+}

@@ -11,24 +11,24 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-neon-green text-void hover:bg-transparent hover:text-neon-green border-neon-green',
-  secondary: 'bg-transparent text-chalk border-smoke hover:border-neon-green hover:text-neon-green',
-  danger: 'bg-danger text-white hover:bg-transparent hover:text-danger border-danger',
-  ghost: 'bg-transparent text-dust hover:text-chalk border-transparent',
+  primary: 'bg-neon-green text-chalk border-neon-green hover:bg-chalk hover:text-neon-green hover:border-chalk',
+  secondary: 'bg-transparent text-chalk border-chalk hover:bg-chalk hover:text-void',
+  danger: 'bg-danger text-void border-danger hover:bg-transparent hover:text-danger',
+  ghost: 'bg-transparent text-dust border-transparent hover:text-chalk',
 }
 
 const sizes: Record<Size, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-5 py-2.5 text-base',
-  lg: 'px-8 py-3.5 text-lg',
+  sm: 'px-5 py-2 text-sm',
+  md: 'px-7 py-3 text-base',
+  lg: 'px-10 py-4 text-lg',
 }
 
 export function Button({ variant = 'primary', size = 'md', children, loading, className = '', disabled, ...props }: ButtonProps) {
   return (
     <button
       className={`
-        font-heading uppercase tracking-wider font-semibold border
-        transition-all duration-300 ease-[var(--ease-out-expo)]
+        font-heading font-bold rounded-full border
+        transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]
         active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed
         ${variants[variant]} ${sizes[size]} ${className}
       `}
@@ -38,7 +38,7 @@ export function Button({ variant = 'primary', size = 'md', children, loading, cl
       {loading ? (
         <span className="inline-flex items-center gap-2">
           <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-          Loading...
+          Loading
         </span>
       ) : children}
     </button>

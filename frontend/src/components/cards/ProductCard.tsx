@@ -6,7 +6,7 @@ import { HoverAberration } from '@components/interactive/HoverAberration'
 import type { Product } from '@api/products'
 import { resolveImageUrl } from '@lib/imageUtils'
 
-const ACCENTS = ['#39ff14', '#ff2d7b', '#00f0ff', '#f0ff00'] as const
+const ACCENTS = ['#d2ff00', '#b2c73a', '#535450', '#282c20'] as const
 
 interface ProductCardProps {
   product: Product

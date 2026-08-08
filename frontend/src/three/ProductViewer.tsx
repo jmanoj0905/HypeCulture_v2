@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Environment, ContactShadows, Float, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
-const PRODUCT_COLORS = ['#39ff14', '#ff2d7b', '#00f0ff', '#f0ff00', '#ff8c00'] as const
+const PRODUCT_COLORS = ['#d2ff00', '#b2c73a', '#dde1d2', '#535450', '#282c20'] as const
 
 function ViewerPlaceholder({ productId = 0 }: { productId?: number }) {
   const meshRef = useRef<THREE.Mesh>(null)
@@ -78,7 +78,7 @@ export function ProductViewer({ productId = 0 }: ProductViewerProps) {
         intensity={0.6}
         color={PRODUCT_COLORS[productId % PRODUCT_COLORS.length]}
       />
-      <pointLight position={[3, -2, 3]} intensity={0.2} color="#ff2d7b" />
+      <pointLight position={[3, -2, 3]} intensity={0.2} color="#b2c73a" />
 
       <Suspense fallback={<ViewerPlaceholder productId={productId} />}>
         <ViewerErrorBoundary productId={productId}>

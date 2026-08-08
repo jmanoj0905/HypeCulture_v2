@@ -95,7 +95,7 @@ export function HeroSection() {
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background:
-            'linear-gradient(100deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.55) 40%, rgba(10,10,10,0.1) 72%, rgba(10,10,10,0) 100%)',
+            'linear-gradient(100deg, rgba(244,244,237,0.92) 0%, rgba(244,244,237,0.6) 40%, rgba(244,244,237,0.1) 72%, rgba(244,244,237,0) 100%)',
         }}
       />
 
@@ -138,8 +138,8 @@ export function HeroSection() {
             {WORDS.map((w, i) => (
               <div key={w} className="overflow-hidden">
                 <h1
-                  className={`word-line font-display leading-[0.82] tracking-wider whitespace-nowrap ${
-                    i === 1 ? 'text-neon-green' : 'text-white'
+                  className={`word-line font-display leading-[0.82] tracking-tight whitespace-nowrap ${
+                    i === 1 ? 'text-neon-green [text-shadow:0_0_40px_rgba(40,44,32,0.35)]' : 'text-chalk'
                   }`}
                   style={{ fontSize: 'clamp(3rem, 9vw, 9rem)', willChange: 'transform' }}
                 >
@@ -158,10 +158,10 @@ export function HeroSection() {
               <TransitionLink
                 to="/browse"
                 data-cursor="buy"
-                className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-8 py-4
-                           bg-neon-green text-void border border-neon-green
-                           hover:bg-transparent hover:text-neon-green
-                           transition-colors duration-300"
+                className="inline-block font-heading font-bold text-base rounded-full px-9 py-4
+                           bg-neon-green text-chalk border border-neon-green
+                           hover:bg-chalk hover:text-neon-green hover:border-chalk
+                           transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]"
               >
                 Browse Drops →
               </TransitionLink>
@@ -171,10 +171,10 @@ export function HeroSection() {
                 <TransitionLink
                   to="/login"
                   data-cursor="link"
-                  className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-8 py-4
-                             bg-transparent text-chalk border border-smoke/60
-                             hover:border-neon-green hover:text-neon-green
-                             transition-colors duration-300"
+                  className="inline-block font-heading font-bold text-base rounded-full px-9 py-4
+                             bg-transparent text-chalk border border-chalk
+                             hover:bg-chalk hover:text-void
+                             transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]"
                 >
                   Sign In
                 </TransitionLink>
@@ -186,7 +186,7 @@ export function HeroSection() {
         {/* Right rail — stats */}
         <div className="hidden xl:flex flex-col items-end gap-4 pb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-dust pointer-events-auto shrink-0">
           <div className="text-right">
-            <div className="text-neon-green tabular-nums text-3xl font-display tracking-wider">14,238</div>
+            <div className="text-neon-green tabular-nums text-3xl font-display tracking-tight">14,238</div>
             <div className="mt-1">pairs sold · ytd</div>
           </div>
           <div className="w-10 h-px bg-smoke" />

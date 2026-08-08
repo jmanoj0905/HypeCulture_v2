@@ -1,32 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  /* Color Palette */
-  --color-void: #0a0a0a;
-  --color-asphalt: #121212;
-  --color-concrete: #1a1a1a;
-  --color-smoke: #2a2a2a;
-  --color-dust: #6b6b6b;
-  --color-chalk: #e0e0e0;
-  --color-white: #f5f5f5;
+  /* Lando Norris palette — cream / dark-green / lime.
+     Token names preserved so all 60 component files inherit automatically.
+     void = page bg (was near-black, now cream). chalk/white = ink (now dark).
+     neon-green = signature lime #d2ff00 (was #39ff14). */
+  --color-void: #f4f4ed;
+  --color-asphalt: #efefe5;
+  --color-concrete: #ebeee0;
+  --color-smoke: #dde1d2;
+  --color-dust: #535450;
+  --color-chalk: #282c20;
+  --color-white: #111112;
 
-  /* Neon accents — green now canonical; others kept for legacy pages */
-  --color-neon-green: #39ff14;
-  --color-neon-pink: #ff2d7b;
-  --color-neon-cyan: #00f0ff;
-  --color-neon-yellow: #f0ff00;
+  --color-neon-green: #d2ff00;
+  --color-neon-pink: #b2c73a;
+  --color-neon-cyan: #535450;
+  --color-neon-yellow: #d2ff00;
 
   /* Semantic */
-  --color-price: #fbbf24;
+  --color-price: #282c20;
   --color-success: #22c55e;
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
 
-  /* Typography */
-  --font-family-display: "Bebas Neue", "Impact", sans-serif;
-  --font-family-heading: "Oswald", "Arial Narrow", sans-serif;
-  --font-family-body: "Inter", "Helvetica", sans-serif;
+  /* Typography — Mona Sans Variable + Brier display (Bebas fallback; Brier is commercial) */
+  --font-family-display: "Brier", "Bebas Neue", "Impact", sans-serif;
+  --font-family-heading: "Mona Sans", "Helvetica Neue", sans-serif;
+  --font-family-body: "Mona Sans", "Helvetica Neue", sans-serif;
   --font-family-mono: "JetBrains Mono", monospace;
 
   /* Breakpoints */
@@ -74,13 +76,13 @@ body::after {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-void); }
-::-webkit-scrollbar-thumb { background: var(--color-smoke); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-dust); }
+::-webkit-scrollbar-thumb { background: var(--color-dust); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-chalk); }
 
 /* Selection */
 ::selection {
-  background-color: rgba(57, 255, 20, 0.25);
-  color: var(--color-white);
+  background-color: rgba(210, 255, 0, 0.45);
+  color: var(--color-chalk);
 }
 
 /* Mega display type util */
@@ -142,8 +144,8 @@ body::after {
   mix-blend-mode: screen;
 }
 
-.aberration-target::before { color: #ff2d7b; }
-.aberration-target::after  { color: #00f0ff; }
+.aberration-target::before { color: #b2c73a; }
+.aberration-target::after  { color: #d2ff00; }
 
 .aberration-target:hover::before {
   opacity: 0.9;

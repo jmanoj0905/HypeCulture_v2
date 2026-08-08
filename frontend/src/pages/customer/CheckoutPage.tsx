@@ -104,7 +104,7 @@ export function CheckoutPage() {
                 <div
                   className={`w-7 h-7 border flex items-center justify-center font-mono text-xs transition-all duration-300
                     ${i < step
-                      ? 'bg-neon-green border-neon-green text-void'
+                      ? 'bg-neon-green border-neon-green text-chalk'
                       : i === step
                         ? 'border-neon-green text-neon-green'
                         : 'border-smoke text-smoke'
@@ -147,7 +147,7 @@ export function CheckoutPage() {
                   <TransitionLink
                     to="/browse"
                     className="inline-block mt-6 font-heading text-sm uppercase tracking-widest
-                               px-6 py-3 bg-neon-green text-void border border-neon-green
+                               px-6 py-3 bg-neon-green text-chalk border border-neon-green
                                hover:bg-transparent hover:text-neon-green transition-all duration-300"
                   >
                     Browse
@@ -312,14 +312,14 @@ export function CheckoutPage() {
                     cy="26"
                     r="24"
                     fill="none"
-                    stroke="#39ff14"
+                    stroke="#d2ff00"
                     strokeWidth="1.5"
                     style={{ opacity: 0 }}
                   />
                   <path
                     ref={checkmarkRef}
                     fill="none"
-                    stroke="#39ff14"
+                    stroke="#d2ff00"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -352,7 +352,7 @@ export function CheckoutPage() {
                 <TransitionLink
                   to="/orders"
                   className="inline-block font-heading text-sm uppercase tracking-widest px-6 py-3
-                             bg-neon-green text-void border border-neon-green
+                             bg-neon-green text-chalk border border-neon-green
                              hover:bg-transparent hover:text-neon-green transition-all duration-300"
                 >
                   View Orders

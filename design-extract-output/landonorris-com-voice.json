@@ -1,0 +1,24 @@
+{
+  "tone": "friendly",
+  "pronoun": "you-only",
+  "headingStyle": "Sentence case",
+  "headingLengthClass": "tight",
+  "ctaVerbs": [],
+  "buttonPatterns": [],
+  "sampleHeadings": [
+    "LANDO NORRIS",
+    "2025 MCLAREN FORMULA 1 DRIVER",
+    "ON\n",
+    "ON",
+    "TRACK",
+    "ON\n",
+    "ON",
+    "TRACK",
+    "TRACK",
+    "OFF\n"
+  ],
+  "stats": {
+    "buttons": 0,
+    "headings": 25
+  }
+}

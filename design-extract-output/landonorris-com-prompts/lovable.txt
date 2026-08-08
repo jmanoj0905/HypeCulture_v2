@@ -1,0 +1,10 @@
+Clone the design language of this landing page and build a fresh equivalent.
+Visual feel: flat. Tone: friendly · Headings: Sentence case
+Primary palette: #f4f4ed, #282c20, #535450, #d2ff00, #111112.
+Typography: [object Object], [object Object], [object Object].
+Corner radius vocabulary: 2, 6, 9, 14, 39.
+Shadow vocabulary: (none).
+Page structure:
+- hero
+- logo-wall — heading: "PARTNERS"
+- cta — heading: "ALWAYS BRINGING THE FIGHT."

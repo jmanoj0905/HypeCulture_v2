@@ -1,0 +1,156 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #d2ff00;
+  --color-secondary: #b2c73a;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #f4f4ed;
+  --color-neutral-100: #282c20;
+  --color-neutral-200: #535450;
+  --color-neutral-300: #111112;
+  --color-neutral-400: #dde1d2;
+  --color-neutral-500: #b4b8a5;
+  --color-neutral-600: #000000;
+  --color-neutral-700: #3b3c38;
+  --color-neutral-800: #343a26;
+  --color-neutral-900: #ffffff;
+
+  /* Colors — Backgrounds */
+  --color-bg: #282c20;
+  --color-bg-1: #b2c73a;
+  --color-bg-2: #111112;
+  --color-bg-3: #000000;
+  --color-bg-4: #f4f4ed;
+
+  /* Colors — Text */
+  --color-text: #000000;
+  --color-text-1: #f4f4ed;
+  --color-text-2: #282c20;
+  --color-text-3: #111112;
+  --color-text-4: #2f3327;
+
+  /* Typography — Families */
+  --font-sans: 'Mona Sans Variable', sans-serif;
+  --font-heading: 'Brier', sans-serif;
+  --font-font-2: 'sans-serif', sans-serif;
+
+  /* Typography — Scale */
+  --font-size-102.4: 102.4px;
+  --font-size-97.7778: 97.7778px;
+  --font-size-94.0741: 94.0741px;
+  --font-size-86.6667: 86.6667px;
+  --font-size-82.963: 82.963px;
+  --font-size-64.4444: 64.4444px;
+  --font-size-62.2222: 62.2222px;
+  --font-size-55.5556: 55.5556px;
+  --font-size-53.3333: 53.3333px;
+  --font-size-38: 38px;
+  --font-size-32.5926: 32.5926px;
+  --font-size-32: 32px;
+
+  /* Spacing */
+  --spacing-3: 3px;
+  --spacing-21: 21px;
+  --spacing-44: 44px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-95: 95px;
+  --spacing-101: 101px;
+  --spacing-116: 116px;
+  --spacing-130: 130px;
+  --spacing-142: 142px;
+  --spacing-151: 151px;
+  --spacing-157: 157px;
+  --spacing-166: 166px;
+  --spacing-342: 342px;
+  --spacing-462: 462px;
+  --spacing-471: 471px;
+
+  /* Border Radius */
+  --radius-xs: 2px;
+  --radius-md: 6px;
+  --radius-md: 9px;
+  --radius-lg: 14px;
+  --radius-full: 39px;
+
+  /* Original Site Variables */
+  /* — colors — */
+  --color--dark-green: #282c20;
+  --color--white: #f4f4ed;
+  --color--black: #111112;
+  --color--lime-off: #b2c73a;
+  --color--lime: #d2ff00;
+  --color--green-off-white-1: #dde1d2;
+  --color--lime-zero: #d2ff0000;
+  --text--btn-primary: 1rem;
+  --color--green-off-white-2: #b4b8a5;
+  --color--dark-green-tint-2: #535450;
+  --color--grey-on-track: #b9bbad;
+  --color--dark-green-tint-1: #3b3c38;
+  --color--grey-1: #ebeee0;
+  --color--green-light: #ebeee0;
+  --color--cream: #efefe5;
+  --color--grey-2: #c8cbbd;
+  --color--orange: #ff6b00;
+  /* — spacing — */
+  --padding--container: 1.25rem;
+  --gap: 1.25rem;
+  --on-t-nav-spacer: 5.375rem;
+  --padding--xlarge: 5rem;
+  --padding--med: 3rem;
+  --gap--med<deleted|variable-196f1660-85b7-2eda-5ec8-e43ca0f5032d>: 2rem;
+  --grid-spacer: 31.51vh;
+  --padding--small: 2rem;
+  --padding--mini: 1rem;
+  --padding--large: 4rem;
+  --section-padding: calc(3.5rem + (var(--gap) * 2));
+  --container-padding: 2rem;
+  /* — typography — */
+  --text--h1: 4rem;
+  --text--btn-nav: 1.25rem;
+  --text--btn-footer: 1.875rem;
+  --text--impact: 7.9375rem;
+  --text--h2: 4.5rem;
+  --text--h3: 2rem;
+  --text--h4: 1.5rem;
+  --text--h5: 1.2rem;
+  --text--h6: 1rem;
+  --text--reg: 1.6rem;
+  --text--med: 2.76rem;
+  --text--btn-tertiary: .875px;
+  --text--eyebrow: .578125rem;
+  --fluid-font: calc(var(--fluid-container) / var(--design-width) * var(--design-unit) * var(--scale-factor));
+  /* — radii — */
+  --radius--small: 1rem;
+  --radius--med: 3rem;
+  --radius--large: 6.25rem;
+  /* — other — */
+  --vh: 1vh;
+  --max-vh: 100vh;
+  --grid-col: 25.4375rem;
+  --oval-side-offset: 3rem;
+  --poduim-offset: -17.5rem;
+  --cubic-default: cubic-bezier(0.65, 0.05, 0, 1);
+  --duration-default: 0.75s;
+  --animation-default: var(--duration-default) var(--cubic-default);
+  --nav-height: calc(3.75rem (var(--gap) * 2));
+  --min-width: 992px;
+  --max-width: 1920px;
+  --design-width: 1728;
+  --design-unit: 16;
+  --scale-factor: 1;
+  --fluid-container: clamp(var(--min-width), 100vw, var(--max-width));
+  /* — dependencies — */
+  --animation-default: --duration-default,--cubic-default;
+  --section-padding: --gap;
+  --nav-height: --gap;
+  --fluid-container: --min-width,--max-width;
+  --fluid-font: --fluid-container,--design-width,--design-unit,--scale-factor;
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

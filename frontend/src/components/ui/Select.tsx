@@ -10,31 +10,31 @@ export function Select({ label, error, options, className = '', id, ...props }: 
   const selectId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
 
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       {label && (
-        <label htmlFor={selectId} className="font-heading text-sm uppercase tracking-wider text-dust">
+        <label htmlFor={selectId} className="font-heading text-sm font-medium text-dust">
           {label}
         </label>
       )}
       <select
         id={selectId}
         className={`
-          bg-void border-b-2 border-smoke px-0 py-2.5
+          bg-asphalt border border-smoke rounded-full px-5 py-3
           text-chalk font-body text-base outline-none cursor-pointer
-          transition-colors duration-300
-          focus:border-neon-green
-          ${error ? 'border-danger' : ''}
+          transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]
+          focus:border-chalk focus:bg-void
+          ${error ? 'border-danger focus:border-danger' : ''}
           ${className}
         `}
         {...props}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="bg-asphalt">
+          <option key={opt.value} value={opt.value} className="bg-void text-chalk">
             {opt.label}
           </option>
         ))}
       </select>
-      {error && <span className="text-danger text-sm">{error}</span>}
+      {error && <span className="text-danger text-sm font-heading">{error}</span>}
     </div>
   )
 }

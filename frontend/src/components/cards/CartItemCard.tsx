@@ -43,7 +43,7 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
   return (
     <div ref={cardRef} className="flex gap-4 py-5 border-b border-smoke/50">
       {/* Image */}
-      <div className="w-20 h-20 bg-concrete flex-shrink-0 flex items-center justify-center">
+      <div className="w-20 h-20 bg-concrete rounded-[14px] overflow-hidden flex-shrink-0 flex items-center justify-center">
         {product.imageUrl ? (
           <img src={resolveImageUrl(product.imageUrl)} alt={product.shoeName} className="w-full h-full object-cover" />
         ) : (
@@ -67,8 +67,8 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
           <button
             onClick={() => handleQty(-1)}
             disabled={qty <= 1 || updating}
-            className="w-6 h-6 border border-smoke text-chalk font-mono text-sm
-                       hover:border-neon-green hover:text-neon-green
+            className="w-7 h-7 rounded-full border border-smoke text-chalk font-heading text-sm
+                       hover:bg-neon-green hover:border-neon-green
                        disabled:opacity-30 transition-colors duration-200"
           >
             −
@@ -77,8 +77,8 @@ export function CartItemCard({ item, onRemove, onQuantityChange }: CartItemCardP
           <button
             onClick={() => handleQty(1)}
             disabled={updating}
-            className="w-6 h-6 border border-smoke text-chalk font-mono text-sm
-                       hover:border-neon-green hover:text-neon-green
+            className="w-7 h-7 rounded-full border border-smoke text-chalk font-heading text-sm
+                       hover:bg-neon-green hover:border-neon-green
                        disabled:opacity-30 transition-colors duration-200"
           >
             +

@@ -1,0 +1,356 @@
+{
+  "pageIntent": {
+    "type": "landing",
+    "confidence": 0.59,
+    "path": "/",
+    "title": "2025 McLaren Formula 1 Driver — Lando Norris",
+    "description": "Official hub for British racing star Lando Norris: breaking news, 2025 race wins, exclusive merch, videos and behind-the-scenes access.",
+    "signals": [
+      {
+        "kind": "dom",
+        "type": "legal",
+        "weight": 0.4
+      },
+      {
+        "kind": "url",
+        "type": "landing",
+        "weight": 0.45,
+        "detail": "root-path"
+      },
+      {
+        "kind": "shape",
+        "type": "landing",
+        "weight": 0.3,
+        "detail": "features+hero"
+      }
+    ],
+    "alternates": [
+      {
+        "type": "legal",
+        "score": 0.4
+      }
+    ],
+    "needsSmart": true
+  },
+  "sectionRoles": {
+    "sections": [
+      {
+        "index": 0,
+        "tag": "main",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "LANDO NORRIS",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 12067.71875
+        },
+        "buttonCount": 1,
+        "cardCount": 225,
+        "slots": {
+          "heading": "LANDO NORRIS",
+          "subheadings": [
+            "2025 MCLAREN FORMULA 1 DRIVER",
+            "ON\n",
+            "ON",
+            "TRACK"
+          ],
+          "ctaCount": 1
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 1,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 1,
+        "cardCount": 2,
+        "slots": {
+          "ctaCount": 1,
+          "lede": "Next Race\nNEXT RACE\nMiami\nMIAMI\ngp\nGP\nmclaren f1 since 2019\nMCLAREN F1\nSINCE 2019"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 2,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Message from lando\nMESSAGE FROM LANDO"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 3,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 1600,
+          "w": 1280,
+          "h": 913.453125
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "mclaren f1 since 2019\nMCLAREN F1 SINCE 2019\nRedefining limits, fighting for wins, bringing it all in all ways. Defining a legacy in Formula 1 on and off the track.\nREDEFINING LIMITS,\nFIGHTING FOR WINS,\nBRINGING IT ALL IN\nALL WAYS. DEFINING A\nLEGACY IN FORMULA 1\nON AND OFF THE\nTRACK."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 4,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 2513.453125,
+          "w": 1280,
+          "h": 2793
+        },
+        "buttonCount": 0,
+        "cardCount": 40,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 5,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "ON\n",
+        "bounds": {
+          "x": 0,
+          "y": 5306.453125,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "ON\n",
+          "subheadings": [
+            "ON",
+            "TRACK",
+            "TRACK",
+            "OFF\n"
+          ],
+          "lede": "ON"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 6,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 6106.453125,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 7,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "HELMETS\n",
+        "bounds": {
+          "x": 0,
+          "y": 6906.453125,
+          "w": 1280,
+          "h": 1508.109375
+        },
+        "buttonCount": 0,
+        "cardCount": 145,
+        "slots": {
+          "heading": "HELMETS\n",
+          "subheadings": [
+            "HELMETS",
+            "HALL OF FAME",
+            "HALL OF FAME",
+            "Season"
+          ],
+          "lede": "HELMETS"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 8,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 8414.5625,
+          "w": 1280,
+          "h": 423.328125
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "See more helmets and highlights from Lando on the track\nSee more helmets and highlights\nfrom Lando on the track\nview on track\nVIEW ON TRACK"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 9,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "WORLD DRIVERS' CHAMPION",
+        "bounds": {
+          "x": 0,
+          "y": 8837.890625,
+          "w": 1280,
+          "h": 806.65625
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "WORLD DRIVERS' CHAMPION",
+          "subheadings": [
+            "WORLD\nDRIVERS'\nCHAMPION"
+          ],
+          "lede": "LANDO STORE\nLANDO STORE\nWORLD DRIVERS' CHAMPION\nWORLD\nDRIVERS'\nCHAMPION"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 10,
+        "tag": "section",
+        "role": "logo-wall",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "PARTNERS",
+        "bounds": {
+          "x": 0,
+          "y": 9644.546875,
+          "w": 1280,
+          "h": 707.078125
+        },
+        "buttonCount": 0,
+        "cardCount": 19,
+        "slots": {
+          "heading": "PARTNERS",
+          "subheadings": [
+            "PARTNERS",
+            "&CAMPAIGNS",
+            "&CAMPAIGNS"
+          ],
+          "lede": "PARTNERS\nPARTNERS\n&CAMPAIGNS\n&CAMPAIGNS"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 11,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "WHAT’S UPON SOCIALS",
+        "bounds": {
+          "x": 0,
+          "y": 10351.625,
+          "w": 1280,
+          "h": 856.84375
+        },
+        "buttonCount": 0,
+        "cardCount": 15,
+        "slots": {
+          "heading": "WHAT’S UPON SOCIALS",
+          "subheadings": [
+            "WHAT’S UP\nON SOCIALS"
+          ],
+          "lede": "WHAT’S UPON SOCIALS\nWHAT’S UP\nON SOCIALS\nFollow Lando on social media\nFollow Lando on social media\ntiktok\nTIKTOK\ninstagram\nINSTAGRAM\nYoutube\nYOUTUBE\nTwitch\nTWITCH"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 12,
+        "tag": "section",
+        "role": "cta",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "ALWAYS BRINGING THE FIGHT.",
+        "bounds": {
+          "x": 0,
+          "y": 11208.46875,
+          "w": 1280,
+          "h": 859.25
+        },
+        "buttonCount": 0,
+        "cardCount": 2,
+        "slots": {
+          "heading": "ALWAYS BRINGING THE FIGHT.",
+          "subheadings": [
+            "ALWAYS BRINGING\nTHE FIGHT."
+          ],
+          "lede": "PAGES\nHome\nHOME\nOn Track\nON TRACK\nOff Track\nOFF TRACK\nCalendar\nCALENDAR\nStore\nSTORE\nFOLLOW ON\nTiktok\nTIKTOK\nInstagram\nINSTAGRAM\nYoutube\nYOUTUBE\nTwitch\nTWITCH\nSign Up\nSIGN UP\nALWAYS BRINGING THE FIGHT.\nALWAYS BRINGING\nTHE FIGHT.\nbusiness enquiries\nBUSINESS ENQUIRIES\n© 2026 Lando Norris. All rights reserved\nPRIVACY POLICY\nTERMS"
+        },
+        "needsSmart": true
+      }
+    ],
+    "counts": {
+      "content": 10,
+      "hero": 1,
+      "logo-wall": 1,
+      "cta": 1
+    },
+    "readingOrder": [
+      "content",
+      "hero",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "logo-wall",
+      "content",
+      "cta"
+    ]
+  }
+}

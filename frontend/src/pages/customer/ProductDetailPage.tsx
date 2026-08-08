@@ -85,7 +85,7 @@ return (
         disabled={!available}
         className={`w-14 h-14 font-mono text-sm border transition-all duration-200
           ${active
-            ? 'bg-neon-green text-void border-neon-green'
+            ? 'bg-neon-green text-chalk border-neon-green'
             : available
               ? 'border-smoke text-chalk hover:border-neon-green hover:text-neon-green'
               : 'border-smoke/30 text-smoke/30 cursor-not-allowed line-through'
@@ -144,7 +144,7 @@ function FlyToCartButton({ onClick, loading, children }: { onClick: () => void; 
           ref={btnRef}
           onClick={handleClick}
           disabled={loading}
-          className="relative overflow-hidden px-8 py-4 bg-neon-green text-void font-heading text-sm uppercase tracking-widest transition-all duration-300 hover:bg-chalk"
+          className="relative overflow-hidden px-8 py-4 bg-neon-green text-chalk font-heading text-sm uppercase tracking-widest transition-all duration-300 hover:bg-chalk"
         >
           <span ref={textRef} className="relative z-10">
             {loading ? 'Adding...' : children}

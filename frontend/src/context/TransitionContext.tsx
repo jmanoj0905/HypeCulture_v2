@@ -90,8 +90,8 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
             45deg,
             transparent,
             transparent 10px,
-            #39ff14 10px,
-            #39ff14 11px
+            #d2ff00 10px,
+            #d2ff00 11px
           )`,
         }} />
         {/* Brand text */}

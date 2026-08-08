@@ -42,7 +42,7 @@ export function OrdersPage() {
             <TransitionLink
               to="/browse"
               className="inline-block font-heading text-sm uppercase tracking-widest px-8 py-3
-                         bg-neon-green text-void border border-neon-green
+                         bg-neon-green text-chalk border border-neon-green
                          hover:bg-transparent hover:text-neon-green transition-all duration-300"
             >
               Start Shopping

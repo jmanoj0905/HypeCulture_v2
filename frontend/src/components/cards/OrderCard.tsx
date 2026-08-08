@@ -59,7 +59,7 @@ export function OrderCard({ order }: OrderCardProps) {
   })
 
   return (
-    <div className="border border-smoke bg-asphalt">
+    <div className="border border-smoke bg-asphalt rounded-[14px] overflow-hidden">
       {/* Header row */}
       <button
         onClick={toggle}
@@ -98,7 +98,7 @@ export function OrderCard({ order }: OrderCardProps) {
             <div className="flex flex-col gap-3">
               {order.items.map((item) => (
                 <div key={item.orderItemId} className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-concrete flex-shrink-0 flex items-center justify-center">
+                  <div className="w-12 h-12 bg-concrete rounded-[10px] flex-shrink-0 flex items-center justify-center">
                     <span className="font-display text-lg text-smoke/60">
                       {item.shoeName.charAt(0)}
                     </span>

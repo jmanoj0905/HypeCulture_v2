@@ -9,17 +9,17 @@ interface BadgeProps {
 }
 
 const variants: Record<BadgeVariant, string> = {
-  green: 'bg-neon-green/15 text-neon-green',
-  cyan: 'bg-neon-cyan/15 text-neon-cyan',
-  pink: 'bg-neon-pink/15 text-neon-pink',
-  yellow: 'bg-neon-yellow/15 text-neon-yellow',
-  danger: 'bg-danger/15 text-danger',
+  green: 'bg-neon-green text-chalk',
+  cyan: 'bg-smoke text-chalk',
+  pink: 'bg-neon-pink text-chalk',
+  yellow: 'bg-neon-green text-chalk',
+  danger: 'bg-danger text-void',
   neutral: 'bg-smoke text-dust',
 }
 
 export function Badge({ variant = 'neutral', children, className = '' }: BadgeProps) {
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-mono uppercase tracking-wider ${variants[variant]} ${className}`}>
+    <span className={`inline-flex items-center px-3 py-1 text-xs font-heading font-bold rounded-full ${variants[variant]} ${className}`}>
       {children}
     </span>
   )

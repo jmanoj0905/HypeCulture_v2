@@ -1,0 +1,648 @@
+{
+  "colors": {
+    "all": [
+      {
+        "hex": "#f4f4ed",
+        "rgb": {
+          "r": 244,
+          "g": 244,
+          "b": 237,
+          "a": 1
+        },
+        "hsl": {
+          "h": 60,
+          "s": 24,
+          "l": 94
+        },
+        "count": 1678,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#282c20",
+        "rgb": {
+          "r": 40,
+          "g": 44,
+          "b": 32,
+          "a": 1
+        },
+        "hsl": {
+          "h": 80,
+          "s": 16,
+          "l": 15
+        },
+        "count": 660,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#535450",
+        "rgb": {
+          "r": 83,
+          "g": 84,
+          "b": 80,
+          "a": 1
+        },
+        "hsl": {
+          "h": 75,
+          "s": 2,
+          "l": 32
+        },
+        "count": 395,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#d2ff00",
+        "rgb": {
+          "r": 210,
+          "g": 255,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 71,
+          "s": 100,
+          "l": 50
+        },
+        "count": 305,
+        "contexts": [
+          "background",
+          "border",
+          "text"
+        ]
+      },
+      {
+        "hex": "#111112",
+        "rgb": {
+          "r": 17,
+          "g": 17,
+          "b": 18,
+          "a": 1
+        },
+        "hsl": {
+          "h": 240,
+          "s": 3,
+          "l": 7
+        },
+        "count": 219,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#dde1d2",
+        "rgb": {
+          "r": 221,
+          "g": 225,
+          "b": 210,
+          "a": 1
+        },
+        "hsl": {
+          "h": 76,
+          "s": 20,
+          "l": 85
+        },
+        "count": 166,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#b4b8a5",
+        "rgb": {
+          "r": 180,
+          "g": 184,
+          "b": 165,
+          "a": 1
+        },
+        "hsl": {
+          "h": 73,
+          "s": 12,
+          "l": 68
+        },
+        "count": 133,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#000000",
+        "rgb": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 0
+        },
+        "count": 76,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#b2c73a",
+        "rgb": {
+          "r": 178,
+          "g": 199,
+          "b": 58,
+          "a": 1
+        },
+        "hsl": {
+          "h": 69,
+          "s": 56,
+          "l": 50
+        },
+        "count": 27,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#3b3c38",
+        "rgb": {
+          "r": 59,
+          "g": 60,
+          "b": 56,
+          "a": 1
+        },
+        "hsl": {
+          "h": 75,
+          "s": 3,
+          "l": 23
+        },
+        "count": 27,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#343a26",
+        "rgb": {
+          "r": 52,
+          "g": 58,
+          "b": 38,
+          "a": 1
+        },
+        "hsl": {
+          "h": 78,
+          "s": 21,
+          "l": 19
+        },
+        "count": 5,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 0.75
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 100
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      }
+    ]
+  },
+  "regions": [
+    {
+      "role": "content",
+      "tag": "main",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 12067.71875
+      },
+      "heading": "LANDO NORRIS",
+      "buttonCount": 1,
+      "cardCount": 225,
+      "className": "main-w"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 1,
+      "cardCount": 2,
+      "className": "s home-hero"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s home-marquee"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 1600,
+        "w": 1280,
+        "h": 913.453125
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 2513.453125,
+        "w": 1280,
+        "h": 2793
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 40,
+      "className": "s is-horizontal-track"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 5306.453125,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": "ON\n",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s is-otot-home"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 6106.453125,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s is-otot-end"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 6906.453125,
+        "w": 1280,
+        "h": 1508.109375
+      },
+      "heading": "HELMETS\n",
+      "buttonCount": 0,
+      "cardCount": 145,
+      "className": "s home-helmets"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 8414.5625,
+        "w": 1280,
+        "h": 423.328125
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 8837.890625,
+        "w": 1280,
+        "h": 806.65625
+      },
+      "heading": "WORLD DRIVERS' CHAMPION",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "s is-lando-exe"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 9644.546875,
+        "w": 1280,
+        "h": 707.078125
+      },
+      "heading": "PARTNERS",
+      "buttonCount": 0,
+      "cardCount": 19,
+      "className": "s is-home-collabs"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 10351.625,
+        "w": 1280,
+        "h": 856.84375
+      },
+      "heading": "WHAT’S UPON SOCIALS",
+      "buttonCount": 0,
+      "cardCount": 15,
+      "className": "s is-callout-socials"
+    },
+    {
+      "role": "cta",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 11208.46875,
+        "w": 1280,
+        "h": 859.25
+      },
+      "heading": "ALWAYS BRINGING THE FIGHT.",
+      "buttonCount": 0,
+      "cardCount": 2,
+      "className": "s is-footer"
+    }
+  ],
+  "componentClusters": [
+    {
+      "kind": "button",
+      "structuralHash": "button>div",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 18)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "8.77037px",
+            "border": "0px none rgb(47, 51, 39)",
+            "fontSize": "14px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "div>div>div>div>div>div",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 18)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "0px none rgb(17, 17, 18)",
+            "fontSize": "14px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "div>div",
+      "instanceCount": 7,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 18)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "39.3037px",
+            "border": "0px none rgb(17, 17, 18)",
+            "fontSize": "14px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 7
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "img",
+      "instanceCount": 7,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(17, 17, 18)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "0px none rgb(17, 17, 18)",
+            "fontSize": "14px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 7
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "remediation": []
+  },
+  "cssHealth": {
+    "sheets": [
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 87,
+        "usedBytes": 32,
+        "unusedBytes": 55,
+        "unusedPercent": 63
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 1818,
+        "usedBytes": 0,
+        "unusedBytes": 1818,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 3501,
+        "usedBytes": 1344,
+        "unusedBytes": 2157,
+        "unusedPercent": 62
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 2450,
+        "usedBytes": 1399,
+        "unusedBytes": 1051,
+        "unusedPercent": 43
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 576,
+        "usedBytes": 0,
+        "unusedBytes": 576,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 2160,
+        "usedBytes": 1333,
+        "unusedBytes": 827,
+        "unusedPercent": 38
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 462,
+        "usedBytes": 50,
+        "unusedBytes": 412,
+        "unusedPercent": 89
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 3032,
+        "usedBytes": 1083,
+        "unusedBytes": 1949,
+        "unusedPercent": 64
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 2344,
+        "usedBytes": 156,
+        "unusedBytes": 2188,
+        "unusedPercent": 93
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 2470,
+        "usedBytes": 0,
+        "unusedBytes": 2470,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 234,
+        "usedBytes": 77,
+        "unusedBytes": 157,
+        "unusedPercent": 67
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 600,
+        "usedBytes": 0,
+        "unusedBytes": 600,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 2840,
+        "usedBytes": 0,
+        "unusedBytes": 2840,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://landonorris.com/",
+        "totalBytes": 1560,
+        "usedBytes": 688,
+        "unusedBytes": 872,
+        "unusedPercent": 56
+      },
+      {
+        "url": "https://cdn.prod.website-files.com/67b5a02dc5d338960b17a7e9/css/lando-offbrand.shared.b89f36bcb.css",
+        "totalBytes": 188134,
+        "usedBytes": 41994,
+        "unusedBytes": 146140,
+        "unusedPercent": 78
+      }
+    ],
+    "totalBytes": 212268,
+    "usedBytes": 48156,
+    "unusedBytes": 164112,
+    "unusedPercent": 77,
+    "importantCount": 67,
+    "duplicates": 3797,
+    "vendorPrefixes": {
+      "webkit": 77,
+      "moz": 9,
+      "ms": 2,
+      "o": 0
+    },
+    "keyframes": [
+      {
+        "name": "spin",
+        "steps": 2
+      }
+    ],
+    "specificity": {
+      "max": [
+        1,
+        4,
+        5
+      ],
+      "average": [
+        0.05,
+        1.43,
+        0.16
+      ],
+      "count": 2056
+    },
+    "issues": [
+      "67 !important rules",
+      "3797 duplicate declarations",
+      "77% unused CSS"
+    ]
+  }
+}

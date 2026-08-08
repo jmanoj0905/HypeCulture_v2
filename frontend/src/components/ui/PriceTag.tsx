@@ -5,14 +5,14 @@ interface PriceTagProps {
 }
 
 const sizes = {
-  sm: 'text-sm',
-  md: 'text-lg',
-  lg: 'text-3xl',
+  sm: 'text-sm px-2.5 py-0.5',
+  md: 'text-lg px-3 py-1',
+  lg: 'text-3xl px-5 py-2',
 }
 
 export function PriceTag({ amount, size = 'md', className = '' }: PriceTagProps) {
   return (
-    <span className={`font-mono font-bold text-neon-green ${sizes[size]} ${className}`}>
+    <span className={`inline-flex items-center font-heading font-bold bg-neon-green text-chalk rounded-full ${sizes[size]} ${className}`}>
       ${amount.toFixed(2)}
     </span>
   )

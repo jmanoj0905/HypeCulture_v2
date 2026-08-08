@@ -17,7 +17,7 @@ function TinySneaker() {
         </mesh>
         <mesh position={[0, -0.46, 0]}>
           <boxGeometry args={[2.8, 0.18, 1.05]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.3} roughness={0.3} metalness={0.6} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.3} roughness={0.3} metalness={0.6} />
         </mesh>
         <mesh position={[0.05, 0.0, 0]}>
           <boxGeometry args={[2.6, 0.75, 0.95]} />
@@ -33,7 +33,7 @@ function TinySneaker() {
         </mesh>
         <mesh position={[0, -0.37, 0.52]}>
           <boxGeometry args={[2.75, 0.06, 0.04]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={1} roughness={0.1} metalness={0.5} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={1} roughness={0.1} metalness={0.5} />
         </mesh>
       </group>
     </Float>
@@ -50,7 +50,7 @@ export function MiniSneaker() {
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[3, 4, 3]} intensity={1.5} />
-      <pointLight position={[-1, 2, 1]} intensity={0.8} color="#39ff14" />
+      <pointLight position={[-1, 2, 1]} intensity={0.8} color="#d2ff00" />
       <TinySneaker />
       <Environment preset="city" />
     </Canvas>

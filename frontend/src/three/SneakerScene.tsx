@@ -17,7 +17,7 @@ function PlaceholderSneaker() {
         </mesh>
         <mesh position={[0, -0.46, 0]}>
           <boxGeometry args={[2.8, 0.18, 1.05]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.25} roughness={0.3} metalness={0.6} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.25} roughness={0.3} metalness={0.6} />
         </mesh>
         <mesh position={[0.05, 0.0, 0]}>
           <boxGeometry args={[2.6, 0.75, 0.95]} />
@@ -33,12 +33,12 @@ function PlaceholderSneaker() {
         </mesh>
         <mesh position={[-0.5, 0.44, 0]}>
           <torusGeometry args={[0.38, 0.055, 8, 20, Math.PI]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.4} roughness={0.15} metalness={0.8} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.4} roughness={0.15} metalness={0.8} />
         </mesh>
         {[-0.55, -0.15, 0.25, 0.65].map((x, i) => (
           <mesh key={i} position={[x, 0.4, 0]} rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[0.07, 0.025, 6, 12]} />
-            <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.5} roughness={0.1} metalness={0.9} />
+            <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.5} roughness={0.1} metalness={0.9} />
           </mesh>
         ))}
         <mesh position={[0.05, 0.38, 0]}>
@@ -47,11 +47,11 @@ function PlaceholderSneaker() {
         </mesh>
         <mesh position={[0, -0.37, 0.52]}>
           <boxGeometry args={[2.75, 0.06, 0.04]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.9} roughness={0.1} metalness={0.5} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.9} roughness={0.1} metalness={0.5} />
         </mesh>
         <mesh position={[0, -0.37, -0.52]}>
           <boxGeometry args={[2.75, 0.06, 0.04]} />
-          <meshStandardMaterial color="#39ff14" emissive="#39ff14" emissiveIntensity={0.9} roughness={0.1} metalness={0.5} />
+          <meshStandardMaterial color="#d2ff00" emissive="#d2ff00" emissiveIntensity={0.9} roughness={0.1} metalness={0.5} />
         </mesh>
       </group>
     </Float>
@@ -166,7 +166,7 @@ export function SneakerScene({ scrollSection }: SneakerSceneProps = {}) {
       <ambientLight intensity={0.28} />
       <directionalLight position={[4, 6, 4]} intensity={1.9} color="#ffffff" castShadow />
       <directionalLight position={[-4, 2, -2]} intensity={0.5} color="#c0e8ff" />
-      <pointLight position={[-2, 3, 2]} intensity={1.4} color="#39ff14" />
+      <pointLight position={[-2, 3, 2]} intensity={1.4} color="#d2ff00" />
       <pointLight position={[3, -1, 3]} intensity={0.6} color="#ffffff" />
 
       <ScrollSpin sectionRef={scrollSection} />

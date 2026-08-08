@@ -30,19 +30,24 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
   return (
     <div className="fixed inset-0 z-40 flex items-center justify-center">
       <div
-        className="absolute inset-0 bg-void/80 transition-opacity duration-300"
+        className="absolute inset-0 bg-chalk/40 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
       />
-      <div className="relative bg-asphalt border border-smoke w-full max-w-lg mx-4 max-h-[85vh] overflow-y-auto
-                       transform transition-transform duration-300 ease-[var(--ease-out-expo)]
-                       border-t-2 border-t-neon-green">
+      <div className="relative bg-void border border-smoke rounded-[14px] w-full max-w-lg mx-4 max-h-[85vh] overflow-y-auto
+                       transform transition-transform duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]">
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-smoke">
-            <h3 className="font-heading text-xl uppercase tracking-wider text-white">{title}</h3>
-            <button onClick={onClose} className="text-dust hover:text-chalk transition-colors text-xl leading-none">&times;</button>
+          <div className="flex items-center justify-between px-7 py-5 border-b border-smoke">
+            <h3 className="font-heading font-bold text-2xl text-chalk tracking-tight">{title}</h3>
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="w-9 h-9 rounded-full bg-asphalt text-chalk hover:bg-neon-green transition-colors text-xl leading-none flex items-center justify-center"
+            >
+              &times;
+            </button>
           </div>
         )}
-        <div className="p-6">
+        <div className="p-7">
           {children}
         </div>
       </div>

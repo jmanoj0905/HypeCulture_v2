@@ -47,7 +47,7 @@ export function CartDrawer() {
       <div
         ref={overlayRef}
         onClick={closeDrawer}
-        className="fixed inset-0 z-[70] bg-void/60 backdrop-blur-sm"
+        className="fixed inset-0 z-[70] bg-chalk/40 backdrop-blur-sm"
         style={{ display: 'none', opacity: 0 }}
       />
 
@@ -85,7 +85,7 @@ export function CartDrawer() {
                   to="/browse"
                   onClick={closeDrawer}
                   data-cursor="view"
-                  className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-6 py-3 border border-neon-green text-neon-green hover:bg-neon-green hover:text-void transition-colors"
+                  className="inline-block font-heading text-xs uppercase tracking-[0.25em] px-6 py-3 rounded-full border border-chalk text-chalk hover:bg-neon-green hover:border-neon-green transition-colors"
                 >
                   Browse Drops
                 </TransitionLink>
@@ -121,7 +121,7 @@ export function CartDrawer() {
                 to="/checkout"
                 onClick={closeDrawer}
                 data-cursor="buy"
-                className="block w-full text-center font-heading text-xs uppercase tracking-[0.3em] px-6 py-4 bg-neon-green text-void border border-neon-green hover:bg-transparent hover:text-neon-green transition-colors"
+                className="block w-full text-center font-heading text-xs uppercase tracking-[0.3em] px-6 py-4 rounded-full bg-neon-green text-chalk border border-neon-green hover:bg-chalk hover:text-neon-green hover:border-chalk transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]"
               >
                 Checkout →
               </TransitionLink>

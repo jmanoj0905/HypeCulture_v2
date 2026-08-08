@@ -56,15 +56,15 @@ export function MagneticCursor() {
       gsap.to(ring, {
         scale: isBig ? 2.6 : 1,
         borderColor: mode === 'drag'
-          ? 'rgba(57,255,20,0.9)'
+          ? 'rgba(210,255,0,0.9)'
           : mode === 'buy'
-          ? 'rgba(57,255,20,1)'
+          ? 'rgba(210,255,0,1)'
           : mode === 'view'
-          ? 'rgba(224,224,224,0.9)'
+          ? 'rgba(40,44,32,0.9)'
           : mode === 'link'
-          ? 'rgba(57,255,20,0.6)'
-          : 'rgba(224,224,224,0.4)',
-        backgroundColor: mode === 'buy' ? 'rgba(57,255,20,0.18)' : 'rgba(0,0,0,0)',
+          ? 'rgba(210,255,0,0.6)'
+          : 'rgba(40,44,32,0.4)',
+        backgroundColor: mode === 'buy' ? 'rgba(210,255,0,0.18)' : 'rgba(0,0,0,0)',
         duration: 0.35,
         ease: 'power3.out',
       })

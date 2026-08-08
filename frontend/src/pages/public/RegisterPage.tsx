@@ -90,7 +90,7 @@ export function RegisterPage() {
               onClick={() => setRole(r)}
               className={`flex-1 py-2 font-heading text-xs uppercase tracking-widest transition-colors ${
                 role === r
-                  ? 'bg-neon-green text-void'
+                  ? 'bg-neon-green text-chalk'
                   : 'text-dust hover:text-white'
               }`}
             >

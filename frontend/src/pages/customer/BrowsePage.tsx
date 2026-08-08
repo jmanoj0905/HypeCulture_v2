@@ -39,7 +39,7 @@ function CategoryPill({ category, active, onClick }: { category: { categoryId: n
         onClick={onClick}
         className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
           ${active
-            ? 'bg-neon-green text-void border-neon-green'
+            ? 'bg-neon-green text-chalk border-neon-green'
             : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
           }`}
       >
@@ -196,7 +196,7 @@ export function BrowsePage() {
                   onClick={() => handleCatChange(0)}
                   className={`font-heading text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-200
                     ${selectedCat === 0
-                      ? 'bg-neon-green text-void border-neon-green'
+                      ? 'bg-neon-green text-chalk border-neon-green'
                       : 'bg-transparent text-dust border-smoke hover:border-neon-green hover:text-neon-green'
                     }`}
                 >

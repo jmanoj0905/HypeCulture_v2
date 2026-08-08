@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Build output
+backend/target/
+
+# Local tooling
+.claude/
+.bg-shell/

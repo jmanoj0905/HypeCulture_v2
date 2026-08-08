@@ -4,14 +4,13 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-// 1. Main Wrapper (The ONLY thing we export)
 export function Card({ children, className = '', ...props }: CardProps) {
   return (
     <div
       className={`
-        bg-smoke/50 backdrop-blur-md border border-smoke
-        transition-all duration-300 ease-[var(--ease-out-expo)]
-        hover:border-dust flex flex-col
+        bg-asphalt border border-smoke rounded-[14px]
+        transition-colors duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)]
+        hover:border-chalk flex flex-col overflow-hidden
         ${className}
       `}
       {...props}
@@ -21,8 +20,6 @@ export function Card({ children, className = '', ...props }: CardProps) {
   )
 }
 
-// 2. Sub-components attached directly to the main Card object
-
 interface CardImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string
   alt: string
@@ -30,11 +27,11 @@ interface CardImageProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 Card.Image = function CardImage({ src, alt, className = '', ...props }: CardImageProps) {
   return (
-    <div className={`aspect-square bg-void overflow-hidden ${className}`}>
+    <div className={`aspect-square bg-concrete overflow-hidden rounded-[14px] ${className}`}>
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-500 ease-[var(--ease-out-expo)] hover:scale-110"
+        className="w-full h-full object-cover transition-transform duration-[750ms] ease-[cubic-bezier(0.65,0.05,0,1)] hover:scale-105"
         {...props}
       />
     </div>
@@ -48,7 +45,7 @@ interface CardBodyProps extends HTMLAttributes<HTMLDivElement> {
 Card.Body = function CardBody({ children, className = '', ...props }: CardBodyProps) {
   return (
     <div
-      className={`flex flex-col flex-grow p-5 gap-2 ${className}`}
+      className={`flex flex-col flex-grow p-6 gap-2 ${className}`}
       {...props}
     >
       {children}
@@ -63,7 +60,7 @@ interface CardTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 Card.Title = function CardTitle({ children, className = '', ...props }: CardTitleProps) {
   return (
     <h3
-      className={`font-heading text-xl text-chalk uppercase tracking-wider ${className}`}
+      className={`font-heading font-bold text-2xl text-chalk leading-tight tracking-tight ${className}`}
       {...props}
     >
       {children}
@@ -78,7 +75,7 @@ interface CardFooterProps extends HTMLAttributes<HTMLDivElement> {
 Card.Footer = function CardFooter({ children, className = '', ...props }: CardFooterProps) {
   return (
     <div
-      className={`flex flex-row items-center justify-between p-4 mt-auto border-t border-smoke ${className}`}
+      className={`flex flex-row items-center justify-between px-6 py-4 mt-auto border-t border-smoke ${className}`}
       {...props}
     >
       {children}

@@ -11,7 +11,7 @@ export function NotFoundPage() {
         </p>
         <TransitionLink
           to="/"
-          className="inline-block mt-8 font-heading text-sm uppercase tracking-widest px-6 py-3 bg-neon-green text-void border border-neon-green hover:bg-transparent hover:text-neon-green transition-all duration-300"
+          className="inline-block mt-8 font-heading text-sm uppercase tracking-widest px-6 py-3 bg-neon-green text-chalk border border-neon-green hover:bg-transparent hover:text-neon-green transition-all duration-300"
         >
           Back to Home
         </TransitionLink>

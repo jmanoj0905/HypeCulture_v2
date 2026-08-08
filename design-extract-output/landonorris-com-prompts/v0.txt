@@ -1,0 +1,25 @@
+Build a landing page with this exact visual language.
+COLORS:
+  #f4f4ed
+  #282c20
+  #535450
+  #d2ff00
+  #111112
+  #dde1d2
+  #b4b8a5
+  #000000
+  #b2c73a
+  #3b3c38
+  #343a26
+  #ffffff
+FONTS: [object Object], [object Object], [object Object]
+SPACING: 3, 21, 44, 56, 64, 80, 95, 101
+RADIUS: 2, 6, 9, 14, 39
+SHADOWS: (none)
+MATERIAL LANGUAGE: flat
+VOICE: Tone: friendly · Headings: Sentence case
+SECTIONS (in order):
+- hero
+- logo-wall — heading: "PARTNERS"
+- cta — heading: "ALWAYS BRINGING THE FIGHT."
+Use Tailwind. Match these tokens exactly. Keep the material language consistent.

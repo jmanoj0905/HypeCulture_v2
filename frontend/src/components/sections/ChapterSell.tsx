@@ -86,7 +86,7 @@ export function ChapterSell() {
                   to="/login"
                   data-cursor="buy"
                   className="inline-block font-heading text-xs uppercase tracking-[0.3em] px-10 py-5
-                             bg-neon-green text-void border border-neon-green
+                             bg-neon-green text-chalk border border-neon-green
                              hover:bg-transparent hover:text-neon-green
                              transition-colors duration-300"
                 >
